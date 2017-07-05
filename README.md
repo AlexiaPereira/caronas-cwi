@@ -1,1 +1,0 @@
-Repositório criado para desenvolver sistema de Caronas para a empresa CWI.
