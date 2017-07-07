@@ -39,8 +39,8 @@ public class OrigemController {
     }
 
     @DeleteMapping(value = "/{idOrigem}")
-    public void remove(@PathVariable Long idRotina) {
-        Origem origem = origemService.loadById(idRotina);
+    public void remove(@PathVariable Long idOrigem) {
+        Origem origem = origemService.loadById(idOrigem);
         origemService.remove(origem);
     }    
 }
