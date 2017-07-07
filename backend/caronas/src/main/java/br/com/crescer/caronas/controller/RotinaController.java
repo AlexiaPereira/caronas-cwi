@@ -43,4 +43,6 @@ public class RotinaController {
         Rotina rotina = rotinaService.loadById(idRotina);
         rotinaService.remove(rotina);
     }    
+    
+    //implementar get para obter rotinas de um usuário
 }
