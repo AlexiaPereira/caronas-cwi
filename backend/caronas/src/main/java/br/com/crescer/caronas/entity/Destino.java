@@ -38,19 +38,23 @@ public class Destino implements Serializable {
             allocationSize = 1
     )
     private Long idDestino;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 400)
     @Column(name = "ENDERECO")
     private String endereco;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "LATITUDE")
     private BigInteger latitude;
+    
     @Basic(optional = false)
     @NotNull
     @Column(name = "LONGITUDE")
     private BigInteger longitude;
+    
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "destino")
     private List<Rotina> rotinaList;
 

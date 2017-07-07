@@ -33,6 +33,7 @@ public class DiaSemana implements Serializable {
             allocationSize = 1
     )
     private BigDecimal idDiaSemana;
+    
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
