@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+
+    <!-- Carregar CSS -->
+</head>
+
+<body>
+
+    <!-- View -->
+    <div class="container">
+        <ng-view></ng-view>
+    </div>
+    <!-- View -->
+
+    <!-- Google Authentication -->
+    <script src="https://apis.google.com/js/platform.js?onload=onLoadCallback"></script>
+    
+    <!-- Angular CDN-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-route.js"></script>
+
+    <!-- Applications -->
+    <script src="js/applications/app.module.js"></script>
+    <script src="js/applications/app.routes.js"></script>
+    <script src="js/applications/app.authentication.js"></script>
+
+    <!-- Controllers -->
+    <script src="js/controllers/login.controller.js"></script>    
+
+    <!-- Services -->
+
+</body>
+
+</html>
