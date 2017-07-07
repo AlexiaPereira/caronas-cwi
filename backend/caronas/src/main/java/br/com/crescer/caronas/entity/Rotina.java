@@ -8,10 +8,13 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -31,32 +34,46 @@ public class Rotina implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_ROTINA")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ROTINA")
+    @SequenceGenerator(
+            name = "SEQ_ROTINA",
+            sequenceName = "SEQ_ROTINA",
+            allocationSize = 1
+    )
     private Long idRotina;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "PASSAGEIRO")
     private boolean passageiro;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORARIO")
     @Temporal(TemporalType.TIMESTAMP)
     private Date horario;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "DISTANCIA")
     private BigInteger distancia;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "DURACAO")
     private BigInteger duracao;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
     private List<RotinaDiaSemana> rotinaDiaSemanaList;
+
     @JoinColumn(name = "ID_DESTINO", referencedColumnName = "ID_DESTINO")
     @ManyToOne(optional = false)
     private Destino destino;
+
     @JoinColumn(name = "ID_ORIGEM", referencedColumnName = "ID_ORIGEM")
     @ManyToOne(optional = false)
     private Origem origem;
+
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @ManyToOne(optional = false)
     private Usuario usuario;

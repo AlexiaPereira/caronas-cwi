@@ -5,9 +5,12 @@ import java.lang.Long;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -24,6 +27,12 @@ public class RotinaDiaSemana implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_ROTINA_DIA_SEMANA")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ROTINADIASEMANA")
+    @SequenceGenerator(
+            name = "SEQ_ROTINADIASEMANA",
+            sequenceName = "SEQ_ROTINADIASEMANA",
+            allocationSize = 1
+    )
     private Long idRotinaDiaSemana;
 
     @Column(name = "VAGAS_DISPONIVEIS")

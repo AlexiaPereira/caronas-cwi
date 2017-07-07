@@ -6,8 +6,11 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -27,21 +30,31 @@ public class Usuario implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_USUARIO")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_USUARIO")
+    @SequenceGenerator(
+            name = "SEQ_USUARIO",
+            sequenceName = "SEQ_USUARIO",
+            allocationSize = 1
+    )
     private Long idUsuario;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "NOME")
     private String nome;
+
     @Pattern(regexp = "[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?", message = "E-mail inválido")//if the field contains email address consider using this annotation to enforce field validation
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 200)
     @Column(name = "EMAIL")
     private String email;
+
     @Size(max = 25)
     @Column(name = "GENERO")
     private String genero;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Rotina> rotinaList;
 

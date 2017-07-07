@@ -8,8 +8,11 @@ import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
@@ -28,20 +31,30 @@ public class Origem implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "ID_ORIGEM")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "SEQ_ORIGEM")
+    @SequenceGenerator(
+            name = "SEQ_ORIGEM",
+            sequenceName = "SEQ_ORIGEM",
+            allocationSize = 1
+    )
     private Long idOrigem;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 400)
     @Column(name = "ENDERECO")
     private String endereco;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "LATITUDE")
     private BigInteger latitude;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "LONGITUDE")
     private BigInteger longitude;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "origem")
     private List<Rotina> rotinaList;
 
