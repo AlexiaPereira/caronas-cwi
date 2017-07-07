@@ -42,7 +42,7 @@ public class Usuario implements Serializable {
     @Size(max = 25)
     @Column(name = "GENERO")
     private String genero;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idUsuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Rotina> rotinaList;
 
     public Usuario() {

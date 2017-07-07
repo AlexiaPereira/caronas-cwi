@@ -1,7 +1,6 @@
 package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.Date;
 import java.util.List;
@@ -12,14 +11,11 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.NamedQueries;
-import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 /**
@@ -53,7 +49,7 @@ public class Rotina implements Serializable {
     @NotNull
     @Column(name = "DURACAO")
     private BigInteger duracao;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRotina")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
     private List<RotinaDiaSemana> rotinaDiaSemanaList;
     @JoinColumn(name = "ID_DESTINO", referencedColumnName = "ID_DESTINO")
     @ManyToOne(optional = false)
@@ -152,5 +148,5 @@ public class Rotina implements Serializable {
     public void setIdUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
-    
+
 }
