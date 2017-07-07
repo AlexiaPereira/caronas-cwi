@@ -1,8 +1,0 @@
-br\com\crescer\caronas\security\SocialUserDetailsService.class
-br\com\crescer\caronas\controller\LoggedUserController.class
-br\com\crescer\caronas\security\SocialWebSecurityConfig.class
-br\com\crescer\caronas\handler\HandlerException.class
-br\com\crescer\caronas\handler\HandlerException$HandlerExceptionMessage.class
-br\com\crescer\caronas\security\SocialWebSecurityConfig$1.class
-br\com\crescer\caronas\controller\HealthController.class
-br\com\crescer\caronas\Run.class
