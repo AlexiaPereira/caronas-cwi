@@ -29,7 +29,7 @@ public class RotinaDiaSemana implements Serializable {
     @Column(name = "VAGAS_DISPONIVEIS")
     private int vagasDisponiveis;
 
-    @JoinColumn(name = "ID_DIASEMANA", referencedColumnName = "ID_DIASEMANA")
+    @JoinColumn(name = "ID_DIA_SEMANA", referencedColumnName = "ID_DIA_SEMANA")
     @ManyToOne(optional = false)
     private DiaSemana diaSemana;
 
