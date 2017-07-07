@@ -3,6 +3,4 @@
 *.class
 
 *.ctxt
-backend/caronas/target/test-classes/
-
-backend/caronas/target/classes/
+backend/caronas/target/
