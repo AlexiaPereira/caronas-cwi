@@ -1,7 +1,6 @@
 package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
-import java.lang.Long;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -10,12 +9,13 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -44,8 +44,9 @@ public class Grupo implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupo")
-    private List<RotinaGrupo> rotinaGrupoList;
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_ROTINA")
+    private Rotina rotina;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<UsuarioGrupo> usuarioGrupoList;
@@ -78,13 +79,12 @@ public class Grupo implements Serializable {
         this.nome = nome;
     }
 
-    @XmlTransient
-    public List<RotinaGrupo> getRotinaGrupoList() {
-        return rotinaGrupoList;
+    public Rotina getRotina() {
+        return rotina;
     }
 
-    public void setRotinaGrupoList(List<RotinaGrupo> rotinaGrupoList) {
-        this.rotinaGrupoList = rotinaGrupoList;
+    public void setRotina(Rotina rotina) {
+        this.rotina = rotina;
     }
 
     public List<UsuarioGrupo> getUsuarioGrupoList() {
