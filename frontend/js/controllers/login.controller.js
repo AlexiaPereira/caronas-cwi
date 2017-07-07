@@ -17,7 +17,7 @@ modulo.controller('LoginController', ['$scope', function ($scope) {
                     console.log(response);
                     console.log('É bom vê-lo aqui, ' + response.name + '.');
                     console.log('É bom vê-lo aqui, ' + response.email + '.');
-                    console.log('É bom vê-lo aqui, ' + response.permissions + '.');                    
+                    console.log('É bom vê-lo aqui, ' + response.permissions + '.');
 
                     // Obter token de autenticação
                     var accessToken = FB.getAuthResponse().accessToken;
@@ -36,30 +36,21 @@ modulo.controller('LoginController', ['$scope', function ($scope) {
     }
 
     function GoogleLogin() {
-        gapi.load('auth2', function () {
-            auth2 = gapi.auth2.init({
-                client_id: 'KEY.apps.googleusercontent.com',
-                fetch_basic_profile: false,
-                scope: 'profile'
-            })
-            // console.log(auth2);
-            // Sign the user in, and then retrieve their ID.
-            auth2.signIn().then(function (response) {
-                if (response.Zi) {
-                    console.log('Welcome!  Fetching your information.... ');
-                    console.log(response);
-                    $scope.idGoogle = response.w3.Eea;
-                }
-            });
+        let auth2 = GoogleInit();
+        // Sign the user in, and then retrieve their ID.
+        auth2.signIn().then(function (response) {
+            if (response.Zi) {
+                console.log('Welcome!  Fetching your information.... ');
+                console.log(response);
+                $scope.idGoogle = response.w3.Eea;
+            }
         });
     }
 
     function GoogleLogout() {
-        var auth2 = gapi.auth2.getAuthInstance();
+        let auth2 = gapi.auth2.getAuthInstance();
         auth2.signOut().then(function () {
             console.log('User signed out.');
         });
     }
-
-
 }]);
