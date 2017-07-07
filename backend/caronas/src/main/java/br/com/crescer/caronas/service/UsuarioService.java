@@ -34,4 +34,8 @@ public class UsuarioService {
     public Usuario loadById(Long id) {
         return usuarioRepository.findOne(id);
     }
+    
+    public Usuario findByEmail(String email) {
+        return usuarioRepository.findByEmail(email);
+    }
 }

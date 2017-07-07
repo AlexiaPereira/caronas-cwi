@@ -28,6 +28,11 @@ public class UsuarioController {
         return usuarioService.findAll();
     }
     
+    @GetMapping(value = "/email")
+    public Usuario loadById(@RequestBody String email) {
+        return usuarioService.findByEmail(email);
+    }
+    
     @GetMapping(value = "/{id}")
     public Usuario loadById(@PathVariable Long id) {
         return usuarioService.loadById(id);
