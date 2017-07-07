@@ -1,1 +1,5 @@
 /caronas/target/
+
+*.class
+
+*.ctxt
