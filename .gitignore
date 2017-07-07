@@ -1,5 +1,8 @@
-/caronas/target/
+/caronas/target/*
 
 *.class
 
 *.ctxt
+backend/caronas/target/test-classes/
+
+backend/caronas/target/classes/
