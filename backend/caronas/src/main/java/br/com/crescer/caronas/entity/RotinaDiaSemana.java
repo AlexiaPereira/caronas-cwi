@@ -42,10 +42,9 @@ public class RotinaDiaSemana implements Serializable {
     @ManyToOne(optional = false)
     private DiaSemana diaSemana;
 
-    @JoinColumn(name = "ID_ROTINA", referencedColumnName = "ID_ROTINA")
-    @ManyToOne(optional = false)
-    private Rotina rotina;
-
+//    @JoinColumn(name = "ID_ROTINA", referencedColumnName = "ID_ROTINA")
+//    @ManyToOne(optional = false)
+//    private Rotina rotina;
     public RotinaDiaSemana() {
     }
 
@@ -55,6 +54,16 @@ public class RotinaDiaSemana implements Serializable {
 
     public RotinaDiaSemana(Long idRotinaDiaSemana, DiaSemana diaSemana) {
         this.idRotinaDiaSemana = idRotinaDiaSemana;
+        this.diaSemana = diaSemana;
+    }
+
+//    public RotinaDiaSemana(int vagasDisponiveis, DiaSemana diaSemana, Rotina rotina) {
+//        this.vagasDisponiveis = vagasDisponiveis;
+//        this.diaSemana = diaSemana;
+//        this.rotina = rotina;
+//    }  
+    public RotinaDiaSemana(int vagasDisponiveis, DiaSemana diaSemana) {
+        this.vagasDisponiveis = vagasDisponiveis;
         this.diaSemana = diaSemana;
     }
 
@@ -82,11 +91,11 @@ public class RotinaDiaSemana implements Serializable {
         this.diaSemana = diaSemana;
     }
 
-    public Rotina getRotina() {
-        return rotina;
-    }
-
-    public void setRotina(Rotina rotina) {
-        this.rotina = rotina;
-    }
+//    public Rotina getRotina() {
+//        return rotina;
+//    }
+//
+//    public void setRotina(Rotina rotina) {
+//        this.rotina = rotina;
+//    }
 }
