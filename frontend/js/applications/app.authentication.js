@@ -16,3 +16,17 @@ window.fbAsyncInit = function () {
     js.src = "//connect.facebook.net/en_US/sdk.js";
     fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+// GOOGLE
+GoogleInit();
+function GoogleInit() {
+    let auth2;
+    gapi.load('auth2', function () {
+        auth2 = gapi.auth2.init({
+            client_id: 'KEY.apps.googleusercontent.com',
+            fetch_basic_profile: false,
+            scope: 'profile'
+        })
+    })
+    return auth2;
+}
