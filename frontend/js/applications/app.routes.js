@@ -4,5 +4,11 @@ modulo.config(['$routeProvider', function ($routeProvider) {
         controller: 'LoginController',
         templateUrl: '/templates/login.html'
     })
+
+    .when('/apis', {
+        controller: 'apisController',
+        templateUrl: '/apis.html'
+    })
+
     .otherwise('/login');
 }]);
