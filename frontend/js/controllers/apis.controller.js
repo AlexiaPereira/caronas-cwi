@@ -5,7 +5,7 @@ $scope.matrizPassageiro = [];
 $scope.distancias = [];
 
 //os objetos do arrays tem que vir no formato {lat: valor, lng: valor}, podemos ajustar no front, se necessário
-$scope.click = function(listaMotoristas, passageiro) {
+$scope.clicka = function(listaMotoristas, passageiro) {
   $scope.matrizMotoristas = listaMotoristas;
   $scope.matrizPassageiro = passageiro;
 
@@ -28,6 +28,44 @@ $scope.click = function(listaMotoristas, passageiro) {
   })
 }
 
+
+var placeSearch, autocomplete;
+var componentForm = {
+  street_number: 'short_name',
+  route: 'long_name',
+  locality: 'long_name',
+  administrative_area_level_1: 'short_name',
+  country: 'long_name',
+  postal_code: 'short_name'
+};
+
+
+$scope.click = function() {
+   var autocomplete = new google.maps.places.Autocomplete(
+      (document.getElementById('autocomplete')),
+      {types: ['geocode']});
+  autocomplete.addListener('place_changed', fillInAddress);
+}
+
+function fillInAddress() {
+              debugger
+  var place = autocomplete.getPlace();
+  var latitude = place.geometry.location.lat();
+  var longitude = place.geometry.location.lng();
+  console.log(latitude, longitude);
+
+  for (var component in componentForm) {
+    document.getElementById(component).value = '';
+    document.getElementById(component).disabled = false;
+  }
+  for (var i = 0; i < place.address_components.length; i++) {
+    var addressType = place.address_components[i].types[0];
+    if (componentForm[addressType]) {
+      var val = place.address_components[i][componentForm[addressType]];
+      document.getElementById(addressType).value = val;
+    }
+  }
+}
 
 
 
