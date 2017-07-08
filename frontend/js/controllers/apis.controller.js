@@ -41,15 +41,15 @@ var componentForm = {
 
 
 $scope.click = function() {
-   var autocomplete = new google.maps.places.Autocomplete(
+  debugger
+   $scope.autocomplete = new google.maps.places.Autocomplete(
       (document.getElementById('autocomplete')),
       {types: ['geocode']});
-  autocomplete.addListener('place_changed', fillInAddress);
+  $scope.autocomplete.addListener('place_changed', fillInAddress);
 }
 
 function fillInAddress() {
-              debugger
-  var place = autocomplete.getPlace();
+  var place = $scope.autocomplete.getPlace();
   var latitude = place.geometry.location.lat();
   var longitude = place.geometry.location.lng();
   console.log(latitude, longitude);
