@@ -1,8 +1,10 @@
 package br.com.crescer.caronas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.lang.Long;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -39,12 +41,14 @@ public class RotinaDiaSemana implements Serializable {
     private int vagasDisponiveis;
 
     @JoinColumn(name = "ID_DIA_SEMANA", referencedColumnName = "ID_DIA_SEMANA")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private DiaSemana diaSemana;
 
-//    @JoinColumn(name = "ID_ROTINA", referencedColumnName = "ID_ROTINA")
-//    @ManyToOne(optional = false)
-//    private Rotina rotina;
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @JoinColumn(name = "ID_ROTINA", referencedColumnName = "ID_ROTINA")
+    @JsonBackReference
+    private Rotina rotina;
+
     public RotinaDiaSemana() {
     }
 
@@ -91,11 +95,12 @@ public class RotinaDiaSemana implements Serializable {
         this.diaSemana = diaSemana;
     }
 
-//    public Rotina getRotina() {
-//        return rotina;
-//    }
-//
-//    public void setRotina(Rotina rotina) {
-//        this.rotina = rotina;
-//    }
+    public Rotina getRotina() {
+        return rotina;
+    }
+
+    public void setRotina(Rotina rotina) {
+        this.rotina = rotina;
+    }
+
 }
