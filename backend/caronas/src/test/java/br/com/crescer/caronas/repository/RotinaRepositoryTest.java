@@ -62,7 +62,6 @@ public class RotinaRepositoryTest {
     public void testFindAll() {
         final Rotina rotina = instanciarRotina();
         testEntityManager.persist(rotina);
-
         assertTrue(StreamSupport.stream(repositorio.findAll().spliterator(), false)
                 .map(Rotina::getUsuario)
                 .map(Usuario::getNome)
@@ -103,18 +102,16 @@ public class RotinaRepositoryTest {
 
     private Rotina instanciarRotina() {
         Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", 2l, "senha");
-        Grupo grupo = new Grupo("Nome do Grupo");
         Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
         Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
         listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
-        testEntityManager.persist(listaDeDias.get(0).getDiaSemana());
-        testEntityManager.persist(listaDeDias.get(0));
-        testEntityManager.persist(usuario);
-        testEntityManager.persist(grupo);
-        testEntityManager.persist(destino);
-        testEntityManager.persist(origem);
-        return new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
+        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
+        for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
+            rotinaDiaSemana.setRotina(rotina);
+        }
+        
+        return rotina;
     }
 
 }

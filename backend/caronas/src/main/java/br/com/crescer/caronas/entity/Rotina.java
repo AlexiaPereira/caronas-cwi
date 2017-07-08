@@ -1,5 +1,6 @@
 package br.com.crescer.caronas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -63,19 +65,20 @@ public class Rotina implements Serializable {
     @Column(name = "DURACAO")
     private BigDecimal duracao;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
     private List<RotinaDiaSemana> rotinaDiaSemanaList;
 
     @JoinColumn(name = "ID_DESTINO", referencedColumnName = "ID_DESTINO")
-    @ManyToOne(optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Destino destino;
 
     @JoinColumn(name = "ID_ORIGEM", referencedColumnName = "ID_ORIGEM")
-    @ManyToOne(optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JsonBackReference
     private Origem origem;
 
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Usuario usuario;
 
     public Rotina() {
