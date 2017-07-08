@@ -57,6 +57,11 @@ public class Solicitacao implements Serializable {
         this.usuarioAlvo = usuarioAlvo;
     }
 
+    public Solicitacao(Usuario usuarioDono, Usuario usuarioAlvo) {
+        this.usuarioDono = usuarioDono;
+        this.usuarioAlvo = usuarioAlvo;
+    }
+
     public Long getIdSolicitacao() {
         return idSolicitacao;
     }
