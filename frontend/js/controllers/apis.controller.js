@@ -1,21 +1,37 @@
 modulo.controller('apisController', ['$scope', function ($scope) {
 
-$scope.click = function getMatrix() {
-  var origin1 = {lat: -30.0627024, lng: -51.1613968};
-  var origin2 = 'Greenwich, England';
-  var origin3 = {lat: -30.0627024, lng: -51.1613968};
-  var destinationA = 'Stockholm, Sweden';
-  var destinationB = {lat: 50.087, lng: 14.421};
+$scope.matrizMotoristas = [];
+$scope.matrizPassageiro = [];
+$scope.distancias = [];
+
+//os objetos do arrays tem que vir no formato {lat: valor, lng: valor}, podemos ajustar no front, se necessário
+$scope.click = function(listaMotoristas, passageiro) {
+  $scope.matrizMotoristas = listaMotoristas;
+  $scope.matrizPassageiro = passageiro;
 
   new google.maps.DistanceMatrixService().getDistanceMatrix({
-    origins: [origin1, origin2, origin3],
-    destinations: [destinationA, destinationB],
+    origins: $scope.matrizMotoristas,
+    destinations: $scope.matrizPassageiro,
     travelMode: 'DRIVING',
     unitSystem: google.maps.UnitSystem.METRIC,
     avoidHighways: false,
     avoidTolls: false
-  }, function(response, status) {
-    console.log(response);
+  }, function(response) {
+    $scope.matriz = response;
+
+    var i = 0;
+    for (var linha in $scope.matriz.rows) {
+      $scope.distancia = $scope.matriz.rows[i].elements[0].distance.value;
+      $scope.distancias.push($scope.distancia);
+      i++;
+    }
   })
 }
+
+
+
+
+
+
+
 }]);
