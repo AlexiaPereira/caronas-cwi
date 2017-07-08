@@ -29,7 +29,7 @@ public class UsuarioController {
     }
     
     @GetMapping(value = "/email")
-    public Usuario loadById(@RequestBody String email) {
+    public Usuario loadByEmail(@RequestBody String email) {
         return usuarioService.findByEmail(email);
     }
     
