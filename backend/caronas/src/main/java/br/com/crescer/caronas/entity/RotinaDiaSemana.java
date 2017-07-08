@@ -61,11 +61,12 @@ public class RotinaDiaSemana implements Serializable {
         this.diaSemana = diaSemana;
     }
 
-//    public RotinaDiaSemana(int vagasDisponiveis, DiaSemana diaSemana, Rotina rotina) {
-//        this.vagasDisponiveis = vagasDisponiveis;
-//        this.diaSemana = diaSemana;
-//        this.rotina = rotina;
-//    }  
+    public RotinaDiaSemana(int vagasDisponiveis, DiaSemana diaSemana, Rotina rotina) {
+        this.vagasDisponiveis = vagasDisponiveis;
+        this.diaSemana = diaSemana;
+        this.rotina = rotina;
+    }  
+    
     public RotinaDiaSemana(int vagasDisponiveis, DiaSemana diaSemana) {
         this.vagasDisponiveis = vagasDisponiveis;
         this.diaSemana = diaSemana;
