@@ -67,7 +67,7 @@ public class Rotina implements Serializable {
     private List<RotinaDiaSemana> rotinaDiaSemanaList;
 
     @JoinColumn(name = "ID_DESTINO", referencedColumnName = "ID_DESTINO")
-    @ManyToOne(optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Destino destino;
 
     @JoinColumn(name = "ID_ORIGEM", referencedColumnName = "ID_ORIGEM")
