@@ -1,7 +1,7 @@
 package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
+import java.lang.Long;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -32,8 +32,8 @@ public class DiaSemana implements Serializable {
             sequenceName = "SEQ_DIASEMANA",
             allocationSize = 1
     )
-    private BigDecimal idDiaSemana;
-    
+    private Long idDiaSemana;
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 25)
@@ -43,20 +43,24 @@ public class DiaSemana implements Serializable {
     public DiaSemana() {
     }
 
-    public DiaSemana(BigDecimal idDiaSemana) {
+    public DiaSemana(Long idDiaSemana) {
         this.idDiaSemana = idDiaSemana;
     }
 
-    public DiaSemana(BigDecimal idDiaSemana, String nome) {
+    public DiaSemana(Long idDiaSemana, String nome) {
         this.idDiaSemana = idDiaSemana;
         this.nome = nome;
     }
 
-    public BigDecimal getIdDiaSemana() {
+    public DiaSemana(String nome) {
+        this.nome = nome;
+    }
+
+    public Long getIdDiaSemana() {
         return idDiaSemana;
     }
 
-    public void setIdDiaSemana(BigDecimal idDiaSemana) {
+    public void setIdDiaSemana(Long idDiaSemana) {
         this.idDiaSemana = idDiaSemana;
     }
 
