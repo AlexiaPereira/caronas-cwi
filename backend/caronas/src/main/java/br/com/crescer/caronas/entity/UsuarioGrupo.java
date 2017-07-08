@@ -61,6 +61,11 @@ public class UsuarioGrupo implements Serializable {
         this.grupo = grupo;
     }
 
+    public UsuarioGrupo(Usuario usuario, Grupo grupo) {
+        this.usuario = usuario;
+        this.grupo = grupo;
+    }
+
     public Long getIdUsuarioGrupo() {
         return idUsuarioGrupo;
     }
