@@ -38,4 +38,8 @@ public class UsuarioService {
     public Usuario findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
     }
+    
+    public Usuario findByIdAutorizacao(Long idAutorizacao) {
+        return usuarioRepository.findByIdAutorizacao(idAutorizacao);
+    }
 }
