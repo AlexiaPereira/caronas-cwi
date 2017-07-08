@@ -12,7 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -56,6 +58,9 @@ public class Origem implements Serializable {
     @Column(name = "LONGITUDE")
     private BigDecimal longitude;
 
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "origem")
+    private Rotina rotina;
+    
     public Origem() {
     }
 
@@ -108,4 +113,12 @@ public class Origem implements Serializable {
         this.longitude = longitude;
     }
 
+    public Rotina getRotina() {
+        return rotina;
+    }
+
+    public void setRotina(Rotina rotina) {
+        this.rotina = rotina;
+    }
+    
 }
