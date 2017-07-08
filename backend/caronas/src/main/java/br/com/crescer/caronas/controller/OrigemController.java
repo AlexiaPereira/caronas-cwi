@@ -28,6 +28,11 @@ public class OrigemController {
         return origemService.findAll();
     }
     
+    @GetMapping(value = "/{id}")
+    public Origem loadById(@PathVariable Long id) {
+        return origemService.loadById(id);
+    }
+    
     @PostMapping
     public Origem save(@RequestBody Origem origem) {
         return origemService.save(origem);
