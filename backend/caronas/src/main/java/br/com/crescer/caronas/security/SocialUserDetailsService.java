@@ -24,9 +24,8 @@ public class SocialUserDetailsService implements UserDetailsService {
         if (username.isEmpty()) {
             throw new UsernameNotFoundException(String.format("Usuario com identificador =%s não encontrado", username));
         }
-        Long identificador = Long.parseLong(username, 10);
-        Usuario usuarioAutorizado = usuarioRepository.findByIdAutorizacao(identificador);
-        return new User(usuarioAutorizado.getIdAutorizacao().toString(), usuarioAutorizado.getSenha(), grants);
+        Usuario usuarioAutorizado = usuarioRepository.findByIdAutorizacao(username);
+        return new User(usuarioAutorizado.getIdAutorizacao(), usuarioAutorizado.getSenha(), grants);
     }
 
 }
