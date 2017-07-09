@@ -1,4 +1,4 @@
-modulo.controller('LoginController', ['$scope', function ($scope) {
+angular.module('app').controller('LoginController', ['$scope', 'authservice', function ($scope, authService) {
 
     $scope.name = 'Por favor, autentique-se.';
 
@@ -53,4 +53,17 @@ modulo.controller('LoginController', ['$scope', function ($scope) {
             console.log('User signed out.');
         });
     }
+
+    function logar(usuario) {
+        authService.login(usuario)
+            .then(
+            function (response) {
+                console.log(response);
+                toastr.success('Login realizado com sucesso.');
+            },
+            function (response) {
+                console.log(response);
+                toastr.error('Falha ao logar.');
+            });
+    };
 }]);
