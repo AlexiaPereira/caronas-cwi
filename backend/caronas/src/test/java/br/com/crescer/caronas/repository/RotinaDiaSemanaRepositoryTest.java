@@ -107,7 +107,7 @@ public class RotinaDiaSemanaRepositoryTest {
     }
     
     private Rotina instanciarRotina() {
-        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", 2l, "senha");
+        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
         Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
         Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();

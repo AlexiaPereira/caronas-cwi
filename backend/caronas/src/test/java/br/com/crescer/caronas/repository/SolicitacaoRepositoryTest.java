@@ -89,7 +89,7 @@ public class SolicitacaoRepositoryTest {
         final Solicitacao solicitacao = instanciarSolicitacao();
         Long idAntigo = solicitacao.getUsuarioAlvo().getIdUsuario();
         testEntityManager.persist(solicitacao);
-        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", 1l, "teste");
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
         solicitacao.setUsuarioAlvo(novoUsuario);
         testEntityManager.persist(solicitacao);
         assertNotEquals(idAntigo, repositorio.findOne(solicitacao.getIdSolicitacao()).getUsuarioAlvo().getIdUsuario());
@@ -101,7 +101,7 @@ public class SolicitacaoRepositoryTest {
         final Solicitacao solicitacao = instanciarSolicitacao();
         testEntityManager.persist(solicitacao);
         final Solicitacao outraSolicitacao = instanciarSolicitacao();
-        Usuario outroUsuarioAlvo = new Usuario("Novo Usuario", "teste@teste.com", "Masculino", 2l, "senha");
+        Usuario outroUsuarioAlvo = new Usuario("Novo Usuario", "teste@teste.com", "Masculino", "2", "senha");
         testEntityManager.persist(outroUsuarioAlvo);
         outraSolicitacao.setUsuarioAlvo(outroUsuarioAlvo);
         testEntityManager.persist(outraSolicitacao);
@@ -111,8 +111,8 @@ public class SolicitacaoRepositoryTest {
     }
 
     private Solicitacao instanciarSolicitacao() {
-        Usuario usuarioDono = new Usuario("Teste", "teste@teste.com", "Masculino", 2l, "senha");
-        Usuario usuarioAlvo = new Usuario("Teste Alvo", "testealvo@teste.com", "Feminino", 4l, "senha2");
+        Usuario usuarioDono = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
+        Usuario usuarioAlvo = new Usuario("Teste Alvo", "testealvo@teste.com", "Feminino", "4", "senha2");
         testEntityManager.persist(usuarioDono);
         testEntityManager.persist(usuarioAlvo);
         return new Solicitacao(usuarioDono, usuarioAlvo);
