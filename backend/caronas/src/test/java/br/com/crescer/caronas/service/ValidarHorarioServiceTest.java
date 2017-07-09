@@ -26,18 +26,40 @@ public class ValidarHorarioServiceTest {
     final SimpleDateFormat formatador = new SimpleDateFormat("dd/MM/yyyy HH:mm");
 
     final ValidarHorarioService service = new ValidarHorarioService();
-    
+
     @Test
     public void testBuscarDiasDaSemanaCompativeis() throws ParseException {
-        Rotina rotinaPrincipal = instanciarRotinaPadrao();
+        Rotina rotinaPrincipal = this.instanciarRotinaPadrao();
         List<Rotina> rotinasDeMotoristas = this.rotinasDeMotoristas();
         List<Rotina> rotinasCompativeis
                 = service.buscarDiasDaSemanaCompativeis(rotinaPrincipal, rotinasDeMotoristas);
 
         assertTrue(rotinasCompativeis.contains(rotinasDeMotoristas.get(0)));
-        assertEquals(1, rotinasCompativeis.size());
-        assertFalse(rotinasCompativeis.contains(rotinasDeMotoristas.get(1)));
+        assertTrue(rotinasCompativeis.contains(rotinasDeMotoristas.get(1)));
+        assertEquals(2, rotinasCompativeis.size());
         assertFalse(rotinasCompativeis.contains(rotinasDeMotoristas.get(2)));
+        assertFalse(rotinasCompativeis.contains(rotinasDeMotoristas.get(3)));
+    }
+
+    @Test
+    public void testValidarHorarios() throws ParseException {
+        Rotina rotinaPrincipal = this.instanciarRotinaPadrao();
+        List<Rotina> rotinasDeMotoristas = this.rotinasDeMotoristas();
+        List<Rotina> rotinasDiasCompativeis
+                = service.buscarDiasDaSemanaCompativeis(rotinaPrincipal, rotinasDeMotoristas);
+        List<Rotina> horariosCompativeis = service.validarHorarios(rotinaPrincipal, rotinasDiasCompativeis);
+        assertEquals(1, horariosCompativeis.size());
+        assertTrue(horariosCompativeis.contains(rotinasDeMotoristas.get(1)));
+
+    }
+
+    @Test
+    public void testBuscarRotinasDeMotoristasComHorariosCompativeis() throws ParseException {
+        Rotina rotinaPrincipal = this.instanciarRotinaPadrao();
+        List<Rotina> rotinasDeMotoristas = this.rotinasDeMotoristas();
+        List<Rotina> horariosCompativeis = service.buscarRotinasDeMotoristasComHorariosCompativeis(rotinaPrincipal, rotinasDeMotoristas);
+        assertEquals(1, horariosCompativeis.size());
+        assertTrue(horariosCompativeis.contains(rotinasDeMotoristas.get(1)));
     }
 
     private List<Rotina> rotinasDeMotoristas() throws ParseException {
@@ -57,6 +79,7 @@ public class ValidarHorarioServiceTest {
 
         Date dataDois = formatador.parse("06/04/2017 07:30");
         List<RotinaDiaSemana> listaDeDiasDois = new ArrayList<>();
+        listaDeDiasDois.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
         listaDeDiasDois.add(new RotinaDiaSemana(5, new DiaSemana("QUARTA")));
         listaDeDiasDois.add(new RotinaDiaSemana(5, new DiaSemana("QUINTA")));
         listaDeDiasDois.add(new RotinaDiaSemana(5, new DiaSemana("SEXTA")));
@@ -76,6 +99,16 @@ public class ValidarHorarioServiceTest {
         rotinaTres.setPassageiro(false);
         rotinaTres.setRotinaDiaSemanaList(listaDeDiasTres);
         retorno.add(rotinaTres);
+
+        Date dataQuatro = formatador.parse("06/04/2017 07:30");
+        List<RotinaDiaSemana> listaDeDiasQuatro = new ArrayList<>();
+        listaDeDiasQuatro.add(new RotinaDiaSemana(5, new DiaSemana("SABADO")));
+        listaDeDiasQuatro.add(new RotinaDiaSemana(5, new DiaSemana("DOMINGO")));
+        Rotina rotinaQuatro = instanciarRotinaPadrao();
+        rotinaQuatro.setHorario(dataQuatro);
+        rotinaQuatro.setPassageiro(false);
+        rotinaQuatro.setRotinaDiaSemanaList(listaDeDiasQuatro);
+        retorno.add(rotinaQuatro);
 
         return retorno;
     }
