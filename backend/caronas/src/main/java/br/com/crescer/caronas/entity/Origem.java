@@ -2,7 +2,8 @@ package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
 import java.lang.Long;
-import java.math.BigInteger;
+import java.math.BigDecimal;
+import java.math.BigDecimal;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -11,7 +12,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -48,16 +51,16 @@ public class Origem implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "LATITUDE")
-    private BigInteger latitude;
+    private BigDecimal latitude;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "LONGITUDE")
-    private BigInteger longitude;
+    private BigDecimal longitude;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "origem")
-    private List<Rotina> rotinaList;
-
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "origem")
+    private Rotina rotina;
+    
     public Origem() {
     }
 
@@ -65,8 +68,14 @@ public class Origem implements Serializable {
         this.idOrigem = idOrigem;
     }
 
-    public Origem(Long idOrigem, String endereco, BigInteger latitude, BigInteger longitude) {
+    public Origem(Long idOrigem, String endereco, BigDecimal latitude, BigDecimal longitude) {
         this.idOrigem = idOrigem;
+        this.endereco = endereco;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Origem(String endereco, BigDecimal latitude, BigDecimal longitude) {
         this.endereco = endereco;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -88,29 +97,28 @@ public class Origem implements Serializable {
         this.endereco = endereco;
     }
 
-    public BigInteger getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(BigInteger latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
-    public BigInteger getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(BigInteger longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 
-    @XmlTransient
-    public List<Rotina> getRotinaList() {
-        return rotinaList;
+    public Rotina getRotina() {
+        return rotina;
     }
 
-    public void setRotinaList(List<Rotina> rotinaList) {
-        this.rotinaList = rotinaList;
+    public void setRotina(Rotina rotina) {
+        this.rotina = rotina;
     }
-
+    
 }

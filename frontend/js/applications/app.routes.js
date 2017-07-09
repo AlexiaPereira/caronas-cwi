@@ -21,5 +21,9 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
         controller: 'GrupoController',
         templateUrl: '/templates/meus-grupos.html'
     })
-    // .otherwise('/login');
+    .when('/apis', {
+        controller: 'apisController',
+        templateUrl: '/apis.html'
+    })
+    .otherwise('/login');
 }]);

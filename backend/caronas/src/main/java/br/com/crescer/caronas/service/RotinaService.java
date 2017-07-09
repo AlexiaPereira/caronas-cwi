@@ -1,6 +1,8 @@
 package br.com.crescer.caronas.Service;
 
 import br.com.crescer.caronas.entity.Rotina;
+import br.com.crescer.caronas.entity.RotinaDiaSemana;
+import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.RotinaRepository;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,12 +17,19 @@ public class RotinaService {
 
     @Autowired
     RotinaRepository rotinaRepository;
+    
+    @Autowired
+    RotinaDiaSemanaService rotinaDiaSemanaService;
 
     public Iterable<Rotina> findAll() {
         return rotinaRepository.findAll();
     }
 
     public Rotina save(Rotina rotina) {
+        List<RotinaDiaSemana> diasSemana = rotina.getRotinaDiaSemanaList();
+        for (RotinaDiaSemana rotinaDiaSemana : diasSemana) {
+            rotinaDiaSemana.setRotina(rotina);
+        }
         return rotinaRepository.save(rotina);
     }
 
@@ -39,4 +48,10 @@ public class RotinaService {
     public List<Rotina> findByPassageiro (Boolean bool) {
         return rotinaRepository.findByPassageiro(bool);
     }
+    
+    //public List<Rotina> findByUsuario (Usuario usuario) {
+    //    return rotinaRepository.findByUsuario(usuario);
+    //}
+    
+    
 }

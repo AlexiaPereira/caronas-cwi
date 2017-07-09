@@ -2,8 +2,7 @@ package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
 import java.lang.Long;
-import java.math.BigInteger;
-import java.util.List;
+import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,12 +10,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -38,25 +36,25 @@ public class Destino implements Serializable {
             allocationSize = 1
     )
     private Long idDestino;
-    
+
     @Basic(optional = false)
     @NotNull
     @Size(min = 1, max = 400)
     @Column(name = "ENDERECO")
     private String endereco;
-    
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "LATITUDE")
-    private BigInteger latitude;
-    
+    private BigDecimal latitude;
+
     @Basic(optional = false)
     @NotNull
     @Column(name = "LONGITUDE")
-    private BigInteger longitude;
-    
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "destino")
-    private List<Rotina> rotinaList;
+    private BigDecimal longitude;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "destino")
+    private Rotina rotina;
 
     public Destino() {
     }
@@ -65,8 +63,14 @@ public class Destino implements Serializable {
         this.idDestino = idDestino;
     }
 
-    public Destino(Long idDestino, String endereco, BigInteger latitude, BigInteger longitude) {
+    public Destino(Long idDestino, String endereco, BigDecimal latitude, BigDecimal longitude) {
         this.idDestino = idDestino;
+        this.endereco = endereco;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public Destino(String endereco, BigDecimal latitude, BigDecimal longitude) {
         this.endereco = endereco;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -88,29 +92,28 @@ public class Destino implements Serializable {
         this.endereco = endereco;
     }
 
-    public BigInteger getLatitude() {
+    public BigDecimal getLatitude() {
         return latitude;
     }
 
-    public void setLatitude(BigInteger latitude) {
+    public void setLatitude(BigDecimal latitude) {
         this.latitude = latitude;
     }
 
-    public BigInteger getLongitude() {
+    public BigDecimal getLongitude() {
         return longitude;
     }
 
-    public void setLongitude(BigInteger longitude) {
+    public void setLongitude(BigDecimal longitude) {
         this.longitude = longitude;
     }
 
-    @XmlTransient
-    public List<Rotina> getRotinaList() {
-        return rotinaList;
+    public Rotina getRotina() {
+        return rotina;
     }
 
-    public void setRotinaList(List<Rotina> rotinaList) {
-        this.rotinaList = rotinaList;
+    public void setRotina(Rotina rotina) {
+        this.rotina = rotina;
     }
 
 }

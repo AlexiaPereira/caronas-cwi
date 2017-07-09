@@ -2,6 +2,7 @@ package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
 import java.lang.Long;
+import java.util.Date;
 import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -12,6 +13,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -48,6 +51,12 @@ public class UsuarioGrupo implements Serializable {
     @ManyToOne
     private Grupo grupo;
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DATA_ENTRADA")
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date dataEntrada;
+
     public UsuarioGrupo() {
     }
 
@@ -59,6 +68,12 @@ public class UsuarioGrupo implements Serializable {
         this.idUsuarioGrupo = idUsuarioGrupo;
         this.usuario = usuario;
         this.grupo = grupo;
+    }
+
+    public UsuarioGrupo(Usuario usuario, Grupo grupo, Date dataEntrada) {
+        this.usuario = usuario;
+        this.grupo = grupo;
+        this.dataEntrada = dataEntrada;
     }
 
     public Long getIdUsuarioGrupo() {
@@ -84,4 +99,13 @@ public class UsuarioGrupo implements Serializable {
     public void setGrupo(Grupo grupo) {
         this.grupo = grupo;
     }
+
+    public Date getDataEntrada() {
+        return dataEntrada;
+    }
+
+    public void setDataEntrada(Date dataEntrada) {
+        this.dataEntrada = dataEntrada;
+    }
+
 }

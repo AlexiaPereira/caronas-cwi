@@ -12,6 +12,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Size;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 /**
  *
@@ -50,11 +51,13 @@ public class Usuario implements Serializable {
     private String genero;
 
     @Column(name = "ID_AUTORIZACAO")
+    @Size(min = 1, max = 200)
     @Basic(optional = false)
     @NotNull
-    private Long idAutorizacao;
+    private String idAutorizacao;
 
     @Column(name = "SENHA")
+    @Size(min = 1, max = 200)
     @Basic(optional = false)
     @NotNull
     private String senha;
@@ -66,10 +69,12 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(Long idUsuario, String nome, String email) {
-        this.idUsuario = idUsuario;
+    public Usuario(String nome, String email, String genero, String idAutorizacao, String senha) {
         this.nome = nome;
         this.email = email;
+        this.genero = genero;
+        this.idAutorizacao = idAutorizacao;
+        this.senha = senha;
     }
 
     public Long getIdUsuario() {
@@ -104,11 +109,11 @@ public class Usuario implements Serializable {
         this.genero = genero;
     }
 
-    public Long getIdAutorizacao() {
+    public String getIdAutorizacao() {
         return idAutorizacao;
     }
 
-    public void setIdAutorizacao(Long idAutorizacao) {
+    public void setIdAutorizacao(String idAutorizacao) {
         this.idAutorizacao = idAutorizacao;
     }
 
@@ -119,5 +124,10 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
+    
+    public void criptografarSenha() {
+       this.senha = new BCryptPasswordEncoder().encode(this.senha);
+    }
+            
 
 }
