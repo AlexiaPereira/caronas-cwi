@@ -1,29 +1,29 @@
-modulo.controller('apisController', ['$scope', function ($scope) {
+angular.module('app').controller('apisController', ['$scope', function ($scope) {
 
 
   //API matrix
   $scope.matrizMotoristas = [];
   $scope.matrizPassageiro = [];
   $scope.distancias = [];
+  $scope.arrayDeArraysMotoristas = [];
   //alterar para passar duas listas de parametro
   $scope.matrix = function() {
-    //pok
+    //poc
+    debugger
     $scope.listaArrayMotorista = [[{idOrigem:{latitude:-29.7949175, longitude:-51.1465092}, idUsuario:1},
       {idOrigem:{latitude:-29.7949175, longitude:-51.1130727}, idUsuario:2},
-      {idOrigem:{latitude:-23.5505199, longitude:-46.6333094}, idUsuario:3}]]
+      {idOrigem:{latitude:-23.5505199, longitude:-46.6333094}, idUsuario:3}],
+      [{idOrigem:{latitude:-29.7949175, longitude:-51.1465092}, idUsuario:4},
+      {idOrigem:{latitude:-29.7949175, longitude:-51.1130727}, idUsuario:5},
+      {idOrigem:{latitude:-23.5505199, longitude:-46.6333094}, idUsuario:6}]]
         $scope.matrizPassageiro = [{lat:-29.7949175,lng:-51.1465092}];
         var j = 0;
         $scope.listaArrayMotorista.forEach(function(listaMotorista){
-          debugger
           listaMotorista.forEach(function(motorista){
             console.log(motorista);
             var objeto = {lat:motorista.idOrigem.latitude, lng:motorista.idOrigem.longitude};
-            //console.log($scope.matrizMotoristas);
             $scope.matrizMotoristas.push(objeto);
-            //console.log($scope.matrizMotoristas);
           })
-          //console.log($scope.matrizMotoristas);
-          //console.log($scope.matrizPassageiro);
           new google.maps.DistanceMatrixService().getDistanceMatrix({
             origins: $scope.matrizMotoristas,
             destinations: $scope.matrizPassageiro,
@@ -36,15 +36,13 @@ modulo.controller('apisController', ['$scope', function ($scope) {
             var i = 0;
             for (var linha in $scope.matriz.rows) {
               var distanciaRetorno = $scope.matriz.rows[i].elements[0].distance.value;
-              $scope.distancias.push({listaMotorista:$scope.listaArrayMotorista[j], distancia:distanciaRetorno});
-              console.log("cai");
-              console.log($scope.distancias);
+              $scope.distancias.push({rotina:listaMotorista[i], distancia:distanciaRetorno});
               i++;
             }
-            console.log($scope.distancias);
             $scope.arrayDeArraysMotoristas.push($scope.distancias);
             console.log($scope.arrayDeArraysMotoristas);
             $scope.distancias = [];
+            $scope.matrizMotoristas = [];
           })
           j++;
         });
