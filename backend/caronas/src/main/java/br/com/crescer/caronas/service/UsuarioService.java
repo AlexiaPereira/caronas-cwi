@@ -43,4 +43,13 @@ public class UsuarioService {
     public Usuario findByIdAutorizacao(Long idAutorizacao) {
         return usuarioRepository.findByIdAutorizacao(idAutorizacao);
     }
+
+    public Usuario verificarUsuario(Usuario usuario) {
+        Usuario autorizado = this.findByIdAutorizacao(usuario.getIdAutorizacao());
+        if (autorizado != null) {
+            return autorizado;
+        } else {
+            return this.save(usuario);
+        }
+    }
 }

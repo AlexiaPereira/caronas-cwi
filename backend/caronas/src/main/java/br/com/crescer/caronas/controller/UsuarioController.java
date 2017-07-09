@@ -40,7 +40,7 @@ public class UsuarioController {
 
     @PostMapping
     public Usuario save(@RequestBody Usuario usuario) {
-        return usuarioService.save(usuario);
+        return usuarioService.verificarUsuario(usuario);
     }
 
     @PutMapping
