@@ -5,11 +5,20 @@ modulo.controller('apisController', ['$scope', function ($scope) {
 $scope.matrizMotoristas = [];
 $scope.matrizPassageiro = [];
 $scope.distancias = [];
-
-//os objetos do arrays tem que vir no formato {lat: valor, lng: valor}, podemos ajustar no front, se necessário
-$scope.matrix = function(listaMotoristas, passageiro) {
-  $scope.matrizMotoristas = listaMotoristas;
-  $scope.matrizPassageiro = passageiro;
+  //alterar para passar duas listas de parametro
+$scope.matrix = function() {
+  //pok
+  var listaMotorista = [{idOrigem:{latitude:30, longitude:40}},
+                        {idOrigem:{latitude:29.99, longitude:40}},
+                        {idOrigem:{latitude:29.9999999, longitude:40}}]
+  console.log(listaMotorista);
+  $scope.matrizMotoristas = [];
+  $scope.matrizPassageiro = {lat:30.000,lng:40};
+  listaMotorista.forEach(function(motorista){
+    var objeto = {lat:motorista.idOrigem.latitude, lng:motorista.idOrigem.longitude};
+    $scope.matrizMotoristas.push(objeto);
+    console.log($scope.matrizMotoristas);
+  });
 
   new google.maps.DistanceMatrixService().getDistanceMatrix({
     origins: $scope.matrizMotoristas,
