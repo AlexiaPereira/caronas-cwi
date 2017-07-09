@@ -51,11 +51,13 @@ public class Usuario implements Serializable {
     private String genero;
 
     @Column(name = "ID_AUTORIZACAO")
+    @Size(min = 1, max = 200)
     @Basic(optional = false)
     @NotNull
-    private Long idAutorizacao;
+    private String idAutorizacao;
 
     @Column(name = "SENHA")
+    @Size(min = 1, max = 200)
     @Basic(optional = false)
     @NotNull
     private String senha;
@@ -67,7 +69,7 @@ public class Usuario implements Serializable {
         this.idUsuario = idUsuario;
     }
 
-    public Usuario(String nome, String email, String genero, Long idAutorizacao, String senha) {
+    public Usuario(String nome, String email, String genero, String idAutorizacao, String senha) {
         this.nome = nome;
         this.email = email;
         this.genero = genero;
@@ -107,11 +109,11 @@ public class Usuario implements Serializable {
         this.genero = genero;
     }
 
-    public Long getIdAutorizacao() {
+    public String getIdAutorizacao() {
         return idAutorizacao;
     }
 
-    public void setIdAutorizacao(Long idAutorizacao) {
+    public void setIdAutorizacao(String idAutorizacao) {
         this.idAutorizacao = idAutorizacao;
     }
 

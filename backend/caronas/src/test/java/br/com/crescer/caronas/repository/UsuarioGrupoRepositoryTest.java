@@ -86,7 +86,7 @@ public class UsuarioGrupoRepositoryTest {
         final UsuarioGrupo usuarioGrupo = instanciarUsuarioGrupo();
         Long idAntigo = usuarioGrupo.getUsuario().getIdUsuario();
         testEntityManager.persist(usuarioGrupo);
-        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", 1l, "teste");
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
         usuarioGrupo.setIdUsuario(novoUsuario);
         testEntityManager.persist(usuarioGrupo);
         assertNotEquals(idAntigo, repositorio.findOne(usuarioGrupo.getIdUsuarioGrupo()).getUsuario().getIdUsuario());
@@ -94,7 +94,7 @@ public class UsuarioGrupoRepositoryTest {
     }
 
     private UsuarioGrupo instanciarUsuarioGrupo() {
-        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", 2l, "senha");
+        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
         Grupo grupo = new Grupo("Nome do Grupo");
         testEntityManager.persist(usuario);
         testEntityManager.persist(grupo);

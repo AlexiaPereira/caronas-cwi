@@ -40,7 +40,7 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
     
-    public Usuario findByIdAutorizacao(Long idAutorizacao) {
+    public Usuario findByIdAutorizacao(String idAutorizacao) {
         return usuarioRepository.findByIdAutorizacao(idAutorizacao);
     }
 

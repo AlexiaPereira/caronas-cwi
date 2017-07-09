@@ -93,7 +93,7 @@ public class RotinaRepositoryTest {
         final Rotina rotina = instanciarRotina();
         Long idAntigo = rotina.getUsuario().getIdUsuario();
         testEntityManager.persist(rotina);
-        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", 1l, "teste");
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
         rotina.setUsuario(novoUsuario);
         testEntityManager.persist(rotina);
         assertNotEquals(idAntigo, repositorio.findOne(rotina.getIdRotina()).getUsuario().getIdUsuario());
@@ -101,7 +101,7 @@ public class RotinaRepositoryTest {
     }
 
     private Rotina instanciarRotina() {
-        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", 2l, "senha");
+        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
         Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
         Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
