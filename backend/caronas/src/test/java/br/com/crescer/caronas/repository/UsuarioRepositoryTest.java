@@ -91,6 +91,20 @@ public class UsuarioRepositoryTest {
         assertNotEquals(nomeAntiga, repositorio.findOne(usuario.getIdUsuario()).getNome());
         assertEquals(nomeNova, repositorio.findOne(usuario.getIdUsuario()).getNome());
     }
+    
+    @Test
+    public void testFindByIdAutorizacao() {
+        final Usuario usuario = instanciarUsuario();
+        testEntityManager.persist(usuario);
+        assertEquals(usuario.getIdAutorizacao(), repositorio.findByIdAutorizacao("2").getIdAutorizacao());
+    }
+    
+    @Test
+    public void testFindByEmail() {
+        final Usuario usuario = instanciarUsuario();
+        testEntityManager.persist(usuario);
+        assertEquals(usuario.getEmail(), repositorio.findByEmail("teste@teste.com").getEmail());
+    }
 
     private Usuario instanciarUsuario() {
         return new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");

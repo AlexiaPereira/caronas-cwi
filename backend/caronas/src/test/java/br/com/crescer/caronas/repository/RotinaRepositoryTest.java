@@ -44,6 +44,9 @@ public class RotinaRepositoryTest {
 
     @Autowired
     private RotinaRepository repositorio;
+    
+    @Autowired
+    private UsuarioRepository usuarioRepositorio;
 
     /**
      * Test of save method, of class GeneroService.
@@ -78,6 +81,24 @@ public class RotinaRepositoryTest {
         final Rotina rotina = instanciarRotina();
         testEntityManager.persist(rotina);
         assertEquals(rotina.getUsuario().getNome(), repositorio.findOne(rotina.getIdRotina()).getUsuario().getNome());
+    }
+    
+    @Test
+    public void testFindByUsuario() {
+        final Rotina rotina = instanciarRotina();
+        testEntityManager.persist(rotina);
+        final List<Rotina> listaRotina = new ArrayList<>();
+        listaRotina.add(rotina);
+        assertEquals(listaRotina, repositorio.findByUsuario(usuarioRepositorio.findByIdAutorizacao("2")));
+    }
+    
+    @Test
+    public void testFindByPassageiro() {
+        final Rotina rotina = instanciarRotina();
+        testEntityManager.persist(rotina);
+        final List<Rotina> listaRotina = new ArrayList<>();
+        listaRotina.add(rotina);
+        assertEquals(listaRotina, repositorio.findByPassageiro(rotina.getPassageiro()));
     }
 
     @Test
