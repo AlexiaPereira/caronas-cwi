@@ -3,6 +3,7 @@ package br.com.crescer.caronas.repository;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.Grupo;
+import java.util.Date;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.StreamSupport;
 import static org.junit.Assert.assertEquals;
@@ -98,7 +99,7 @@ public class UsuarioGrupoRepositoryTest {
         Grupo grupo = new Grupo("Nome do Grupo");
         testEntityManager.persist(usuario);
         testEntityManager.persist(grupo);
-        return new UsuarioGrupo(usuario, grupo);
+        return new UsuarioGrupo(usuario, grupo, new Date());
     }
 
 }
