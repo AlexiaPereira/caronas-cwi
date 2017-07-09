@@ -1,0 +1,65 @@
+package br.com.crescer.caronas.service;
+
+import br.com.crescer.caronas.entity.DiaSemana;
+import br.com.crescer.caronas.entity.Rotina;
+import br.com.crescer.caronas.entity.RotinaDiaSemana;
+import java.util.ArrayList;
+import java.util.List;
+import static java.util.stream.Collectors.toList;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
+import org.springframework.util.CollectionUtils;
+
+/**
+ *
+ * @author alexia.pereira;
+ */
+public class ValidarHorarioService {
+    
+    public List<Rotina> buscarRotinasDeMotoristasComHorariosCompativeis(Rotina rotina, List<Rotina> rotinasDeMotoristas) {
+        
+        List<Rotina> rotinasComDiasDaSemanaCompativeis = this.buscarDiasDaSemanaCompativeis(rotina, rotinasDeMotoristas);
+        return this.validarHorarios(rotina, rotinasComDiasDaSemanaCompativeis);
+    }
+
+    public List<Rotina> buscarDiasDaSemanaCompativeis(Rotina rotinaPrincipal, List<Rotina> rotinasDeMotoristas) {
+
+        List<Rotina> rotinasComDiasDaSemanaCompativeis = new ArrayList<>();
+
+        List<String> diasDaRotinaPrincipal = rotinaPrincipal.getRotinaDiaSemanaList()
+                .stream()
+                .map(RotinaDiaSemana::getDiaSemana)
+                .map(DiaSemana::getNome)
+                .collect(toList());
+
+        for (Rotina rotinaAtual : rotinasDeMotoristas) {
+            List<String> diasDaRotinaAtual = rotinaAtual.getRotinaDiaSemanaList()
+                    .stream()
+                    .map(RotinaDiaSemana::getDiaSemana)
+                    .map(DiaSemana::getNome)
+                    .collect(toList());
+
+            if (CollectionUtils.containsAny(diasDaRotinaAtual, diasDaRotinaPrincipal)) {
+                rotinasComDiasDaSemanaCompativeis.add(rotinaAtual);
+            }
+        }
+        return rotinasComDiasDaSemanaCompativeis;
+    }
+
+    public List<Rotina> validarHorarios(Rotina rotinaPrincipal, List<Rotina> rotinasFiltradasPorDias) {
+        List<Rotina> rotinasComHorariosCompativeis = new ArrayList<>();
+
+        DateTime horarioRotinaPrincipal = new DateTime(rotinaPrincipal.getHorario());
+
+        for (Rotina rotinaAtual : rotinasFiltradasPorDias) {
+            DateTime horarioRotinaDaLista = new DateTime(rotinaAtual.getHorario());
+            Period diferençaEntreHorarios = new Period(horarioRotinaPrincipal, horarioRotinaDaLista);
+
+            if (diferençaEntreHorarios.getMinutes() >= -30 && diferençaEntreHorarios.getMinutes() <= 30) {
+                rotinasComHorariosCompativeis.add(rotinaAtual);
+            }
+        }
+
+        return rotinasComHorariosCompativeis;
+    }
+}
