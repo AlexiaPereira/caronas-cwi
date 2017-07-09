@@ -1,7 +1,8 @@
 package br.com.crescer.caronas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
-import java.math.BigInteger;
+import java.math.BigDecimal;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -56,26 +58,27 @@ public class Rotina implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "DISTANCIA")
-    private BigInteger distancia;
+    private BigDecimal distancia;
 
     @Basic(optional = false)
     @NotNull
     @Column(name = "DURACAO")
-    private BigInteger duracao;
+    private BigDecimal duracao;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "rotina")
     private List<RotinaDiaSemana> rotinaDiaSemanaList;
 
     @JoinColumn(name = "ID_DESTINO", referencedColumnName = "ID_DESTINO")
-    @ManyToOne(optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
     private Destino destino;
 
     @JoinColumn(name = "ID_ORIGEM", referencedColumnName = "ID_ORIGEM")
-    @ManyToOne(optional = false)
+    @OneToOne(cascade = CascadeType.ALL, optional = false)
+    @JsonBackReference
     private Origem origem;
 
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    @ManyToOne(optional = false)
+    @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Usuario usuario;
 
     public Rotina() {
@@ -85,7 +88,7 @@ public class Rotina implements Serializable {
         this.idRotina = idRotina;
     }
 
-    public Rotina(Long idRotina, boolean passageiro, Date horario, BigInteger distancia, BigInteger duracao) {
+    public Rotina(Long idRotina, boolean passageiro, Date horario, BigDecimal distancia, BigDecimal duracao) {
         this.idRotina = idRotina;
         this.passageiro = passageiro;
         this.horario = horario;
@@ -93,6 +96,17 @@ public class Rotina implements Serializable {
         this.duracao = duracao;
     }
 
+    public Rotina(boolean passageiro, Date horario, BigDecimal distancia, BigDecimal duracao, List<RotinaDiaSemana> rotinaDiaSemanaList, Destino destino, Origem origem, Usuario usuario) {
+        this.passageiro = passageiro;
+        this.horario = horario;
+        this.distancia = distancia;
+        this.duracao = duracao;
+        this.rotinaDiaSemanaList = rotinaDiaSemanaList;
+        this.destino = destino;
+        this.origem = origem;
+        this.usuario = usuario;
+    }
+    
     public Long getIdRotina() {
         return idRotina;
     }
@@ -117,19 +131,19 @@ public class Rotina implements Serializable {
         this.horario = horario;
     }
 
-    public BigInteger getDistancia() {
+    public BigDecimal getDistancia() {
         return distancia;
     }
 
-    public void setDistancia(BigInteger distancia) {
+    public void setDistancia(BigDecimal distancia) {
         this.distancia = distancia;
     }
 
-    public BigInteger getDuracao() {
+    public BigDecimal getDuracao() {
         return duracao;
     }
 
-    public void setDuracao(BigInteger duracao) {
+    public void setDuracao(BigDecimal duracao) {
         this.duracao = duracao;
     }
 
@@ -158,11 +172,11 @@ public class Rotina implements Serializable {
         this.origem = origem;
     }
 
-    public Usuario getIdUsuario() {
+    public Usuario getUsuario() {
         return usuario;
     }
 
-    public void setIdUsuario(Usuario usuario) {
+    public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
     }
 

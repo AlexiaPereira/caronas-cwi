@@ -20,6 +20,7 @@ public class UsuarioService {
     }
 
     public Usuario save(Usuario usuario) {
+        usuario.criptografarSenha();
         return usuarioRepository.save(usuario);
     }
 
@@ -37,5 +38,18 @@ public class UsuarioService {
     
     public Usuario findByEmail(String email) {
         return usuarioRepository.findByEmail(email);
+    }
+    
+    public Usuario findByIdAutorizacao(String idAutorizacao) {
+        return usuarioRepository.findByIdAutorizacao(idAutorizacao);
+    }
+
+    public Usuario verificarUsuario(Usuario usuario) {
+        Usuario autorizado = this.findByIdAutorizacao(usuario.getIdAutorizacao());
+        if (autorizado != null) {
+            return autorizado;
+        } else {
+            return this.save(usuario);
+        }
     }
 }
