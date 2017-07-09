@@ -4,11 +4,11 @@ import br.com.crescer.caronas.entity.DiaSemana;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.repository.RotinaRepository;
-import static com.sun.org.apache.xalan.internal.lib.ExsltDatetime.date;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
+import org.joda.time.DateTime;
+import org.joda.time.Period;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
@@ -57,11 +57,11 @@ public class RotinaService {
     //public List<Rotina> findByUsuario (Usuario usuario) {
     //    return rotinaRepository.findByUsuario(usuario);
     //}
+    
     public List<Rotina> buscarRotinasDeMotoristasComHorariosCompativeis(Rotina rotina) {
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
         List<Rotina> rotinasComDiasDaSemanaCompativeis = this.buscarDiasDaSemanaCompativeis(rotina, rotinasDeMotoristas);
-
-        return null;
+        return this.validarHorarios(rotina, rotinasComDiasDaSemanaCompativeis);
     }
 
     private List<Rotina> buscarDiasDaSemanaCompativeis(Rotina rotinaPrincipal, List<Rotina> rotinasDeMotoristas) {
@@ -87,4 +87,22 @@ public class RotinaService {
         }
         return rotinasComDiasDaSemanaCompativeis;
     }
+
+    private List<Rotina> validarHorarios(Rotina rotinaPrincipal, List<Rotina> rotinasFiltradasPorDias) {
+        List<Rotina> rotinasComHorariosCompativeis = new ArrayList<>();
+
+        DateTime horarioRotinaPrincipal = new DateTime(rotinaPrincipal.getHorario());
+
+        for (Rotina rotinaAtual : rotinasFiltradasPorDias) {
+            DateTime horarioRotinaDaLista = new DateTime(rotinaAtual.getHorario());
+            Period diferençaEntreHorarios = new Period(horarioRotinaPrincipal, horarioRotinaDaLista);
+
+            if (diferençaEntreHorarios.getMinutes() >= -30 && diferençaEntreHorarios.getMinutes() <= 30) {
+                rotinasComHorariosCompativeis.add(rotinaAtual);
+            }
+        }
+
+        return rotinasComHorariosCompativeis;
+    }
+
 }
