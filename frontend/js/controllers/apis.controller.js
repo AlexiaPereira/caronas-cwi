@@ -8,13 +8,13 @@ $scope.distancias = [];
   //alterar para passar duas listas de parametro
 $scope.matrix = function() {
   //pok
-  var listaMotorista = [{idOrigem:{latitude:30, longitude:40}},
-                        {idOrigem:{latitude:29.99, longitude:40}},
-                        {idOrigem:{latitude:29.9999999, longitude:40}}]
-  console.log(listaMotorista);
+  $scope.listaMotorista = [{idOrigem:{latitude:-30.0624354, longitude:-51.1749197}, idUsuario:5},
+                        {idOrigem:{latitude:-30.0153303, longitude:-51.1130727}, idUsuario:4},
+                        {idOrigem:{latitude:-23.5505199, longitude:-46.6333094}, idUsuario:6}]
+  console.log($scope.listaMotorista);
   $scope.matrizMotoristas = [];
-  $scope.matrizPassageiro = {lat:30.000,lng:40};
-  listaMotorista.forEach(function(motorista){
+  $scope.matrizPassageiro = [{lat:-29.7949175,lng:-51.1465092}];
+  $scope.listaMotorista.forEach(function(motorista){
     var objeto = {lat:motorista.idOrigem.latitude, lng:motorista.idOrigem.longitude};
     $scope.matrizMotoristas.push(objeto);
     console.log($scope.matrizMotoristas);
@@ -29,11 +29,13 @@ $scope.matrix = function() {
     avoidTolls: false
   }, function(response) {
     $scope.matriz = response;
-
+    console.log(response);
     var i = 0;
     for (var linha in $scope.matriz.rows) {
-      $scope.distancia = $scope.matriz.rows[i].elements[0].distance.value;
-      $scope.distancias.push($scope.distancia);
+      var distanciaRetorno = $scope.matriz.rows[i].elements[0].distance.value;
+      console.log(distanciaRetorno);
+      $scope.distancias.push({motorista:$scope.listaMotorista[0], distancia:distanciaRetorno});
+      console.log($scope.distancias);
       i++;
     }
   })
