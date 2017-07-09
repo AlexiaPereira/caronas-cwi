@@ -15,4 +15,6 @@ public interface RotinaRepository extends CrudRepository<Rotina, Long>{
     
     public List<Rotina> findByUsuario (Usuario usuario);
     
+    public List<Rotina> findByUsuarioAndPassageiro (Usuario usuario, boolean passageiro);
+    
 }

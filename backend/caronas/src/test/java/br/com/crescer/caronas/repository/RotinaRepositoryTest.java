@@ -155,6 +155,53 @@ public class RotinaRepositoryTest {
         assertEquals(novoUsuario.getNome(), repositorio.findOne(rotina.getIdRotina()).getUsuario().getNome());
     }
 
+    @Test
+    public void testFindByUsusarioAndPassangeiro() {
+        final Rotina rotina = instanciarRotina();
+        testEntityManager.persist(rotina);
+
+        Usuario donoDasRotinas = new Usuario("Dono", "dono@dono.com", "masc", "10", "teste");
+        testEntityManager.persist(donoDasRotinas);
+
+        final Rotina rotinaDois = instanciarRotina();
+        rotinaDois.setUsuario(donoDasRotinas);
+        testEntityManager.persist(rotinaDois);
+
+        final Rotina segundaRotina = instanciarRotina();
+        segundaRotina.setDistancia(BigDecimal.TEN);
+        segundaRotina.setUsuario(donoDasRotinas);
+        segundaRotina.setPassageiro(false);
+        testEntityManager.persist(segundaRotina);
+
+        final Rotina rotinaComOutroUsuario = instanciarRotina();
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
+        rotinaComOutroUsuario.setUsuario(novoUsuario);
+        testEntityManager.persist(rotinaComOutroUsuario);
+
+        assertFalse(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+                .stream()
+                .map(Rotina::getIdRotina)
+                .collect(toList())
+                .contains(rotinaComOutroUsuario.getIdRotina()));
+
+        assertFalse(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+                .stream()
+                .map(Rotina::getIdRotina)
+                .collect(toList())
+                .contains(segundaRotina.getIdRotina()));
+
+        assertEquals(1, repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true).size());
+        assertEquals(1, repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), false).size());
+
+        assertTrue(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+                .stream()
+                .map(Rotina::getUsuario)
+                .map(Usuario::getIdUsuario)
+                .collect(toList())
+                .contains(rotinaDois.getUsuario().getIdUsuario()));
+
+    }
+
     private Rotina instanciarRotina() {
         Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
         Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
