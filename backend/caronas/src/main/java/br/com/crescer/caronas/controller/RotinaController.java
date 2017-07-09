@@ -3,6 +3,7 @@ package br.com.crescer.caronas.Controller;
 import br.com.crescer.caronas.Service.RotinaService;
 import br.com.crescer.caronas.Service.UsuarioService;
 import br.com.crescer.caronas.entity.Rotina;
+import java.text.ParseException;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -57,7 +58,7 @@ public class RotinaController {
     }    
     
     @GetMapping (value = "/match/{idUsuario}")
-    public Map<Rotina, List<Rotina>> mtachHorarios (@PathVariable Long idUsuario) {
+    public Map<Rotina, List<Rotina>> mtachHorarios (@PathVariable Long idUsuario) throws ParseException {
         return rotinaService.matchHorarios(idUsuario);
     }
     

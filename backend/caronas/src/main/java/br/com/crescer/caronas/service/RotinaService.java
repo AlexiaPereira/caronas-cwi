@@ -5,6 +5,7 @@ import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.RotinaRepository;
 import br.com.crescer.caronas.service.ValidarHorarioService;
+import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -62,7 +63,7 @@ public class RotinaService {
         return rotinaRepository.findByUsuario(usuario);
     }
 
-    public Map<Rotina, List<Rotina>> matchHorarios(Long idUsuario) {
+    public Map<Rotina, List<Rotina>> matchHorarios(Long idUsuario) throws ParseException {
         Map<Rotina, List<Rotina>> retorno = new HashMap<>();
         Usuario donoDasRotinas = usuarioService.loadById(idUsuario);
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
