@@ -3,11 +3,9 @@ package br.com.crescer.caronas.Controller;
 import br.com.crescer.caronas.Service.RotinaService;
 import br.com.crescer.caronas.Service.UsuarioService;
 import br.com.crescer.caronas.entity.Rotina;
-import br.com.crescer.caronas.entity.Usuario;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -57,5 +55,10 @@ public class RotinaController {
         Rotina rotina = rotinaService.loadById(idRotina);
         rotinaService.remove(rotina);
     }    
+    
+    @GetMapping (value = "/match/{idUsuario}")
+    public Map<Rotina, List<Rotina>> mtachHorarios (@PathVariable Long idUsuario) {
+        return rotinaService.matchHorarios(idUsuario);
+    }
     
 }

@@ -3,9 +3,12 @@ package br.com.crescer.caronas.Service;
 import br.com.crescer.caronas.entity.DiaSemana;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
+import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.RotinaRepository;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import static java.util.stream.Collectors.toList;
 import org.joda.time.DateTime;
 import org.joda.time.Period;
@@ -25,6 +28,9 @@ public class RotinaService {
 
     @Autowired
     RotinaDiaSemanaService rotinaDiaSemanaService;
+
+    @Autowired
+    UsuarioService usuarioService;
 
     public Iterable<Rotina> findAll() {
         return rotinaRepository.findAll();
@@ -54,11 +60,23 @@ public class RotinaService {
         return rotinaRepository.findByPassageiro(bool);
     }
 
-    //public List<Rotina> findByUsuario (Usuario usuario) {
-    //    return rotinaRepository.findByUsuario(usuario);
-    //}
-    
-    public List<Rotina> buscarRotinasDeMotoristasComHorariosCompativeis(Rotina rotina) {
+    public List<Rotina> findByUsuario(Usuario usuario) {
+        return rotinaRepository.findByUsuario(usuario);
+    }
+
+    public Map<Rotina, List<Rotina>> matchHorarios(Long idUsuario) {
+        Map<Rotina, List<Rotina>> retorno = new HashMap<>();
+        Usuario donoDasRotinas = usuarioService.loadById(idUsuario);
+
+        List<Rotina> rotinasDoPassageiro = rotinaRepository.findByUsuarioAndPassageiro(donoDasRotinas, true);
+        for (Rotina rotina : rotinasDoPassageiro) {
+            retorno.put(rotina, this.buscarRotinasDeMotoristasComHorariosCompativeis(rotina));
+        }
+
+        return retorno;
+    }
+
+    private List<Rotina> buscarRotinasDeMotoristasComHorariosCompativeis(Rotina rotina) {
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
         List<Rotina> rotinasComDiasDaSemanaCompativeis = this.buscarDiasDaSemanaCompativeis(rotina, rotinasDeMotoristas);
         return this.validarHorarios(rotina, rotinasComDiasDaSemanaCompativeis);
