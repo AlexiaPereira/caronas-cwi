@@ -3,11 +3,14 @@ package br.com.crescer.caronas.service;
 import br.com.crescer.caronas.entity.DiaSemana;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
-import org.joda.time.DateTime;
-import org.joda.time.Period;
 import org.springframework.util.CollectionUtils;
 
 /**
@@ -15,9 +18,9 @@ import org.springframework.util.CollectionUtils;
  * @author alexia.pereira;
  */
 public class ValidarHorarioService {
-    
-    public List<Rotina> buscarRotinasDeMotoristasComHorariosCompativeis(Rotina rotina, List<Rotina> rotinasDeMotoristas) {
-        
+
+    public List<Rotina> buscarRotinasDeMotoristasComHorariosCompativeis(Rotina rotina, List<Rotina> rotinasDeMotoristas) throws ParseException {
+
         List<Rotina> rotinasComDiasDaSemanaCompativeis = this.buscarDiasDaSemanaCompativeis(rotina, rotinasDeMotoristas);
         return this.validarHorarios(rotina, rotinasComDiasDaSemanaCompativeis);
     }
@@ -46,16 +49,22 @@ public class ValidarHorarioService {
         return rotinasComDiasDaSemanaCompativeis;
     }
 
-    public List<Rotina> validarHorarios(Rotina rotinaPrincipal, List<Rotina> rotinasFiltradasPorDias) {
+    public List<Rotina> validarHorarios(Rotina rotinaPrincipal, List<Rotina> rotinasFiltradasPorDias) throws ParseException {
         List<Rotina> rotinasComHorariosCompativeis = new ArrayList<>();
 
-        DateTime horarioRotinaPrincipal = new DateTime(rotinaPrincipal.getHorario());
+        SimpleDateFormat formatador = new SimpleDateFormat("HH:mm");
+
+        LocalDateTime horarioRotinaPrincipal
+                = LocalDateTime.ofInstant(formatador.parse(formatador.format(rotinaPrincipal.getHorario())).toInstant(),
+                        ZoneId.systemDefault());
 
         for (Rotina rotinaAtual : rotinasFiltradasPorDias) {
-            DateTime horarioRotinaDaLista = new DateTime(rotinaAtual.getHorario());
-            Period diferençaEntreHorarios = new Period(horarioRotinaPrincipal, horarioRotinaDaLista);
+            LocalDateTime horarioRotinaLista
+                    = LocalDateTime.ofInstant(formatador.parse(formatador.format(rotinaAtual.getHorario())).toInstant(),
+                            ZoneId.systemDefault());
+            long diferencaEmMinutos = horarioRotinaPrincipal.until(horarioRotinaLista, ChronoUnit.MINUTES);
 
-            if (diferençaEntreHorarios.getMinutes() >= -30 && diferençaEntreHorarios.getMinutes() <= 30) {
+            if (diferencaEmMinutos >= -30 && diferencaEmMinutos <= 30) {
                 rotinasComHorariosCompativeis.add(rotinaAtual);
             }
         }
