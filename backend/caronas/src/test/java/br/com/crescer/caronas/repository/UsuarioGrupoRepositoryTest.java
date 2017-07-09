@@ -3,6 +3,7 @@ package br.com.crescer.caronas.repository;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.Grupo;
+import java.util.Date;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.StreamSupport;
 import static org.junit.Assert.assertEquals;
@@ -86,7 +87,7 @@ public class UsuarioGrupoRepositoryTest {
         final UsuarioGrupo usuarioGrupo = instanciarUsuarioGrupo();
         Long idAntigo = usuarioGrupo.getUsuario().getIdUsuario();
         testEntityManager.persist(usuarioGrupo);
-        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", 1l, "teste");
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
         usuarioGrupo.setIdUsuario(novoUsuario);
         testEntityManager.persist(usuarioGrupo);
         assertNotEquals(idAntigo, repositorio.findOne(usuarioGrupo.getIdUsuarioGrupo()).getUsuario().getIdUsuario());
@@ -94,11 +95,11 @@ public class UsuarioGrupoRepositoryTest {
     }
 
     private UsuarioGrupo instanciarUsuarioGrupo() {
-        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", 2l, "senha");
+        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
         Grupo grupo = new Grupo("Nome do Grupo");
         testEntityManager.persist(usuario);
         testEntityManager.persist(grupo);
-        return new UsuarioGrupo(usuario, grupo);
+        return new UsuarioGrupo(usuario, grupo, new Date());
     }
 
 }

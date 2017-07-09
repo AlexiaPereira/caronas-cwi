@@ -93,7 +93,7 @@ public class UsuarioRepositoryTest {
     }
 
     private Usuario instanciarUsuario() {
-        return new Usuario("Teste", "teste@teste.com", "Masculino", 2l, "senha");
+        return new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
     }
 
 }
