@@ -12,35 +12,20 @@ import static java.util.stream.Collectors.toList;
  * @author alexia.pereira
  */
 public class ValidarVagasService {
-
+    
     public List<Rotina> validarVagas(Rotina rotinaPrincipal, List<Rotina> rotinasValidadasPorHorario) {
-
-        List<Rotina> retorno = new ArrayList<>();
-
+        
         List<String> diasDaRotinaPrincipal = rotinaPrincipal.getRotinaDiaSemanaList()
                 .stream()
                 .map(RotinaDiaSemana::getDiaSemana)
                 .map(DiaSemana::getNome)
                 .collect(toList());
 
-        List<RotinaDiaSemana> rotinasDiasSemanaValidas
-                = rotinasValidadasPorHorario.stream()
-                        .flatMap(r
-                                -> r.getRotinaDiaSemanaList()
-                                .stream()
-                                .filter(rds
-                                        -> diasDaRotinaPrincipal.contains(rds.getDiaSemana().getNome())
-                                && rds.getVagasDisponiveis() > 0))
-                        .collect(toList());
+        return rotinasValidadasPorHorario.stream().filter(e -> {
+            return e.getRotinaDiaSemanaList().stream().filter(rds
+                    -> diasDaRotinaPrincipal.contains(rds.getDiaSemana().getNome())
+                    && rds.getVagasDisponiveis() > 0).collect(toList()).size() > 0;
+        }).collect(toList());
 
-        for (Rotina rotina : rotinasValidadasPorHorario) {
-            for (RotinaDiaSemana rotinaDiaSemana : rotina.getRotinaDiaSemanaList()) {
-                if (rotinasDiasSemanaValidas.contains(rotinaDiaSemana)) {
-                    retorno.add(rotina);
-                }
-            }
-        }
-
-        return retorno;
     }
 }
