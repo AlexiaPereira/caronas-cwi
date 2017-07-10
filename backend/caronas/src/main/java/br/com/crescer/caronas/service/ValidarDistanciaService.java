@@ -50,4 +50,13 @@ public class ValidarDistanciaService {
         });
         return rotinasComDistanciaAceitavel;
     }
+    
+    public List<String> diasDaRotinaPrincipal (Rotina rotinaPrincipal) {
+        List<String> listaDiaSemana = new ArrayList<>();
+         rotinaPrincipal.getRotinaDiaSemanaList().forEach((diaSemana) ->{
+             String stringDiaSemana = diaSemana.getDiaSemana().toString();
+             listaDiaSemana.add(stringDiaSemana);
+         });
+         return listaDiaSemana;
+    }
 }
