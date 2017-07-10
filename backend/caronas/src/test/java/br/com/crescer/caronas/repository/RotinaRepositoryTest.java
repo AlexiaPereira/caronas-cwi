@@ -4,7 +4,6 @@ import br.com.crescer.caronas.entity.Destino;
 import br.com.crescer.caronas.entity.DiaSemana;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.Usuario;
-import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Origem;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import java.math.BigDecimal;
@@ -14,6 +13,7 @@ import java.util.List;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.StreamSupport;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
@@ -44,7 +44,7 @@ public class RotinaRepositoryTest {
 
     @Autowired
     private RotinaRepository repositorio;
-    
+
     @Autowired
     private UsuarioRepository usuarioRepositorio;
 
@@ -82,16 +82,50 @@ public class RotinaRepositoryTest {
         testEntityManager.persist(rotina);
         assertEquals(rotina.getUsuario().getNome(), repositorio.findOne(rotina.getIdRotina()).getUsuario().getNome());
     }
-    
+
     @Test
     public void testFindByUsuario() {
         final Rotina rotina = instanciarRotina();
         testEntityManager.persist(rotina);
         final List<Rotina> listaRotina = new ArrayList<>();
         listaRotina.add(rotina);
+
         assertEquals(listaRotina, repositorio.findByUsuario(usuarioRepositorio.findByIdAutorizacao("2")));
+
+        Usuario donoDasRotinas = new Usuario("Dono", "dono@dono.com", "masc", "10", "teste");
+        testEntityManager.persist(donoDasRotinas);
+
+        final Rotina rotinaDois = instanciarRotina();
+        rotinaDois.setUsuario(donoDasRotinas);
+        testEntityManager.persist(rotinaDois);
+
+        final Rotina segundaRotina = instanciarRotina();
+        segundaRotina.setDistancia(BigDecimal.TEN);
+        segundaRotina.setUsuario(donoDasRotinas);
+        testEntityManager.persist(segundaRotina);
+
+        final Rotina rotinaComOutroUsuario = instanciarRotina();
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
+        rotinaComOutroUsuario.setUsuario(novoUsuario);
+        testEntityManager.persist(rotinaComOutroUsuario);
+
+        assertFalse(repositorio.findByUsuario(rotinaDois.getUsuario())
+                .stream()
+                .map(Rotina::getIdRotina)
+                .collect(toList())
+                .contains(rotinaComOutroUsuario.getIdRotina()));
+
+        assertEquals(2, repositorio.findByUsuario(rotinaDois.getUsuario()).size());
+
+        assertTrue(repositorio.findByUsuario(rotinaDois.getUsuario())
+                .stream()
+                .map(Rotina::getUsuario)
+                .map(Usuario::getIdUsuario)
+                .collect(toList())
+                .contains(rotinaDois.getUsuario().getIdUsuario()));
+
     }
-    
+
     @Test
     public void testFindByPassageiro() {
         final Rotina rotina = instanciarRotina();
@@ -121,6 +155,53 @@ public class RotinaRepositoryTest {
         assertEquals(novoUsuario.getNome(), repositorio.findOne(rotina.getIdRotina()).getUsuario().getNome());
     }
 
+    @Test
+    public void testFindByUsusarioAndPassangeiro() {
+        final Rotina rotina = instanciarRotina();
+        testEntityManager.persist(rotina);
+
+        Usuario donoDasRotinas = new Usuario("Dono", "dono@dono.com", "masc", "10", "teste");
+        testEntityManager.persist(donoDasRotinas);
+
+        final Rotina rotinaDois = instanciarRotina();
+        rotinaDois.setUsuario(donoDasRotinas);
+        testEntityManager.persist(rotinaDois);
+
+        final Rotina segundaRotina = instanciarRotina();
+        segundaRotina.setDistancia(BigDecimal.TEN);
+        segundaRotina.setUsuario(donoDasRotinas);
+        segundaRotina.setPassageiro(false);
+        testEntityManager.persist(segundaRotina);
+
+        final Rotina rotinaComOutroUsuario = instanciarRotina();
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
+        rotinaComOutroUsuario.setUsuario(novoUsuario);
+        testEntityManager.persist(rotinaComOutroUsuario);
+
+        assertFalse(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+                .stream()
+                .map(Rotina::getIdRotina)
+                .collect(toList())
+                .contains(rotinaComOutroUsuario.getIdRotina()));
+
+        assertFalse(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+                .stream()
+                .map(Rotina::getIdRotina)
+                .collect(toList())
+                .contains(segundaRotina.getIdRotina()));
+
+        assertEquals(1, repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true).size());
+        assertEquals(1, repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), false).size());
+
+        assertTrue(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+                .stream()
+                .map(Rotina::getUsuario)
+                .map(Usuario::getIdUsuario)
+                .collect(toList())
+                .contains(rotinaDois.getUsuario().getIdUsuario()));
+
+    }
+
     private Rotina instanciarRotina() {
         Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
         Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
@@ -131,7 +212,7 @@ public class RotinaRepositoryTest {
         for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
             rotinaDiaSemana.setRotina(rotina);
         }
-        
+
         return rotina;
     }
 
