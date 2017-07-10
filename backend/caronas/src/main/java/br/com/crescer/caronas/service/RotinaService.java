@@ -56,31 +56,4 @@ public class RotinaService {
     //    return rotinaRepository.findByUsuario(usuario);
     //}
     
-    public List<List<Rotina>> validarRotinasCompativeis (List<Rotina> rotinasPassageiro, List<List<DistanciaRotina>> distanciaRotinasList) {
-        List<List<Rotina>> listaRotinasMotoristaAceitavelParaCadaRotinaPassageiro = new ArrayList<>();
-        List<Rotina> rotinasMotoristaParaUmaRotinaPassageiro = new ArrayList<>();
-        int i = 0;
-        for(List<DistanciaRotina> distanciaRotina: distanciaRotinasList) {
-            rotinasMotoristaParaUmaRotinaPassageiro = verificarDistancias(rotinasPassageiro.get(i), distanciaRotina);
-            //falta descontar vaga no dia da semana
-            listaRotinasMotoristaAceitavelParaCadaRotinaPassageiro.add(rotinasMotoristaParaUmaRotinaPassageiro);
-            rotinasMotoristaParaUmaRotinaPassageiro.clear();
-            i++;
-        };
-        
-        return listaRotinasMotoristaAceitavelParaCadaRotinaPassageiro;
-    }
-    
-    public List<Rotina> verificarDistancias (Rotina rotinaPrincipal, List<DistanciaRotina> distanciaRotina)  {
-        List<Rotina> rotinasComDistanciaAceitavel = new ArrayList<>();
-        distanciaRotina.forEach((rotina) -> {
-            BigDecimal distanciaComCaroneiro = rotina.getDistancia().add(rotinaPrincipal.getDistancia());
-            BigDecimal distanciaPassageiroAteCWI = rotinaPrincipal.getDistancia();
-            if (distanciaComCaroneiro.compareTo(distanciaPassageiroAteCWI) <= 1000) {
-                rotinasComDistanciaAceitavel.add(rotina.getRotina());
-            }
-        });
-        return rotinasComDistanciaAceitavel;
-    }
-    
 }
