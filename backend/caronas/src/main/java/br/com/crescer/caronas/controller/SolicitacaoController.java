@@ -1,7 +1,7 @@
 package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.Service.UsuarioService;
 import br.com.crescer.caronas.dto.SolicitacaoRotinaDTO;
+import br.com.crescer.caronas.service.UsuarioService;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.SolicitacaoService;
