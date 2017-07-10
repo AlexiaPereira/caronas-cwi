@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html ng-app="app">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- Auto Refresh -->
+    <!--<meta http-equiv="refresh" content="3" >-->
+
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+        crossorigin="anonymous">
+
+    <title>Document</title>
+
+    <style>
+        body {
+            box-sizing: border-box;
+        }
+
+        .container {
+            height: 100vh;
+            background-color: gray;
+            position: relative;
+            border: 3px solid black;
+        }
+
+        .header, .footer {
+            height: 10vh;
+            width: 100%;
+            background-color: yellow;
+            position: absolute;
+        }
+
+        .header {
+            top: 0;
+        }
+
+        .footer {
+            bottom: 0;
+        }
+
+        .header > .items-header {
+            height: 10vh;
+            border: 1px solid white;            
+        }
+
+        .footer > .items-footer {
+            height: 10vh;
+            border: 1px solid white;
+            text-align: center;
+            vertical-align: middle;
+        }
+
+        .footer > .items-footer > a > .quick-access > .glyphicon {
+            font-size: 5vh;
+            color: black;
+            margin-top: 2vh;
+            transition-duration: 0.8s;
+        }
+
+        .footer > .items-footer > a > .quick-access:hover > .glyphicon {
+            font-size: 5vh;
+            color: white;
+            margin-top: 2vh;
+            transition-duration: 0.8s;
+        }
+
+        .active-icon-route {
+            color: white;
+        }
+
+        .view {
+            height: 80vh;
+            width: 100%;
+            background-color: pink;
+            position: absolute;
+            top: 10vh;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="container">
+        <div class="row header">
+            <div class="col-xs-3 items-header">Algo</div>
+            <div class="col-xs-6 items-header">HEADER</div>            
+            <div class="col-xs-3 items-header">Profile</div>
+        </div>
+
+        <div class="row view">
+            <div class="col-xs-2"></div>
+        </div>
+
+        <div class="row footer">
+            <div class="col-xs-3 items-footer">
+                <a href="#!/rotina-cadastrar"><div class="quick-access"><span ng-class="{active-icon-route}" class="glyphicon glyphicon-plus"></span></div></a>
+            </div>
+            <div class="col-xs-3 items-footer">
+                <a href="#!/rotina-buscar"><div class="quick-access"><span ng-class="{active-icon-route}" class="glyphicon glyphicon-search"></span></div></a>                
+            </div>
+            <div class="col-xs-3 items-footer">
+                <a href="#!/rotina-visualizar"><div class="quick-access"><span ng-class="{active-icon-route}" class="glyphicon glyphicon-time"></span></div></a>                
+            </div>
+            <div class="col-xs-3 items-footer">
+                <a href="#!/meus-grupos"><div class="quick-access"><span ng-class="{active-icon-route}" class="glyphicon glyphicon-list"></span></div></a>                
+            </div>
+        </div>
+    </div>
+
+
+    <!-- Angular CDN-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-route.js"></script>
+
+    <script src="angularTeste.js"></script>
+
+</body>
+
+</html>
+
