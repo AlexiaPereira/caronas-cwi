@@ -45,7 +45,7 @@ public class ValidarDistanciaService {
     }
     
     public void descontarVagas(Rotina rotinaPrincipal, Rotina rotinaMatchMotorista) {
-        List<RotinaDiaSemana> diasDaSemanaComMatch = filtrarDiaSemana(diasDaRotinaPrincipal(rotinaPrincipal), rotinaMatchMotorista);
+        List<RotinaDiaSemana> diasDaSemanaComMatch = filtrarDiaSemana(converterParaListaDeString(rotinaPrincipal), rotinaMatchMotorista);
         diasDaSemanaComMatch.forEach((diaSemanaComMatch) -> {
             diaSemanaComMatch.setVagasDisponiveis(diaSemanaComMatch.getVagasDisponiveis()-1);
         });
@@ -57,7 +57,7 @@ public class ValidarDistanciaService {
                 .collect(toList());
     }
     
-    public List<String> diasDaRotinaPrincipal (Rotina rotinaPrincipal) {
+    public List<String> converterParaListaDeString (Rotina rotinaPrincipal) {
         List<String> listaDiaSemana = new ArrayList<>();
          rotinaPrincipal.getRotinaDiaSemanaList().forEach((diaSemana) ->{
              String stringDiaSemana = diaSemana.getDiaSemana().toString();
