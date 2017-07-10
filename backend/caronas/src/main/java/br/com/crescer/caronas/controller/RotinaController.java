@@ -1,7 +1,7 @@
-package br.com.crescer.caronas.Controller;
+package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.Service.RotinaService;
-import br.com.crescer.caronas.Service.UsuarioService;
+import br.com.crescer.caronas.service.RotinaService;
+import br.com.crescer.caronas.service.UsuarioService;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.Usuario;
 import java.util.List;
