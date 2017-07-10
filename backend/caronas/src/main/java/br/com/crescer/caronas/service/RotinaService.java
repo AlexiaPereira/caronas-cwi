@@ -1,4 +1,4 @@
-package br.com.crescer.caronas.Service;
+package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.dto.DistanciaRotina;
 import br.com.crescer.caronas.entity.Rotina;
@@ -7,7 +7,10 @@ import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.RotinaRepository;
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.text.ParseException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -20,9 +23,15 @@ public class RotinaService {
 
     @Autowired
     RotinaRepository rotinaRepository;
-    
+
     @Autowired
     RotinaDiaSemanaService rotinaDiaSemanaService;
+
+    @Autowired
+    UsuarioService usuarioService;
+    
+    @Autowired
+    ValidarHorarioService validarHorarioService;
 
     public Iterable<Rotina> findAll() {
         return rotinaRepository.findAll();
@@ -47,13 +56,25 @@ public class RotinaService {
     public Rotina loadById(Long id) {
         return rotinaRepository.findOne(id);
     }
-    
-    public List<Rotina> findByPassageiro (Boolean bool) {
+
+    public List<Rotina> findByPassageiro(Boolean bool) {
         return rotinaRepository.findByPassageiro(bool);
     }
-    
-    //public List<Rotina> findByUsuario (Usuario usuario) {
-    //    return rotinaRepository.findByUsuario(usuario);
-    //}
-    
+
+    public List<Rotina> findByUsuario(Usuario usuario) {
+        return rotinaRepository.findByUsuario(usuario);
+    }
+
+    public Map<Rotina, List<Rotina>> matchHorarios(Long idUsuario) throws ParseException {
+        Map<Rotina, List<Rotina>> retorno = new HashMap<>();
+        Usuario donoDasRotinas = usuarioService.loadById(idUsuario);
+        List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
+
+        List<Rotina> rotinasDoPassageiro = rotinaRepository.findByUsuarioAndPassageiro(donoDasRotinas, true);
+        for (Rotina rotina : rotinasDoPassageiro) {
+            retorno.put(rotina, validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas));
+        }
+        return retorno;
+    }
+
 }

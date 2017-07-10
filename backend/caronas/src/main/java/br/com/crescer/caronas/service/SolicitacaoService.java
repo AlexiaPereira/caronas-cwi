@@ -1,7 +1,5 @@
 package br.com.crescer.caronas.service;
 
-import br.com.crescer.caronas.Service.GrupoService;
-import br.com.crescer.caronas.Service.UsuarioGrupoService;
 import br.com.crescer.caronas.dto.SolicitacaoRotinaDTO;
 import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Solicitacao;
