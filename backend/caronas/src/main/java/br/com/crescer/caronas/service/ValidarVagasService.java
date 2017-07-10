@@ -14,17 +14,8 @@ public class ValidarVagasService {
 
     public List<Rotina> validarVagas(Rotina rotinaPrincipal, List<Rotina> rotinasValidadasPorHorario) {
 
-        List<String> diasDaRotinaPrincipal = rotinaPrincipal.getRotinaDiaSemanaList()
-                .stream()
-                .map(RotinaDiaSemana::getDiaSemana)
-                .map(DiaSemana::getNome)
-                .collect(toList());
+        List<String> diasDaRotinaPrincipal = this.gerarDiasRotinaPrincipal(rotinaPrincipal);
 
-//        return rotinasValidadasPorHorario.stream().filter(e -> {
-//            return e.getRotinaDiaSemanaList().stream().filter(rds
-//                    -> diasDaRotinaPrincipal.contains(rds.getDiaSemana().getNome())
-//                    && rds.getVagasDisponiveis() > 0).collect(toList()).size() > 0;
-//        }).collect(toList());
         return rotinasValidadasPorHorario.stream().filter(rotina -> {
             return this.filtrarDiaSemana(diasDaRotinaPrincipal, rotina).size() > 0;
         }).collect(toList());
@@ -35,6 +26,14 @@ public class ValidarVagasService {
         return rotina.getRotinaDiaSemanaList().stream().filter(rotinaDiaSemana
                 -> diasDaRotinaPrincipal.contains(rotinaDiaSemana.getDiaSemana().getNome())
                 && rotinaDiaSemana.getVagasDisponiveis() > 0)
+                .collect(toList());
+    }
+
+    public List<String> gerarDiasRotinaPrincipal(Rotina rotinaPrincipal) {
+        return rotinaPrincipal.getRotinaDiaSemanaList()
+                .stream()
+                .map(RotinaDiaSemana::getDiaSemana)
+                .map(DiaSemana::getNome)
                 .collect(toList());
     }
 
