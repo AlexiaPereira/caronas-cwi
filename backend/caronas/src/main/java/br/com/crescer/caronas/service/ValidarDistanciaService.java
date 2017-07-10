@@ -51,6 +51,19 @@ public class ValidarDistanciaService {
         return rotinasComDistanciaAceitavel;
     }
     
+    public void descontarVagas(Rotina rotinaPrincipal, Rotina rotinaMatchMotorista) {
+        List<RotinaDiaSemana> diasDaSemanaComMatch = filtrarDiaSemana(diasDaRotinaPrincipal(rotinaPrincipal), rotinaMatchMotorista);
+        diasDaSemanaComMatch.forEach((diaSemanaComMatch) -> {
+            diaSemanaComMatch.setVagasDisponiveis(diaSemanaComMatch.getVagasDisponiveis()-1);
+        });
+    }
+    
+    public List<RotinaDiaSemana> filtrarDiaSemana(List<String> diasDaRotinaPrincipal, Rotina e) {
+        return e.getRotinaDiaSemanaList().stream().filter(rds
+                -> diasDaRotinaPrincipal.contains(rds.getDiaSemana().getNome()))
+                .collect(toList());
+    }
+    
     public List<String> diasDaRotinaPrincipal (Rotina rotinaPrincipal) {
         List<String> listaDiaSemana = new ArrayList<>();
          rotinaPrincipal.getRotinaDiaSemanaList().forEach((diaSemana) ->{
