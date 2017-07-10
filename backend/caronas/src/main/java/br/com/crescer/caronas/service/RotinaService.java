@@ -1,10 +1,9 @@
-package br.com.crescer.caronas.Service;
+package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.RotinaRepository;
-import br.com.crescer.caronas.service.ValidarHorarioService;
 import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
