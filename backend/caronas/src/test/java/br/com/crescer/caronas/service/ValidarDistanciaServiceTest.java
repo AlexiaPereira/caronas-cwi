@@ -74,7 +74,7 @@ public class ValidarDistanciaServiceTest {
     @Test
     public void testDescontarVagas() {
         final Rotina rotinaMotorista = instanciarRotina2();  
-        final Rotina rotinaPassageiro = instanciarRotina1();
+        final Rotina rotinaPassageiro = instanciarRotina();
         assertEquals(0, 0);
     }
         

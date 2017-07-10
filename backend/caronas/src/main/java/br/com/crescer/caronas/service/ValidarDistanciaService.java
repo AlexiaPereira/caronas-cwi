@@ -26,17 +26,10 @@ public class ValidarDistanciaService {
     RotinaDiaSemanaService rotinaDiaSemanaService;
 
     
-    public List<List<Rotina>> validarRotinasCompativeis (List<Rotina> rotinasPassageiro, List<List<DistanciaRotina>> distanciaRotinasList) {
-        List<List<Rotina>> listaRotinasMotoristaAceitavelParaCadaRotinaPassageiro = new ArrayList<>();
-        List<Rotina> rotinasMotoristaParaUmaRotinaPassageiro = new ArrayList<>();
-        int i = 0;
-        for(List<DistanciaRotina> distanciaRotina: distanciaRotinasList) {
-            rotinasMotoristaParaUmaRotinaPassageiro = verificarDistancias(rotinasPassageiro.get(i), distanciaRotina);
-            listaRotinasMotoristaAceitavelParaCadaRotinaPassageiro.add(rotinasMotoristaParaUmaRotinaPassageiro);
-            rotinasMotoristaParaUmaRotinaPassageiro.clear();
-            i++;
-        }
-        return listaRotinasMotoristaAceitavelParaCadaRotinaPassageiro;
+    public List<Rotina> validarRotinasCompativeis (Rotina rotinaPassageiro, List<DistanciaRotina> distanciaRotinasMotorista) {
+        List<Rotina> rotinasComMatch = new ArrayList<>();
+            rotinasComMatch = verificarDistancias(rotinaPassageiro, distanciaRotinasMotorista);
+        return rotinasComMatch;
     }
     
     public List<Rotina> verificarDistancias (Rotina rotinaPrincipal, List<DistanciaRotina> distanciaRotina)  {
