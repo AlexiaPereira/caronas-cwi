@@ -36,9 +36,6 @@ import org.springframework.transaction.annotation.Transactional;
 public class ValidarDistanciaServiceTest {
 
     ValidarDistanciaService service = new ValidarDistanciaService();
-    /**
-     * Test of save method, of class GeneroService.
-     */
     
     @Test
     public void testFiltrarDiaSemana2DiasVolta1() {
@@ -61,6 +58,25 @@ public class ValidarDistanciaServiceTest {
         List<RotinaDiaSemana> rotinaDiaSemana = service.filtrarDiaSemana(listaStringTest, rotina);
         assertEquals(2, rotinaDiaSemana.size());
     }
+    
+    @Test
+    public void testFiltrarDiaSemana4DiasVolta0() {
+        final Rotina rotina = instanciarRotina3();
+        final List<String> listaStringTest = new ArrayList<>();
+        listaStringTest.add("SEGUNDA");
+        listaStringTest.add("TERCA");
+        listaStringTest.add("QUARTA");
+        listaStringTest.add("QUINTA");
+        List<RotinaDiaSemana> rotinaDiaSemana = service.filtrarDiaSemana(listaStringTest, rotina);
+        assertEquals(0, rotinaDiaSemana.size());
+    }
+    
+    @Test
+    public void testDescontarVagas() {
+        final Rotina rotinaMotorista = instanciarRotina2();  
+        final Rotina rotinaPassageiro = instanciarRotina1();
+        assertEquals(0, 0);
+    }
         
     private Rotina instanciarRotina() {
         Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
@@ -82,6 +98,18 @@ public class ValidarDistanciaServiceTest {
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
         listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
         listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("TERCA")));
+        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
+        for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
+            rotinaDiaSemana.setRotina(rotina);
+        }
+        return rotina;
+    }
+    
+    private Rotina instanciarRotina3() {
+        Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
+        Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
+        Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
+        List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
         Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
         for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
             rotinaDiaSemana.setRotina(rotina);
