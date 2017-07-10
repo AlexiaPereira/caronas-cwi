@@ -1,16 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package br.com.crescer.caronas.controller;
 
 import br.com.crescer.caronas.Service.UsuarioService;
+import br.com.crescer.caronas.dto.SolicitacaoRotinaDTO;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.SolicitacaoService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -64,6 +62,13 @@ public class SolicitacaoController {
     public List<Solicitacao> solicitacoesPendentes(@PathVariable Long idUsuario) {
         Usuario usuario = usuarioService.loadById(idUsuario);
         return solicitacaoService.loadByUsuarioAlvo(usuario);
+    }
+
+    @PostMapping(value = "/aceitar")
+    public void aceitarSolicitacao(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
+        Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(user.getUsername());
+        solicitacaoDTO.getSolicitacao().setUsuarioAlvo(usuarioAlvo);
+        solicitacaoService.aceitarSolicitacao(solicitacaoDTO);
     }
 
 }
