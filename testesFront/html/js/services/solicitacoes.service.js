@@ -30,6 +30,7 @@ angular.module('app').factory('SolicitacoesService', ['$http', function($http) {
   return ({
     enviar: enviar,
     aceitar: aceitar,
-    recusar: recusar
+    recusar: recusar,
+    buscarPendentes: buscarPendentes
   });
 }]);
