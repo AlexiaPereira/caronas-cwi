@@ -1,14 +1,11 @@
 package br.com.crescer.caronas.service;
 
-import br.com.crescer.caronas.service.ValidarHorarioService;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.RotinaRepository;
 import java.text.ParseException;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -27,8 +24,9 @@ public class RotinaService {
 
     @Autowired
     UsuarioService usuarioService;
-    
+
     private ValidarHorarioService validarHorarioService;
+    private ValidarVagasService validarVagasService;
 
     public Iterable<Rotina> findAll() {
         return rotinaRepository.findAll();
@@ -66,6 +64,12 @@ public class RotinaService {
         this.validarHorarioService = new ValidarHorarioService();
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
         return validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas);
+    }
+
+    public List<Rotina> filtrarRotinas(Rotina rotina) throws ParseException {
+        this.validarVagasService = new ValidarVagasService();
+        List<Rotina> rotinasValidadasPorHorario = this.matchHorarios(rotina);
+        return validarVagasService.validarVagas(rotina, rotinasValidadasPorHorario);
     }
 
 }
