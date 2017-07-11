@@ -58,22 +58,27 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
 
     function criar(rotina) {
         debugger;
-        rotina.origem = origem;
-        rotina.destino = destino;
         if (isUndefinedOrNull(rotina)) {
             console.log('undefined or null');
             return;
-        } else if (rotina.motorista === true) {
-            rotina.vagasTotais = $scope.total;
-            rotina.vagasDisponiveis = $scope.disponivel;
         }
 
-        var rotinaDiaSemana = [];
-        for (var diaSemana in rotina.diaSemana) {
-            rotinaDiaSemana.push(diaSemana);
-        }
+        rotina.origem = origem;
+        rotina.destino = destino;
+        rotina.vagasTotais = $scope.total || 0;
+        rotina.vagasDisponiveis = $scope.disponivel || 0;
 
-        console.log(RotinaDiaSemana);
+        var aux = [];
+        for (var diaSemana in rotina.rotinaDiaSemanaList) {
+            aux
+            .push({
+                'diaSemana': 
+                { 'nome': diaSemana },
+                'vagasDisponiveis': rotina.vagasDisponiveis,
+            });
+        }
+        rotina.rotinaDiaSemanaList = aux;
+        console.log(rotina.rotinaDiaSemanaList);
         // console.log(rotina);
         // for (var diaSemana in rotina.diaSemana) {
         //     console.log(typeof (diaSemana) + ": " + diaSemana);
