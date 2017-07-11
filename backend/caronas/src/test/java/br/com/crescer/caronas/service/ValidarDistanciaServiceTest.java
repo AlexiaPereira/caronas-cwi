@@ -13,6 +13,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
@@ -67,6 +68,32 @@ public class ValidarDistanciaServiceTest {
         listaStringTest.add("QUINTA");
         List<RotinaDiaSemana> rotinaDiaSemana = service.filtrarDiaSemana(listaStringTest, rotina);
         assertEquals(0, rotinaDiaSemana.size());
+    }
+    
+    @Test
+    public void testVerificarDistancias() {
+        List<Rotina> matches = new ArrayList<>();
+        List<DistanciaRotina> motoristas = new ArrayList<>();
+        final Rotina rotinaMotorista = instanciarRotina2();
+        final Rotina rotinaPassageiro = instanciarRotina();
+        final BigDecimal distancia = new BigDecimal ("500");
+        final DistanciaRotina distanciaRotina = new DistanciaRotina(distancia, rotinaMotorista);
+        motoristas.add(distanciaRotina);
+        matches = service.verificarDistancias(rotinaPassageiro, motoristas);
+        assertEquals(1, matches.size());
+    }
+    
+    @Test
+    public void testVerificarDistanciasFalso() {
+        List<Rotina> matches = new ArrayList<>();
+        List<DistanciaRotina> motoristas = new ArrayList<>();
+        final Rotina rotinaMotorista = instanciarRotina2();
+        final Rotina rotinaPassageiro = instanciarRotina();
+        final BigDecimal distancia = new BigDecimal ("2000");
+        final DistanciaRotina distanciaRotina = new DistanciaRotina(distancia, rotinaMotorista);
+        motoristas.add(distanciaRotina);
+        matches = service.verificarDistancias(rotinaPassageiro, motoristas);
+        assertEquals(0, matches.size());
     }
         
     private Rotina instanciarRotina() {
