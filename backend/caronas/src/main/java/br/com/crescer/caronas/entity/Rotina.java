@@ -1,6 +1,5 @@
 package br.com.crescer.caronas.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
@@ -72,7 +71,6 @@ public class Rotina implements Serializable {
 
     @JoinColumn(name = "ID_ORIGEM", referencedColumnName = "ID_ORIGEM")
     @OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JsonBackReference
     private Origem origem;
 
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")

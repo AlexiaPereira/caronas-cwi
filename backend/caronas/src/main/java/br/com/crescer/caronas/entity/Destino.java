@@ -1,7 +1,7 @@
 package br.com.crescer.caronas.entity;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.Serializable;
-import java.lang.Long;
 import java.math.BigDecimal;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -54,6 +54,7 @@ public class Destino implements Serializable {
     private BigDecimal longitude;
 
     @OneToOne(cascade = CascadeType.ALL, mappedBy = "destino")
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
     private Rotina rotina;
 
     public Destino() {
