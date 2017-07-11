@@ -27,11 +27,6 @@ import org.springframework.transaction.annotation.Transactional;
 /**
  * @author christopher.michel
  */
-@RunWith(SpringRunner.class)
-@DataJpaTest
-@Transactional(propagation = Propagation.REQUIRED)
-@AutoConfigureTestDatabase(replace = Replace.NONE)
-@ActiveProfiles("test")
 public class ValidarDistanciaServiceTest {
 
     ValidarDistanciaService service = new ValidarDistanciaService();

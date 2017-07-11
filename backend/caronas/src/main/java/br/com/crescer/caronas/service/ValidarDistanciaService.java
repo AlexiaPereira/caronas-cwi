@@ -16,7 +16,6 @@ import org.springframework.stereotype.Service;
  *
  * @author chris
  */
-@Service
 public class ValidarDistanciaService {
 
     @Autowired

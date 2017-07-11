@@ -31,7 +31,6 @@ public class RotinaController {
     @Autowired
     UsuarioService usuarioService;
     
-    @Autowired
     ValidarDistanciaService validarDistanciaService;
 
     @GetMapping
@@ -69,6 +68,7 @@ public class RotinaController {
     
     @PostMapping(value = "/match/distancia/{idRotina}")
     public List<Rotina> matchDistancia(@PathVariable Long idRotina, @RequestBody List<DistanciaRotina> distanciaRotinaMotoristas) {
+        validarDistanciaService = new ValidarDistanciaService();
         Rotina rotina = rotinaService.loadById(idRotina);
         return validarDistanciaService.validarRotinasCompativeis(rotina, distanciaRotinaMotoristas);
     }
