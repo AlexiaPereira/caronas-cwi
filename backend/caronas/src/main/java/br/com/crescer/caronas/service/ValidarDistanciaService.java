@@ -27,9 +27,7 @@ public class ValidarDistanciaService {
 
     
     public List<Rotina> validarRotinasCompativeis (Rotina rotinaPassageiro, List<DistanciaRotina> distanciaRotinasMotorista) {
-        List<Rotina> rotinasComMatch = new ArrayList<>();
-            rotinasComMatch = verificarDistancias(rotinaPassageiro, distanciaRotinasMotorista);
-        return rotinasComMatch;
+        return verificarDistancias(rotinaPassageiro, distanciaRotinasMotorista);
     }
     
     public List<Rotina> verificarDistancias (Rotina rotinaPrincipal, List<DistanciaRotina> distanciaRotina)  {
