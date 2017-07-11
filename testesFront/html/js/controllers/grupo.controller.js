@@ -1,62 +1,50 @@
-angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', function ($scope, GrupoService) {
+angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', 'UsuarioGrupoService',
+'SolicitacaoService', function ($scope, GrupoService, SolicitacaoService, UsuarioGrupoService) {
 
     $scope.listar = listar;
     $scope.aceitar = aceitar;
     $scope.recusar = recusar;
-    $scope.sair = sair;
     $scope.remover = remover;
 
-    function listar() {
+    function buscarGrupo(idGrupo) {
         GrupoService
-            .listar()
+            .buscarGrupo(idGrupo)
             .then(response => {
                 console.log(response);
             });
     }
 
-    function aceitar(usuario) {
-        if (isUndefinedOrNull(usuario)) {
+    function aceitar(solicitacaoDTO) {
+        if (isUndefinedOrNull(solicitacaoDTO)) {
             console.log('undefined or null');
             return;
         }
-        GrupoService
-            .aceitar(usuario)
+        SolicitacoesService
+            .aceitar(solicitacaoDTO)
             .then(response => {
                 console.log(response);
             });
     }
 
-    function recusar(usuario) {
-        if (isUndefinedOrNull(usuario)) {
+    function recusar(idSolicitacao) {
+        if (isUndefinedOrNull(idSolicitacao)) {
             console.log('undefined or null');
             return;
         }
-        GrupoService
-            .recusar(usuario)
+        SolicitacoesService
+            .recusar(idSolicitacao)
             .then(response => {
                 console.log(response);
             });
     }
 
-    function sair(grupo) {
-        if (isUndefinedOrNull(grupo)) {
+    function remover(idUsuarioGrupo) {
+        if (isUndefinedOrNull(idUsuarioGrupo)) {
             console.log('undefined or null');
             return;
         }
-        GrupoService
-            .sair(grupo)
-            .then(response => {
-                console.log(response);
-            });
-    }
-
-    function remover(usuarioGrupo) {
-        if (isUndefinedOrNull(usuarioGrupo)) {
-            console.log('undefined or null');
-            return;
-        }
-        GrupoService
-            .remover(usuarioGrupo)
+        UsuarioGrupoService
+            .remover(idUsuarioGrupo)
             .then(response => {
                 console.log(response);
             })

@@ -12,7 +12,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.subTotal = subTotal;
     $scope.addDisponivel = addDisponivel;
     $scope.subDisponivel = subDisponivel;
- 
+
     $scope.matches = [
         { 'nome': 'eu', 'foto': 'dois' },
         { 'nome': 'eudois', 'foto': 'fotodois' },
@@ -44,13 +44,13 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             });
     }
 
-    function selecionar(rotina) {
-        if (isUndefinedOrNull(rotina)) {
+    function selecionar(idRotina) {
+        if (isUndefinedOrNull(idRotina)) {
             console.log('undefined or null');
             return;
         }
         RotinaService
-            .selecionar(rotina)
+            .selecionar(idRotina)
             .then(response => {
                 console.log(response);
             });
@@ -85,13 +85,13 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             });
     }
 
-    function excluir(rotina) {
-        if (isUndefinedOrNull(rotina)) {
+    function excluir(idRotina) {
+        if (isUndefinedOrNull(idRotina)) {
             console.log('undefined or null');
             return;
         }
         RotinaService
-            .excluir(rotina)
+            .excluir(idRotina)
             .then(response => {
                 console.log(response);
             });
@@ -136,15 +136,15 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
   var matrizPassageiro = [];
   var listaDistanciaRotina = [];
 
-  function procurarMatchs(rotinaPassageiro){
-    var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotinaPassageiro);
-    var respostaMatrix = matrix(rotinaPassageiro, respostaMetodoPrimeirasVerificacoes);
+  function procurarMatchs(rotina){
+    var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
+    var respostaMatrix = matrix(rotina, respostaMetodoPrimeirasVerificacoes);
     var matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
     return matchs;
   };
 
-  function verificarMatchHorarioEQuantidadeDeVagas(rotinaPassageiro){
-    rotinaService.getRotinasMatchHorarioEComVaga(rotinaPassageiro).then(function (response) {
+  function verificarMatchHorarioEQuantidadeDeVagas(idRotina){
+    rotinaService.getRotinasMatchHorarioEComVaga(idRotina).then(function (response) {
       listaDeRotinasMotorista = response.data;
     })
     return listaDeRotinasMotorista;
