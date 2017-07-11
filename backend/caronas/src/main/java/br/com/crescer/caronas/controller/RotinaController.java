@@ -57,9 +57,10 @@ public class RotinaController {
         rotinaService.remove(rotina);
     }    
     
-    @GetMapping (value = "/match/{idUsuario}")
-    public Map<Rotina, List<Rotina>> mtachHorarios (@PathVariable Long idUsuario) throws ParseException {
-        return rotinaService.matchHorarios(idUsuario);
+    @GetMapping (value = "/match/{idRotina}")
+    public List<Rotina> mtachHorarios (@PathVariable Long idRotina) throws ParseException {
+        Rotina rotina = rotinaService.loadById(idRotina);
+        return rotinaService.matchHorarios(rotina);
     }
     
 }
