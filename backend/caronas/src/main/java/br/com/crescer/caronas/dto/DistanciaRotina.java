@@ -17,6 +17,11 @@ public class DistanciaRotina {
  
     private Rotina rotina; 
     private BigDecimal distancia;
+
+    public DistanciaRotina(BigDecimal distancia, Rotina rotina) {
+        this.rotina = rotina;
+        this.distancia = distancia;
+    }
  
     public Rotina getRotina() {
         return rotina;
