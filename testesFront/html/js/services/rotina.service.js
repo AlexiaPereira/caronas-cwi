@@ -21,7 +21,7 @@ angular.module('app').factory('RotinaService', ['$http', function($http) {
 
     function criar(rotina) {
         return $http({
-            url: `${url}/criar`,
+            url: `${url}`,
             method: 'POST',
             data: rotina
         });
