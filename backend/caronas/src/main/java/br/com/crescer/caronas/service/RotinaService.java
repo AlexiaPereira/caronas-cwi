@@ -13,10 +13,8 @@ import org.springframework.stereotype.Service;
 /**
  *
  * @author chris
- *
  */
 @Service
-
 public class RotinaService {
 
     @Autowired
@@ -28,10 +26,11 @@ public class RotinaService {
     @Autowired
     UsuarioService usuarioService;
 
-    private ValidarHorarioService validarHorarioService;
-
     @Autowired
     GrupoService grupoService;
+
+    private ValidarHorarioService validarHorarioService;
+    private ValidarVagasService validarVagasService;
 
     public Iterable<Rotina> findAll() {
         return rotinaRepository.findAll();
@@ -77,6 +76,12 @@ public class RotinaService {
         this.validarHorarioService = new ValidarHorarioService();
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
         return validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas);
+    }
+
+    public List<Rotina> filtrarRotinas(Rotina rotina) throws ParseException {
+        this.validarVagasService = new ValidarVagasService();
+        List<Rotina> rotinasValidadasPorHorario = this.matchHorarios(rotina);
+        return validarVagasService.validarVagas(rotina, rotinasValidadasPorHorario);
     }
 
 }
