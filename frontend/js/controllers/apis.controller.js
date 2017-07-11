@@ -8,6 +8,12 @@ angular.module('app').controller('apisController', ['$scope', function ($scope) 
   var matrizPassageiro = [];
   var listaDistanciaRotina = [];
 
+  function procurarMatchs(rotinaPassageiro){
+    var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotinaPassageiro);
+    var respostaMatrix = matrix(rotinaPassageiro, respostaMetodoPrimeirasVerificacoes);
+    var matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
+    return matchs;
+  };
 
   function verificarMatchHorarioEQuantidadeDeVagas(rotinaPassageiro){
     rotinaService.getRotinasMatchHorarioEComVaga(rotinaPassageiro).then(function (response) {
