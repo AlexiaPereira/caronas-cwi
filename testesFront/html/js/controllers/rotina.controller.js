@@ -12,7 +12,9 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.subTotal = subTotal;
     $scope.addDisponivel = addDisponivel;
     $scope.subDisponivel = subDisponivel;
- 
+
+    $scope.rotinas = listar();
+
     $scope.matches = [
         { 'nome': 'eu', 'foto': 'dois' },
         { 'nome': 'eudois', 'foto': 'fotodois' },
