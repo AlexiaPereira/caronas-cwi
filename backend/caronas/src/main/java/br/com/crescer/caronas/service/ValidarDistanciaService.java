@@ -51,9 +51,9 @@ public class ValidarDistanciaService {
         });
     }
     
-    public List<RotinaDiaSemana> filtrarDiaSemana(List<String> diasDaRotinaPrincipal, Rotina e) {
-        return e.getRotinaDiaSemanaList().stream().filter(rds
-                -> diasDaRotinaPrincipal.contains(rds.getDiaSemana().getNome()))
+    public List<RotinaDiaSemana> filtrarDiaSemana(List<String> diasDaRotinaPrincipal, Rotina rotina) {
+        return rotina.getRotinaDiaSemanaList().stream().filter(rotinaDiaSemana
+                -> diasDaRotinaPrincipal.contains(rotinaDiaSemana.getDiaSemana().getNome()))
                 .collect(toList());
     }
     
