@@ -1,6 +1,6 @@
-package br.com.crescer.caronas.Controller;
+package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.Service.RotinaDiaSemanaService;
+import br.com.crescer.caronas.service.RotinaDiaSemanaService;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;

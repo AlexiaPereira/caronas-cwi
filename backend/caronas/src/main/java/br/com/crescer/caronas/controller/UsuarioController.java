@@ -1,6 +1,6 @@
-package br.com.crescer.caronas.Controller;
+package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.Service.UsuarioService;
+import br.com.crescer.caronas.service.UsuarioService;
 import br.com.crescer.caronas.entity.Usuario;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
