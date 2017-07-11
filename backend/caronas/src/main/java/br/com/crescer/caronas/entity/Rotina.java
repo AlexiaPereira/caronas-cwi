@@ -18,8 +18,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 import javax.xml.bind.annotation.XmlTransient;
 
@@ -52,7 +50,7 @@ public class Rotina implements Serializable {
     @Basic(optional = false)
     @NotNull
     @Column(name = "HORARIO")
-    @Temporal(TemporalType.TIMESTAMP)
+//    @Temporal(TemporalType.TIMESTAMP)
     private Date horario;
 
     @Basic(optional = false)
@@ -106,7 +104,7 @@ public class Rotina implements Serializable {
         this.origem = origem;
         this.usuario = usuario;
     }
-    
+
     public Long getIdRotina() {
         return idRotina;
     }
