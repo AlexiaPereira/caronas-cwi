@@ -1,136 +1,144 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', function ($scope, RotinaService) {
+angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', '$q', function ($scope, RotinaService, $q) {
 
-    $scope.listar = listar;
-    $scope.procurar = procurar;
-    $scope.selecionar = selecionar;
-    $scope.criar = criar;
-    $scope.excluir = excluir;
+  $scope.listar = listar;
+  $scope.procurar = procurar;
+  $scope.selecionar = selecionar;
+  $scope.criar = criar;
+  $scope.excluir = excluir;
 
-    $scope.total = 0;
-    $scope.disponivel = 0;
-    $scope.addTotal = addTotal;
-    $scope.subTotal = subTotal;
-    $scope.addDisponivel = addDisponivel;
-    $scope.subDisponivel = subDisponivel;
+  $scope.total = 0;
+  $scope.disponivel = 0;
+  $scope.addTotal = addTotal;
+  $scope.subTotal = subTotal;
+  $scope.addDisponivel = addDisponivel;
+  $scope.subDisponivel = subDisponivel;
 
-    $scope.matches = [
-        { 'nome': 'eu', 'foto': 'dois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' }
-    ];
+  $scope.distancia = 0;
 
-    var destino = {
-        'lat': '-29.794918',
-        'lgn': '-51.146509'
+  $scope.matches = [
+    { 'nome': 'eu', 'foto': 'dois' },
+    { 'nome': 'eudois', 'foto': 'fotodois' },
+    { 'nome': 'eudois', 'foto': 'fotodois' },
+    { 'nome': 'eudois', 'foto': 'fotodois' },
+    { 'nome': 'eudois', 'foto': 'fotodois' }
+  ];
+
+  var destino = {
+    lat: -29.794918,
+    lng: -51.146509
+  }
+
+  console.log($scope.matches);
+
+  function listar() {
+    RotinaService
+    .listar()
+    .then(response => {
+      console.log(response);
+    })
+  }
+
+  function procurar() {
+    RotinaService
+    .procurar()
+    .then(response => {
+      console.log(response);
+    });
+  }
+
+  function selecionar(idRotina) {
+    if (isUndefinedOrNull(idRotina)) {
+      console.log('undefined or null');
+      return;
     }
+    RotinaService
+    .selecionar(idRotina)
+    .then(response => {
+      console.log(response);
+    });
+  }
 
-    console.log($scope.matches);
-
-    function listar() {
-        RotinaService
-            .listar()
-            .then(response => {
-                console.log(response);
-            })
+  function criar(rotina) {
+    debugger;
+    if (isUndefinedOrNull(rotina)) {
+      console.log('undefined or null');
+      return;
     }
+    console.log(rotina.horario);
+    rotina.origem = origem;
+    rotina.destino = { endereco: 'CWI SOFTWARE', latitude:destino.lat, longitude:destino.lng };
+    rotina.vagasTotais = $scope.total || 0;
+    rotina.vagasDisponiveis = $scope.disponivel || 0;
+    rotina.duracao = 0;
+    distanciaRotina({lat:$scope.latitude, lng:$scope.longitude}, destino).then(res => {
+      rotina.distancia = res;
+      console.log('Rotina:' + rotina.distancia);
 
-    function procurar() {
-        RotinaService
-            .procurar()
-            .then(response => {
-                console.log(response);
-            });
+      var aux = [];
+      for (var diaSemana in rotina.rotinaDiaSemanaList) {
+        aux
+        .push({
+          'diaSemana':
+          { 'nome': diaSemana },
+          'vagasDisponiveis': rotina.vagasDisponiveis,
+        });
+      }
+      rotina.rotinaDiaSemanaList = aux;
+      console.log(rotina.rotinaDiaSemanaList);
+      // console.log(rotina);
+      // for (var diaSemana in rotina.diaSemana) {
+      //     console.log(typeof (diaSemana) + ": " + diaSemana);
+      // }
+      RotinaService
+      .criar(rotina)
+      .then(response => {
+        console.log(response);
+      });
+
+    });
+  }
+
+  function excluir(idRotina) {
+    if (isUndefinedOrNull(idRotina)) {
+      console.log('undefined or null');
+      return;
     }
+    RotinaService
+    .excluir(idRotina)
+    .then(response => {
+      console.log(response);
+    });
+  }
 
-    function selecionar(idRotina) {
-        if (isUndefinedOrNull(idRotina)) {
-            console.log('undefined or null');
-            return;
-        }
-        RotinaService
-            .selecionar(idRotina)
-            .then(response => {
-                console.log(response);
-            });
+  function addTotal() {
+    $scope.total++;
+  }
+
+  function subTotal() {
+    if ($scope.disponivel === $scope.total) {
+      subDisponivel();
+      setTimeout(subTotal, 100);
+    } else if ($scope.total > 0) {
+      $scope.total--;
+      $scope.$digest();
     }
+  }
 
-    function criar(rotina) {
-        debugger;
-        if (isUndefinedOrNull(rotina)) {
-            console.log('undefined or null');
-            return;
-        }
-
-        rotina.origem = origem;
-        rotina.destino = destino;
-        rotina.vagasTotais = $scope.total || 0;
-        rotina.vagasDisponiveis = $scope.disponivel || 0;
-
-        var aux = [];
-        for (var diaSemana in rotina.rotinaDiaSemanaList) {
-            aux
-            .push({
-                'diaSemana': 
-                { 'nome': diaSemana },
-                'vagasDisponiveis': rotina.vagasDisponiveis,
-            });
-        }
-        rotina.rotinaDiaSemanaList = aux;
-        console.log(rotina.rotinaDiaSemanaList);
-        // console.log(rotina);
-        // for (var diaSemana in rotina.diaSemana) {
-        //     console.log(typeof (diaSemana) + ": " + diaSemana);
-        // }
-        RotinaService
-            .criar(rotina)
-            .then(response => {
-                console.log(response);
-            });
+  function addDisponivel() {
+    if ($scope.disponivel < $scope.total) {
+      $scope.disponivel++;
     }
+  }
 
-    function excluir(idRotina) {
-        if (isUndefinedOrNull(idRotina)) {
-            console.log('undefined or null');
-            return;
-        }
-        RotinaService
-            .excluir(idRotina)
-            .then(response => {
-                console.log(response);
-            });
+  function subDisponivel() {
+    if ($scope.disponivel > 0) {
+      $scope.disponivel--;
     }
+  }
 
-    function addTotal() {
-        $scope.total++;
-    }
-
-    function subTotal() {
-        if ($scope.disponivel === $scope.total) {
-            subDisponivel();
-            setTimeout(subTotal, 100);
-        } else if ($scope.total > 0) {
-            $scope.total--;
-            $scope.$digest();
-        }
-    }
-
-    function addDisponivel() {
-        if ($scope.disponivel < $scope.total) {
-            $scope.disponivel++;
-        }
-    }
-
-    function subDisponivel() {
-        if ($scope.disponivel > 0) {
-            $scope.disponivel--;
-        }
-    }
-
-    function isUndefinedOrNull(object) {
-        return (angular.isUndefined(object) || object === null);
-    }
+  function isUndefinedOrNull(object) {
+    return (angular.isUndefined(object) || object === null);
+  }
 
 
   autoComplete();
@@ -204,16 +212,18 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
   var origem;
   function pegarCoordenadas() {
     var place = $scope.autocomplete.getPlace();
+    console.log(place);
     $scope.latitude = place.geometry.location.lat();
     $scope.longitude = place.geometry.location.lng();
-    origem = {latitude:$scope.latitude, longitude:$scope.longitude};
+    origem = {endereco: place.formatted_address, latitude:$scope.latitude, longitude:$scope.longitude};
   }
 
 
-    function matrix(origemPassageiro, destinoPassageiro) {
+  function distanciaRotina(origemPassageiro, destinoPassageiro) {
+    // debugger;
     let origem = [origemPassageiro];
     let destino = [destinoPassageiro];
-
+    var deferred = $q.defer();
     new google.maps.DistanceMatrixService().getDistanceMatrix({
       origins: origem,
       destinations: destino,
@@ -222,9 +232,11 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
       avoidHighways: false,
       avoidTolls: false
     }, function(response) {
-      let matriz = response;
-        var distanciaRetorno = matriz.rows[0].elements[0].distance.value;
-      })
-      return distanciaRetorno;
-    }
+      var matriz = response;
+      var distanciaRetorno = matriz.rows[0].elements[0].distance.value;
+      deferred.resolve(distanciaRetorno);
+    })
+    return deferred.promise;
+  }
+
 }]);
