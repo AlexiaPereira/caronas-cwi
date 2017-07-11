@@ -62,16 +62,9 @@ public class RotinaService {
         return rotinaRepository.findByUsuario(usuario);
     }
 
-    public Map<Rotina, List<Rotina>> matchHorarios(Long idUsuario) throws ParseException {
-        Map<Rotina, List<Rotina>> retorno = new HashMap<>();
-        Usuario donoDasRotinas = usuarioService.loadById(idUsuario);
+    public List<Rotina> matchHorarios(Rotina rotina) throws ParseException {
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
-
-        List<Rotina> rotinasDoPassageiro = rotinaRepository.findByUsuarioAndPassageiro(donoDasRotinas, true);
-        for (Rotina rotina : rotinasDoPassageiro) {
-            retorno.put(rotina, validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas));
-        }
-        return retorno;
+        return validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas);
     }
 
 }
