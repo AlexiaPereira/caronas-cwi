@@ -2,12 +2,15 @@ package br.com.crescer.caronas.controller;
 
 import br.com.crescer.caronas.dto.DistanciaRotina;
 import br.com.crescer.caronas.entity.Rotina;
+import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.RotinaService;
 import br.com.crescer.caronas.service.UsuarioService;
 import br.com.crescer.caronas.service.ValidarDistanciaService;
 import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -38,11 +41,11 @@ public class RotinaController {
         return rotinaService.findAll();
     }
 
-    //@GetMapping
-    //public List<Rotina> findByUsuario(@AuthenticationPrincipal User user) {
-    //    Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
-    //    return rotinaService.findByUsuario(usuario);
-    //}
+    @GetMapping(value = "/usuario")
+    public List<Rotina> findByUsuario(@AuthenticationPrincipal User user) {
+        Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
+        return rotinaService.findByUsuario(usuario);
+    }
     
     @PostMapping
     public Rotina save(@RequestBody Rotina rotina) {
