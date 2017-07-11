@@ -1,5 +1,6 @@
 package br.com.crescer.caronas.service;
 
+import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
@@ -25,6 +26,9 @@ public class RotinaService {
     @Autowired
     UsuarioService usuarioService;
 
+    @Autowired
+    GrupoService grupoService;
+
     private ValidarHorarioService validarHorarioService;
     private ValidarVagasService validarVagasService;
 
@@ -37,7 +41,15 @@ public class RotinaService {
         for (RotinaDiaSemana rotinaDiaSemana : diasSemana) {
             rotinaDiaSemana.setRotina(rotina);
         }
-        return rotinaRepository.save(rotina);
+
+        if (rotina.getPassageiro()) {
+            return rotinaRepository.save(rotina);
+        }
+
+        rotina = rotinaRepository.save(rotina);
+        Grupo grupoComEssaRotina = new Grupo("Grupo de " + rotina.getUsuario().getNome(), rotina);
+        grupoService.save(grupoComEssaRotina);
+        return rotina;
     }
 
     public Rotina update(Rotina rotina) {
