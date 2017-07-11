@@ -67,7 +67,7 @@ public class RotinaController {
         return rotinaService.filtrarRotinas(rotina);
     }
     
-    @GetMapping(value = "/match/distancia/{idRotina}")
+    @PostMapping(value = "/match/distancia/{idRotina}")
     public List<Rotina> matchDistancia(@PathVariable Long idRotina, @RequestBody List<DistanciaRotina> distanciaRotinaMotoristas) {
         Rotina rotina = rotinaService.loadById(idRotina);
         return validarDistanciaService.validarRotinasCompativeis(rotina, distanciaRotinaMotoristas);
