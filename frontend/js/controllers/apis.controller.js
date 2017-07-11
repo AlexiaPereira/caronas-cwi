@@ -47,6 +47,13 @@ angular.module('app').controller('apisController', ['$scope', function ($scope) 
     return listaDistanciaRotina;
   }
 
+  function obterRotinasComMatchDistancia(rotinaPassageiro, listaDistanciaRotina) {
+    rotinaService.getRotinasComMatchDistancia(rotinaPassageiro, listaDistanciaRotina).then(function (response) {
+      listaDeMatchs = response.data;
+    })
+    return listaDeMatchs;
+  };
+
   //API AUTOCOMPLETE
   function autoComplete() {
     $scope.autocomplete = new google.maps.places.Autocomplete(
