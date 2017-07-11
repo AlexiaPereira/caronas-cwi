@@ -1,5 +1,6 @@
 package br.com.crescer.caronas.service;
 
+import br.com.crescer.caronas.service.ValidarHorarioService;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
@@ -27,8 +28,7 @@ public class RotinaService {
     @Autowired
     UsuarioService usuarioService;
     
-    @Autowired
-    ValidarHorarioService validarHorarioService;
+    private ValidarHorarioService validarHorarioService;
 
     public Iterable<Rotina> findAll() {
         return rotinaRepository.findAll();
@@ -63,6 +63,7 @@ public class RotinaService {
     }
 
     public List<Rotina> matchHorarios(Rotina rotina) throws ParseException {
+        this.validarHorarioService = new ValidarHorarioService();
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
         return validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas);
     }
