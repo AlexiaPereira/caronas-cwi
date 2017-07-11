@@ -36,13 +36,15 @@ public class ValidarDistanciaServiceTest {
 
     ValidarDistanciaService service = new ValidarDistanciaService();
     
+    ValidarVagasService validarVagasService = new ValidarVagasService();
+    
     @Test
     public void testFiltrarDiaSemana2DiasVolta1() {
         final Rotina rotina = instanciarRotina();
         final List<String> listaStringTest = new ArrayList<>();
         listaStringTest.add("SEGUNDA");
         listaStringTest.add("TERCA");
-        List<RotinaDiaSemana> rotinaDiaSemana = service.filtrarDiaSemana(listaStringTest, rotina);
+        List<RotinaDiaSemana> rotinaDiaSemana = validarVagasService.filtrarDiaSemana(listaStringTest, rotina);
         assertEquals(1, rotinaDiaSemana.size());
     }
     
@@ -54,7 +56,7 @@ public class ValidarDistanciaServiceTest {
         listaStringTest.add("TERCA");
         listaStringTest.add("QUARTA");
         listaStringTest.add("QUINTA");
-        List<RotinaDiaSemana> rotinaDiaSemana = service.filtrarDiaSemana(listaStringTest, rotina);
+        List<RotinaDiaSemana> rotinaDiaSemana = validarVagasService.filtrarDiaSemana(listaStringTest, rotina);
         assertEquals(2, rotinaDiaSemana.size());
     }
     
@@ -66,7 +68,7 @@ public class ValidarDistanciaServiceTest {
         listaStringTest.add("TERCA");
         listaStringTest.add("QUARTA");
         listaStringTest.add("QUINTA");
-        List<RotinaDiaSemana> rotinaDiaSemana = service.filtrarDiaSemana(listaStringTest, rotina);
+        List<RotinaDiaSemana> rotinaDiaSemana = validarVagasService.filtrarDiaSemana(listaStringTest, rotina);
         assertEquals(0, rotinaDiaSemana.size());
     }
     
@@ -101,7 +103,7 @@ public class ValidarDistanciaServiceTest {
         Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
         Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
-        listaDeDias.add(new RotinaDiaSemana(new DiaSemana("SEGUNDA")));
+        listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
         Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
         for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
             rotinaDiaSemana.setRotina(rotina);
