@@ -43,9 +43,9 @@ public class UsuarioGrupoController {
         return usuarioGrupoService.update(usuarioGrupo);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void remove(@PathVariable Long id) {
-        UsuarioGrupo usuarioGrupo = usuarioGrupoService.loadById(id);
+    @DeleteMapping(value = "/{idUsuarioGrupo}")
+    public void remove(@PathVariable Long idUsuarioGrupo) {
+        UsuarioGrupo usuarioGrupo = usuarioGrupoService.loadById(idUsuarioGrupo);
         usuarioGrupoService.remove(usuarioGrupo);
     }    
 }
