@@ -1,7 +1,7 @@
 package br.com.crescer.caronas.repository;
 
-import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.Solicitacao;
+import br.com.crescer.caronas.entity.Usuario;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.StreamSupport;
@@ -25,14 +25,14 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author alexia.pereira
  */
-
 @RunWith(SpringRunner.class)
 @DataJpaTest
 @Transactional(propagation = Propagation.REQUIRED)
 @AutoConfigureTestDatabase(replace = AutoConfigureTestDatabase.Replace.NONE)
 @ActiveProfiles("test")
 public class SolicitacaoRepositoryTest {
-     @Autowired
+
+    @Autowired
     private TestEntityManager testEntityManager;
 
     @Autowired
@@ -45,7 +45,7 @@ public class SolicitacaoRepositoryTest {
     public void testSave() {
         final Solicitacao solicitacao = instanciarSolicitacao();
         repositorio.save(solicitacao);
-        assertEquals(solicitacao.getUsuarioDono().getNome(), 
+        assertEquals(solicitacao.getUsuarioDono().getNome(),
                 testEntityManager.find(Solicitacao.class, solicitacao.getIdSolicitacao()).getUsuarioDono().getNome());
     }
 
@@ -72,7 +72,7 @@ public class SolicitacaoRepositoryTest {
     public void testFindOne() {
         final Solicitacao solicitacao = instanciarSolicitacao();
         testEntityManager.persist(solicitacao);
-        assertEquals(solicitacao.getUsuarioDono().getNome(), 
+        assertEquals(solicitacao.getUsuarioDono().getNome(),
                 repositorio.findOne(solicitacao.getIdSolicitacao()).getUsuarioDono().getNome());
     }
 
@@ -89,21 +89,21 @@ public class SolicitacaoRepositoryTest {
         final Solicitacao solicitacao = instanciarSolicitacao();
         Long idAntigo = solicitacao.getUsuarioAlvo().getIdUsuario();
         testEntityManager.persist(solicitacao);
-        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "1", "teste");
+        Usuario novoUsuario = new Usuario("oi", "oi@oi.com", "feminino", "2487374", "teste");
         solicitacao.setUsuarioAlvo(novoUsuario);
         testEntityManager.persist(solicitacao);
         assertNotEquals(idAntigo, repositorio.findOne(solicitacao.getIdSolicitacao()).getUsuarioAlvo().getIdUsuario());
         assertEquals(novoUsuario.getNome(), repositorio.findOne(solicitacao.getIdSolicitacao()).getUsuarioAlvo().getNome());
     }
-    
+
     @Test
-    public void testFindByUsuarioAlvo () {
+    public void testFindByUsuarioAlvo() {
         final Solicitacao solicitacao = instanciarSolicitacao();
         testEntityManager.persist(solicitacao);
         final Solicitacao outraSolicitacao = instanciarSolicitacao();
-        Usuario outroUsuarioAlvo = new Usuario("Novo Usuario", "teste@teste.com", "Masculino", "2", "senha");
-        testEntityManager.persist(outroUsuarioAlvo);
+        Usuario outroUsuarioAlvo = new Usuario("Novo Usuario", "teste@teste.com", "Masculino", "7686", "senha");
         outraSolicitacao.setUsuarioAlvo(outroUsuarioAlvo);
+        outraSolicitacao.setUsuarioDono(solicitacao.getUsuarioDono());
         testEntityManager.persist(outraSolicitacao);
         final List<Solicitacao> retorno = repositorio.findByUsuarioAlvo(solicitacao.getUsuarioAlvo());
         assertFalse(retorno.size() > 1);
@@ -111,10 +111,8 @@ public class SolicitacaoRepositoryTest {
     }
 
     private Solicitacao instanciarSolicitacao() {
-        Usuario usuarioDono = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
-        Usuario usuarioAlvo = new Usuario("Teste Alvo", "testealvo@teste.com", "Feminino", "4", "senha2");
-        testEntityManager.persist(usuarioDono);
-        testEntityManager.persist(usuarioAlvo);
+        Usuario usuarioDono = new Usuario("Teste", "teste@teste.com", "Masculino", "7665654", "senha");
+        Usuario usuarioAlvo = new Usuario("Teste Alvo", "testealvo@teste.com", "Feminino", "0989809", "senha2");
         return new Solicitacao(usuarioDono, usuarioAlvo);
     }
 

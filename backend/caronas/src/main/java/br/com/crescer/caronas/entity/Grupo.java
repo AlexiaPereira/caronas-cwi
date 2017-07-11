@@ -67,6 +67,11 @@ public class Grupo implements Serializable {
         this.nome = nome;
     }
 
+    public Grupo(String nome, Rotina rotina) {
+        this.nome = nome;
+        this.rotina = rotina;
+    }
+
     public Long getIdGrupo() {
         return idGrupo;
     }

@@ -1,13 +1,11 @@
-package br.com.crescer.caronas.Controller;
+package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.Service.RotinaService;
-import br.com.crescer.caronas.Service.UsuarioService;
 import br.com.crescer.caronas.entity.Rotina;
-import br.com.crescer.caronas.entity.Usuario;
+import br.com.crescer.caronas.service.RotinaService;
+import br.com.crescer.caronas.service.UsuarioService;
+import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -27,7 +25,7 @@ public class RotinaController {
 
     @Autowired
     RotinaService rotinaService;
-    
+
     @Autowired
     UsuarioService usuarioService;
 
@@ -35,13 +33,12 @@ public class RotinaController {
     public Iterable<Rotina> findAll() {
         return rotinaService.findAll();
     }
-    
+
     //@GetMapping
     //public List<Rotina> findByUsuario(@AuthenticationPrincipal User user) {
     //    Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
     //    return rotinaService.findByUsuario(usuario);
     //}
-    
     @PostMapping
     public Rotina save(@RequestBody Rotina rotina) {
         return rotinaService.save(rotina);
@@ -56,6 +53,12 @@ public class RotinaController {
     public void remove(@PathVariable Long idRotina) {
         Rotina rotina = rotinaService.loadById(idRotina);
         rotinaService.remove(rotina);
-    }    
-    
+    }
+
+    @GetMapping(value = "/match/{idRotina}")
+    public List<Rotina> mtach(@PathVariable Long idRotina) throws ParseException {
+        Rotina rotina = rotinaService.loadById(idRotina);
+        return rotinaService.filtrarRotinas(rotina);
+    }
+
 }
