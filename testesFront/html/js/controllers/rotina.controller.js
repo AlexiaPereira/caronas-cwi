@@ -1,5 +1,8 @@
 angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', '$q', function ($scope, RotinaService, $q) {
 
+  listar();
+  console.log($scope.rotinas);
+
   $scope.listar = listar;
   $scope.procurar = procurar;
   $scope.selecionar = selecionar;
@@ -34,7 +37,8 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     RotinaService
     .listar()
     .then(response => {
-      console.log(response);
+      $scope.rotinas = response.data;
+      procurarMatchs($scope.rotinas[0]);
     })
   }
 
@@ -140,7 +144,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     return (angular.isUndefined(object) || object === null);
   }
 
-
   autoComplete();
 
   var matrizPassageiro = [];
@@ -159,10 +162,10 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
   };
 
   function verificarMatchHorarioEQuantidadeDeVagas(idRotina){
-    rotinaService.getRotinasMatchHorarioEComVaga(idRotina).then(function (response) {
+    RotinaService.getRotinasMatchHorarioEComVaga(idRotina).then(function (response) {
       listaDeRotinasMotorista = response.data;
+      return listaDeRotinasMotorista;
     })
-    return listaDeRotinasMotorista;
   };
 
   function matrix(rotinaPassageiro, listaDeRotinasMotorista) {
@@ -199,7 +202,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
   }
 
   function obterRotinasComMatchDistancia(rotinaPassageiro, listaDistanciaRotina) {
-    rotinaService.getRotinasComMatchDistancia(rotinaPassageiro, listaDistanciaRotina).then(function (response) {
+    RotinaService.getRotinasComMatchDistancia(rotinaPassageiro, listaDistanciaRotina).then(function (response) {
       listaDeMatchs = response.data;
     })
     return listaDeMatchs;
