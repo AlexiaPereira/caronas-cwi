@@ -1,26 +1,35 @@
 angular.module('app').factory('SolicitacoesService', ['$http', function($http) {
-    
-    let porta = 9090;
-    let url = `http://localhost:${porta}/api/solicitacoes`;
 
-    function aceitar(usuario) {
-        return $http({
-            url: `${url}/aceitar`,
-            method: 'POST',
-            data: usuario
-        });
-    }
+  let porta = 9090;
+  let url = `http://localhost:${porta}/api/solicitacoes`;
 
-    function recusar(usuario) {
-        return $http({
-            url: `${url}/recusar`,
-            method: 'POST',
-            data: usuario
-        });
-    }
-
-    return ({
-        aceitar: aceitar,
-        recusar: recusar
+  function enviar (solicitacao) {
+    return $http({
+      url: `${url}`,
+      method: 'POST',
+      data: solicitacao
     });
+  }
+
+  function aceitar(solicitacaoDTO) {
+    return $http({
+      url: `${url}/aceitar`,
+      method: 'POST',
+      data: solicitacaoDTO
+    });
+  }
+
+  function recusar(idSolicitacao) {
+    return $http.delete(`${url}/${idSolicitacao}`);
+  }
+
+  function buscarPendentes(idUsuario) {
+    $http.get(`${url}/pendentes/${idUsuario}`);
+  }
+
+  return ({
+    enviar: enviar,
+    aceitar: aceitar,
+    recusar: recusar
+  });
 }]);
