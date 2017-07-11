@@ -45,26 +45,4 @@ public class ValidarDistanciaService {
         });
         return rotinasComDistanciaAceitavel;
     }
-    
-    public void descontarVagas(Rotina rotinaPrincipal, Rotina rotinaMatchMotorista) {
-        List<RotinaDiaSemana> diasDaSemanaComMatch = filtrarDiaSemana(converterParaListaDeString(rotinaPrincipal), rotinaMatchMotorista);
-        diasDaSemanaComMatch.forEach((diaSemanaComMatch) -> {
-            diaSemanaComMatch.setVagasDisponiveis(diaSemanaComMatch.getVagasDisponiveis()-1);
-        });
-    }
-    
-    public List<RotinaDiaSemana> filtrarDiaSemana(List<String> diasDaRotinaPrincipal, Rotina rotina) {
-        return rotina.getRotinaDiaSemanaList().stream().filter(rotinaDiaSemana
-                -> diasDaRotinaPrincipal.contains(rotinaDiaSemana.getDiaSemana().getNome()))
-                .collect(toList());
-    }
-    
-    public List<String> converterParaListaDeString (Rotina rotinaPrincipal) {
-        List<String> listaDiaSemana = new ArrayList<>();
-         rotinaPrincipal.getRotinaDiaSemanaList().forEach((diaSemana) ->{
-             String stringDiaSemana = diaSemana.getDiaSemana().toString();
-             listaDiaSemana.add(stringDiaSemana);
-         });
-         return listaDiaSemana;
-    }
 }
