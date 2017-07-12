@@ -4,14 +4,12 @@
   <div class="rotinas-visualizar-table"> <h4>Passageiro</h4>
     <table class="table table-striped" id="cssTable">
         <thead>
-            <th>Nome</th>
             <th>Dia Semana</th>
             <th>Horário</th>
             <th>Excluir</th>
         </thead>
         <tbody>
             <tr ng-repeat="rotina in rotinasPassageiro">
-                <td class="dados">Nome</td>
                 <td class="dados">
                   <div class="row margem">{{rotina.rotinaDiaSemanaList[0].diaSemana.nome}}</div>
                   <div class="row margem">{{rotina.rotinaDiaSemanaList[1].diaSemana.nome}}</div>
@@ -25,6 +23,7 @@
         </tbody>
     </table>
   </div>
+  <div class="rotinas-visualizar-table"> <h4>Motorista</h4>
     <table class="table table-striped" id="cssTable">
         <thead>
             <th>Horário</th>
@@ -34,7 +33,7 @@
         </thead>
         <tbody>
             <tr ng-repeat="rotina in rotinasMotorista">
-                <td class="dados">Horário</td>
+                <td class="dados">{{rotina.horario}}</td>
                 <td class="dados">
                   <div class="row margem">{{rotina.rotinaDiaSemanaList[0].diaSemana.nome}}</div>
                   <div class="row margem">{{rotina.rotinaDiaSemanaList[1].diaSemana.nome}}</div>
@@ -53,4 +52,5 @@
             </tr>
         </tbody>
     </table>
+  </div>
 </div>
