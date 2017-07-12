@@ -1,19 +1,6 @@
 <br>
 <div class="rotina-cadastrar">
     <div class="absolute">
-        <div class="passageiro">
-            <label for="motorista">
-                <div class="motorista">M
-                    <input type="radio" id="motorista" ng-model="rotina.passageiro" value="false">
-                </div>
-            </label>
-
-            <label for="passageiro">
-                <div class="passageiro">P
-                    <input type="radio" id="passageiro" ng-model="rotina.passageiro" value="true">
-                </div>
-            </label>
-        </div>
 
         <br>
 
@@ -39,16 +26,16 @@
             </div>
         </div>
 
-        <div class="diaSemana">
+        <!--<div class="diaSemana">
             <label for="segunda"><div class="checkbox">S<input type="checkbox" id="segunda" ng-model="rotina.rotinaDiaSemanaList.segunda"></div></label>
             <label for="terca"><div class="checkbox">T<input type="checkbox" id="terca" ng-model="rotina.rotinaDiaSemanaList.terca"></div></label>
             <label for="quarta"><div class="checkbox">Q<input type="checkbox" id="quarta" ng-model="rotina.rotinaDiaSemanaList.quarta"></div></label>
             <label for="quinta"><div class="checkbox">Q<input type="checkbox" id="quinta" ng-model="rotina.rotinaDiaSemanaList.quinta"></div></label>
             <label for="sexta"><div class="checkbox">S<input type="checkbox" id="sexta" ng-model="rotina.rotinaDiaSemanaList.sexta"></div></label>
-        </div>
+        </div>-->
 
         <br>
-        
+
         <div class="horario">
             <button type="button" class="btn btn-orangeButton">Adicionar Horário</button>
             <br>
@@ -70,5 +57,40 @@
         <div class="cadastro">
             <button type="submit" class="btn btn-success" ng-click="criar(rotina)">Cadastrar</button>
         </div>
+    </div>
+</div>
+
+<!-- WIP -->
+<div class="row">
+    <div class="col-xs-4 col-xs-offset-2 col-sm-2 col-sm-offset-4">
+        <input type="radio" value="false" name="campo-radio" id="motorista" />
+        <label for="motorista">Motorista</label>
+    </div>
+    <div class="col-xs-4 col-sm-2">    
+        <input type="radio" value="true" name="campo-radio" id="passageiro" />
+        <label for="passageiro">Passageiro</label>
+    </div>
+</div>
+<div class="row">
+    <div class="col-xs-2 col-xs-offset-1">
+        <input type="checkbox" id="segunda" name="cb" ng-model="rotina.rotinaDiaSemanaList.segunda">
+        <label for="segunda">S</label>
+    </div>
+
+    <div class="col-xs-2">
+        <input type="checkbox" id="terca" ng-model="rotina.rotinaDiaSemanaList.terca">
+        <label for="terca">T</label>
+    </div>
+    <div class="col-xs-2">
+        <input type="checkbox" id="quarta" ng-model="rotina.rotinaDiaSemanaList.quarta">
+        <label for="quarta">Q</label>
+    </div>
+    <div class="col-xs-2">
+        <input type="checkbox" id="quinta" ng-model="rotina.rotinaDiaSemanaList.quinta">
+        <label for="quinta">Q</label>
+    </div>
+    <div class="col-xs-2">
+        <input type="checkbox" id="sexta" ng-model="rotina.rotinaDiaSemanaList.sexta">
+        <label for="sexta">S</label>
     </div>
 </div>

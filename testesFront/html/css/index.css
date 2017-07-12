@@ -23,13 +23,13 @@ body {
     outline: none;
 }
 
-/*INDEX*/
+/* INDEX */
 .header, .footer {
     height: 10vh;
     width: 100%;
     background-color: black;
     position: fixed;
-    z-index: 999;
+    z-index: 1;
 }
 
 .header {
@@ -69,13 +69,12 @@ body {
 }
 
 .view {
-    background-color: pink;
     position: relative;
     top: 10vh;
 }
-/*INDEX*/
+/* INDEX */
 
-/*ROTINA-BUSCAR*/
+/* ROTINA-BUSCAR */
 .side-bar {
     height: 80vh;
     width: 20vw;
@@ -93,4 +92,61 @@ body {
 
 .row > .col-xs-2 > .btn-orange-button {
     font-size: 3vh;
+}
+
+/* ROTINA-CADASTRO */
+/* Input */
+input[type="checkbox"], input[type="radio"] {
+    position: absolute;
+    opacity: 0;
+    z-index: -1;
+}
+
+label {
+    position: relative;
+    display: inline-block;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 10px;
+    line-height: 36px;
+    cursor: pointer;
+}
+
+label::before {
+    content: " ";
+    position: absolute;
+    top: 6px;
+    left: 0;
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #EB8514;
+    border-radius: 4px;
+    z-index: -1;
+}
+
+input[type="radio"] + label::before {
+    border-radius: 18px;
+}
+
+/* Checked */
+input[type="checkbox"]:checked + label, input[type="radio"]:checked + label {
+    padding-left: 10px;
+    color: #fff;
+}
+
+input[type="checkbox"]:checked + label::before, input[type="radio"]:checked + label::before {
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: #FC9600
+}
+
+/* Transition */
+
+label, label::before {
+    -webkit-transition: .25s all ease;
+    -o-transition: .25s all ease;
+    transition: .25s all ease;
 }
