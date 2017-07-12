@@ -1,5 +1,5 @@
 angular.module('app').config(['$routeProvider', function ($routeProvider) {
-    
+
     $routeProvider
     .when('/login', {
         controller: 'LoginController',
@@ -10,7 +10,7 @@ angular.module('app').config(['$routeProvider', function ($routeProvider) {
         templateUrl: '/templates/rotina-cadastrar.html'
     })
     .when('/rotina-buscar', {
-        controller: 'RotinaController',
+        controller: 'RotinaBuscarController',
         templateUrl: '/templates/rotina-buscar.html'
     })
     .when('/rotina-visualizar', {

@@ -46,13 +46,13 @@ angular.module('auth').factory('authService', function (authConfig, $http, $q, $
           $location.path(urlPrivado);
         }
 
-        // resolve promise com sucesso 
+        // resolve promise com sucesso
         deferred.resolve(response);
       },
 
       // Erro
       function (response) {
-        // resolve promise com erro 
+        // resolve promise com erro
         deferred.reject(response);
       });
 
@@ -122,7 +122,6 @@ angular.module('auth').factory('authService', function (authConfig, $http, $q, $
   };
 
   function montarHeader(usuario) {
-    debugger;
     let hash = window.btoa(`${usuario.idAutorizacao}:${usuario.senha}`);
     return {
       'Authorization': `Basic ${hash}`
