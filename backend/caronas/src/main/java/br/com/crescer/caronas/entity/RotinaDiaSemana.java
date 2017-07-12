@@ -56,8 +56,7 @@ public class RotinaDiaSemana implements Serializable {
         this.idRotinaDiaSemana = idRotinaDiaSemana;
     }
 
-    public RotinaDiaSemana(Long idRotinaDiaSemana, DiaSemana diaSemana) {
-        this.idRotinaDiaSemana = idRotinaDiaSemana;
+    public RotinaDiaSemana(DiaSemana diaSemana) {
         this.diaSemana = diaSemana;
     }
 

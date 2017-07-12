@@ -1,6 +1,6 @@
-package br.com.crescer.caronas.Controller;
+package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.Service.UsuarioGrupoService;
+import br.com.crescer.caronas.service.UsuarioGrupoService;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -43,9 +43,9 @@ public class UsuarioGrupoController {
         return usuarioGrupoService.update(usuarioGrupo);
     }
 
-    @DeleteMapping(value = "/{id}")
-    public void remove(@PathVariable Long id) {
-        UsuarioGrupo usuarioGrupo = usuarioGrupoService.loadById(id);
+    @DeleteMapping(value = "/{idUsuarioGrupo}")
+    public void remove(@PathVariable Long idUsuarioGrupo) {
+        UsuarioGrupo usuarioGrupo = usuarioGrupoService.loadById(idUsuarioGrupo);
         usuarioGrupoService.remove(usuarioGrupo);
     }    
 }

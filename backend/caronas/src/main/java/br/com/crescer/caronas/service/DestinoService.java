@@ -1,4 +1,4 @@
-package br.com.crescer.caronas.Service;
+package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.entity.Destino;
 import br.com.crescer.caronas.repository.DestinoRepository;

@@ -1,65 +1,13 @@
 <div class="side-bar">
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-    <div style="height: 10vh;width: 100%;border: 1px solid white;"></div>
-</div>
-
-<div class="row results">
-    <div class="col-xs-3 col-xs-offset-2">
+<div class="row myAnim" ng-repeat="match in matches">> 
+    <div class="col-xs-3 col-xs-offset-3 col-sm-3 col-sm-offset-3 col-md-3 col-md-offset-3">
         <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
     </div>
-    <div class="col-xs-4">
-        <div>Nome</div>
-        <div>Semana</div>
-        <div>Horário</div>
+    <div class="col-xs-3 col-sm-3 col-md-3">
+        <div>{{ match.nome }}</div>
     </div>
-    <div class="col-xs-2">
-        <button type="button" class="btn btn-orangeButton btn-lg" ng-click="selecionar(rotina)"><span class="glyphicon glyphicon-ok"></span></button>
+    <div class="col-xs-2 col-sm-2 col-md-2">
+        <button type="button" class="btn btn-orange-button" ng-click="selecionar(match)"><span class="glyphicon glyphicon-ok"></span></button>
+    </div>
     </div>
 </div>
-<!--
-
-<br>
-<div class="rotina">
-    <div class="absolute">
-        <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
-        <div class="dados">Nome</div>
-        <div class="dados">Semana</div>
-        <div class="dados">Horário</div>
-        <div class="dados">Quantidade Vagas</div>
-        <button type="button" class="btn btn-orangeButton btn-lg" ng-click="selecionar(rotina)"><span class="glyphicon glyphicon-ok"></span></button>
-    </div>
-    
-    <div class="absolute">
-        <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
-        <div class="dados">Nome</div>
-        <div class="dados">Semana</div>
-        <div class="dados">Horário</div>
-        <div class="dados">Quantidade Vagas</div>
-        <button type="button" class="btn btn-orangeButton btn-lg" ng-click="selecionar(rotina)"><span class="glyphicon glyphicon-ok"></span></button>
-    </div>
-    
-    <div class="absolute">
-        <img class="img-thumbnail" src="https://www.security-camera-warehouse.com/images/profile.png">
-        <div class="dados">Nome</div>
-        <div class="dados">Semana</div>
-        <div class="dados">Horário</div>
-        <div class="dados">Quantidade Vagas</div>
-        <button type="button" class="btn btn-orangeButton btn-lg" ng-click="selecionar(rotina)"><span class="glyphicon glyphicon-ok"></span></button>
-    </div>
-
-    <div class="absolute">
-        <div class="dados">Nome</div>
-        <div class="dados">Semana</div>
-        <div class="dados">Horário</div>
-        <div class="dados">Quantidade Vagas</div>
-        <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
-        <button type="button" class="btn btn-orangeButton btn-lg" ng-click="selecionar(rotina)"><span class="glyphicon glyphicon-ok"></span></button>
-    </div>
-</div>-->
