@@ -20,6 +20,13 @@
     <div class="container-fluid">
 
         <div class="row header">
+            <div class="col-xs-3 col-md-3 items-header">Algo</div>
+            <div class="col-xs-6 col-md-6 items-header">HEADER</div>
+            <div class="col-xs-3 col-md-3 items-header">Profile</div>
+        </div>
+
+        <div class="row view">
+            <div class="col-xs-12 col-md-12">
             <div class="col-xs-3 col-sm-3 col-md-3 items-header">Algo</div>
             <div class="col-xs-6 col-sm-6 col-md-6 items-header">HEADER</div>
             <div class="col-xs-3 col-sm-3 col-md-3 items-header">Profile</div>
@@ -32,21 +39,25 @@
         </div>
 
         <div class="row footer">
+            <div class="col-xs-3 col-md-3 items-footer">
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/rotina-cadastrar">
                     <div class="quick-access"><span class="glyphicon glyphicon-plus"></span></div>
                 </a>
             </div>
+            <div class="col-xs-3 col-md-3 items-footer">
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/rotina-buscar">
                     <div class="quick-access"><span class="glyphicon glyphicon-search"></span></div>
                 </a>
             </div>
+            <div class="col-xs-3 col-md-3 items-footer">
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/rotina-visualizar">
                     <div class="quick-access"><span class="glyphicon glyphicon-time"></span></div>
                 </a>
             </div>
+            <div class="col-xs-3 col-md-3 items-footer">
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/meus-grupos">
                     <div class="quick-access"><span class="glyphicon glyphicon-list"></span></div>
@@ -58,6 +69,9 @@
     <!-- Google Authentication -->
     <script src="https://apis.google.com/js/platform.js"></script>
 
+    <!-- Angular CDN-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular-route.js"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=CHAVE&libraries=places"></script>
     
     <!-- Angular CDN-->
@@ -72,6 +86,18 @@
     <script src="js/applications/auth.module.js"></script>
     <script src="js/applications/app.authentication.js"></script>
     <script src="js/applications/app.directives.js"></script>
+    <!--<script async defer src="https://maps.googleapis.com/maps/api/js?key=CHAVE-DE-ACESSO"></script>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=CHAVE-DE-ACESSO&libraries=places" async defer></script>
+
+    <!-- Controllers -->
+    <!--<script src="js/controllers/login.controller.js"></script>
+    <script src="js/controllers/rotina.controller.js"></script>
+    <script src="js/controllers/grupo.controller.js"></script>
+    <script src="js/controllers/apis.controller.js"></script>-->
+
+    <!-- Services -->
+    <!--<script src="js/services/rotina.service.js"></script>
+    <script src="js/services/grupo.service.js"></script>-->
     
     <!-- Controllers -->
     <script src="js/controllers/login.controller.js"></script>
