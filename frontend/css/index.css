@@ -1,0 +1,96 @@
+body {
+    box-sizing: border-box;
+}
+
+.container {
+    background-color: gray;
+    position: relative;
+}
+
+.btn-orange-button {
+    border: 2px solid black;
+    border-radius: 8px;
+    background: #FC9600;
+    transition-duration: 0.2s;
+}
+
+.btn-orange-button:hover {
+    transition-duration: 0.2s;
+    background: #EB8514;
+}
+
+.btn.btn-orange-button:focus {
+    outline: none;
+}
+
+/*INDEX*/
+.header, .footer {
+    height: 10vh;
+    width: 100%;
+    background-color: black;
+    position: fixed;
+    z-index: 999;
+}
+
+.header {
+    top: 0;
+}
+
+.footer {
+    bottom: 0;
+}
+
+.header > .items-header {
+    height: 10vh;
+}
+
+.footer > .items-footer {
+    height: 10vh;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.footer > .items-footer > a > .quick-access > .glyphicon {
+    font-size: 5vh;
+    color: white;
+    margin-top: 2vh;
+    transition-duration: 0.8s;
+}
+
+.footer > .items-footer > a > .quick-access:hover > .glyphicon {
+    font-size: 5vh;
+    color: #FC9600;
+    margin-top: 2vh;
+    transition-duration: 0.8s;
+}
+
+.active-icon-route {
+    color: white;
+}
+
+.view {
+    background-color: pink;
+    position: relative;
+    top: 10vh;
+}
+/*INDEX*/
+
+/*ROTINA-BUSCAR*/
+.side-bar {
+    height: 80vh;
+    width: 20vw;
+    background-color: blue;
+    left: 0;
+    position: fixed;
+    overflow-y: scroll;
+}
+
+.side-bar > .items-side-bar {
+    height: 10vh;
+    width: 100%;
+    border-bottom: 1px solid white;
+}
+
+.row > .col-xs-2 > .btn-orange-button {
+    font-size: 3vh;
+}
