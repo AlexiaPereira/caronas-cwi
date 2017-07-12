@@ -1,10 +1,13 @@
 package br.com.crescer.caronas.service;
 
+import br.com.crescer.caronas.dto.DistanciaRotina;
 import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.RotinaRepository;
+import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.text.ParseException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -81,7 +84,6 @@ public class RotinaService {
     public List<Rotina> filtrarRotinas(Rotina rotina) throws ParseException {
         this.validarVagasService = new ValidarVagasService();
         List<Rotina> rotinasValidadasPorHorario = this.matchHorarios(rotina);
-        List<Rotina> rotinasValidasPorVagas = validarVagasService.validarVagas(rotina, rotinasValidadasPorHorario);
-        return rotinasValidasPorVagas;
+        return validarVagasService.validarVagas(rotina, rotinasValidadasPorHorario);
     }
 }
