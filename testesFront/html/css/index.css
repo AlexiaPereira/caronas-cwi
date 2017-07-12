@@ -1,8 +1,10 @@
-body {
+* {
     box-sizing: border-box;
 }
 
-// teste
+a:link, a:visited, a:hover, a:focus, a:active {
+    text-decoration: none;
+}
 
 .container {
     background-color: gray;
@@ -27,15 +29,25 @@ body {
 
 /* INDEX */
 .header, .footer {
-    height: 10vh;
+    height: 8vh;
     width: 100%;
-    background-color: black;
+    background-color: #C4CAC8;
     position: fixed;
     z-index: 1;
+    font-size: 2vh;
+    font-weight: bold;
+    color: white;
 }
 
 .header {
     top: 0;
+}
+
+.header > .items-header > .img-circle {
+    width: 5vh;
+    margin-top: 1vh;
+    margin-left: 5vw;
+    float: left;
 }
 
 .footer {
@@ -44,12 +56,20 @@ body {
 
 .header > .items-header {
     height: 10vh;
+    padding: 0;
+}
+
+.header > .items-header > .username {
+    font-size: 2vh;
+    margin-left: 2vw;
+    margin-top: 2vh;
 }
 
 .footer > .items-footer {
     height: 10vh;
     text-align: center;
     vertical-align: middle;
+    padding: 0;
 }
 
 .margem {
@@ -61,16 +81,15 @@ body {
 }
 
 .footer > .items-footer > a > .quick-access > .glyphicon {
-    font-size: 5vh;
+    font-size: 3vh;
     color: white;
-    margin-top: 2vh;
+    margin-top: 1vh;
     transition-duration: 0.8s;
 }
 
 .footer > .items-footer > a > .quick-access:hover > .glyphicon {
-    font-size: 5vh;
+    font-size: 3vh;
     color: #FC9600;
-    margin-top: 2vh;
     transition-duration: 0.8s;
 }
 
@@ -80,15 +99,15 @@ body {
 
 .view {
     position: relative;
-    top: 10vh;
+    top: 8vh;
 }
 /* INDEX */
 
 /* ROTINA-BUSCAR */
 .side-bar {
-    height: 80vh;
+    height: 84vh;
     width: 20vw;
-    background-color: blue;
+    background-color: #C4CAC8;
     left: 0;
     position: fixed;
     overflow-y: scroll;

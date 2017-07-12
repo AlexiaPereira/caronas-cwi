@@ -27,7 +27,7 @@ body {
 .header, .footer {
     height: 10vh;
     width: 100%;
-    background-color: black;
+    background-color: #C4CAC8;
     position: fixed;
     z-index: 999;
 }

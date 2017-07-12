@@ -1,6 +1,9 @@
-angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaService', 'SolicitacoesService', '$q',
-  function ($scope, RotinaService, SolicitacoesService, $q) {
+angular.module('app').controller('RotinaBuscarController',
+['$scope', 'RotinaService', 'SolicitacoesService', '$q', '$location',
+function ($scope, RotinaService, SolicitacoesService, $q, $location) {
 
+  console.log($location.absUrl());
+  $header = $location.absUrl();
   listar();
 
   $scope.selecionar = selecionar;
