@@ -1,6 +1,6 @@
-angular.module('app').factory('RotinaService', ['$http', function($http) {
+angular.module('app').factory('RotinaService', ['$http', function ($http) {
 
-    let porta = 123;
+    let porta = 9090;
     let url = `http://localhost:${porta}/api/rotinas`;
 
     function listar() {
@@ -11,36 +11,28 @@ angular.module('app').factory('RotinaService', ['$http', function($http) {
         return $http.get(`${url}`);
     }
 
-    function getRotinasMatchHorarioEComVaga(rotinaPassageiro) {
-        return $http.get(`${url}/match`);
+    function selecionar(idRotina) {
+        return $http.get(`${url}/${idRotina}`);
     }
 
-    function getRotinasComMatchDistancia(rotinaPassageiro, listaDistanciaRotina) {
-        return $http.get(`${url}/match-distancia`);
+    function getRotinasMatchHorarioEComVaga(idRotina) {
+        return $http.get(`${url}/match/horario/${idRotina}`);
     }
 
-    function selecionar(rotina) {
-        return $http({
-            url: `${url}/selecionar`,
-            method: 'POST',
-            data: rotina
-        });
+    function getRotinasComMatchDistancia(listaDistanciaRotina) {
+        return $http.get(`${url}/match-distancia/${idRotina}`);
     }
 
     function criar(rotina) {
         return $http({
-            url: `${url}/criar`,
+            url: `${url}`,
             method: 'POST',
             data: rotina
         });
     }
 
-    function excluir(rotina) {
-        return $http({
-            url: `${url}/excluir`,
-            method: 'POST',
-            data: rotina
-        });
+    function excluir(idRotina) {
+        return $http.delete(`${url}/${idRotina}`);
     }
 
     return ({
