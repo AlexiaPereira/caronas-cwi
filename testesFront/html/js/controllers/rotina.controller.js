@@ -2,6 +2,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
 
     // listar();
     // console.log($scope.rotinas);
+listar();
 
     $scope.listar = listar;
     $scope.procurar = procurar;
@@ -17,8 +18,8 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.subDisponivel = subDisponivel;
 
     $scope.distancia = 0;
-    $scope.rotinas = listar();
-    console.log($scope.rotinas);
+    $scope.rotinasPassageiro = [];
+    $scope.rotinasMotorista = [];
 
     // $scope.matches = [];
     // $scope.matches = [
@@ -58,8 +59,17 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         RotinaService
             .listar()
             .then(response => {
-                $scope.rotinas = response.data;
-                // procurarMatchs($scope.rotinas[0]);
+                let rotinas = response.data;
+                rotinas.forEach(function(rotina) {
+                  if(rotina.passageiro == false){
+                    console.log('add mot');
+                    $scope.rotinasMotorista.push(rotina);
+                  }
+                  else {
+                    console.log('add pass');
+                    $scope.rotinasPassageiro.push(rotina);
+                  }
+                });
             })
     }
 
@@ -185,16 +195,15 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             });
         }
             // verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-            // .then 
-        }
-        var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-        matrix(rotina, respostaMetodoPrimeirasVerificacoes)
-            .then(res => {
-                $scope.respostaMatrix = res;
-                $scope.matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
-            });
-        return matchs;
-    };
+            // .then
+            var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
+            matrix(rotina, respostaMetodoPrimeirasVerificacoes)
+                .then(res => {
+                    $scope.respostaMatrix = res;
+                    $scope.matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
+                });
+            return matchs;
+        };
 
     function verificarMatchHorarioEQuantidadeDeVagas(idRotina) {
         debugger;
