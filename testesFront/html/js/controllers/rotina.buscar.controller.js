@@ -1,10 +1,12 @@
-angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaService', '$q', function ($scope, RotinaService, $q) {
+angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaService', 'SolicitacoesService', '$q',
+  function ($scope, RotinaService, SolicitacoesService, $q) {
 
   listar();
 
   $scope.selecionar = selecionar;
   $scope.matches = [];
   $scope.procurarMatchs = procurarMatchs;
+  $scope.enviarSolicitacao = enviarSolicitacao;
 
   function listar() {
     RotinaService.listar().then(response => {
@@ -66,6 +68,13 @@ angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaSer
       auxiliar.push(objetoMatrix);
     });
     return auxiliar;
+  }
+
+  function enviarSolicitacao(rotina) {
+    let solicitacao = {usuarioAlvo: rotina.usuario};
+    console.log(rotina);
+    console.log(solicitacao);
+    SolicitacoesService.enviar(solicitacao).then(res => console.log(res));
   }
 
   // TODO: Implementar utilização de Selecionar ou remover método
