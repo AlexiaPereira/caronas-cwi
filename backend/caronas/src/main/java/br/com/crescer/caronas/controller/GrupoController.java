@@ -2,7 +2,13 @@ package br.com.crescer.caronas.controller;
 
 import br.com.crescer.caronas.service.GrupoService;
 import br.com.crescer.caronas.entity.Grupo;
+import br.com.crescer.caronas.entity.Usuario;
+import br.com.crescer.caronas.service.UsuarioService;
+import java.util.ArrayList;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,10 +28,26 @@ public class GrupoController {
 
     @Autowired
     GrupoService grupoService;
+    
+    @Autowired
+    UsuarioService usuarioService;
 
     @GetMapping
     public Iterable<Grupo> findAll() {
         return grupoService.findAll();
+    }
+    
+    @GetMapping (value = "/usuario")
+    public List<Grupo> remove(@AuthenticationPrincipal User user) {
+        List<Grupo> gruposDoUsuario = new ArrayList<>();
+        Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
+        Iterable<Grupo> grupos = grupoService.findAll();
+        for(Grupo grupo: grupos) {
+            if (grupo.getRotina().getUsuario() == usuario) {
+                gruposDoUsuario.add(grupo);
+            }
+        };
+        return gruposDoUsuario;
     }
     
     @PostMapping

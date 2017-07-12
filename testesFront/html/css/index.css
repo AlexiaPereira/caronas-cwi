@@ -50,6 +50,14 @@ body {
     vertical-align: middle;
 }
 
+.margem {
+  margin-left: 2px;
+}
+
+.rotinas-visualizar-table {
+  background-color: #fffafa;
+}
+
 .footer > .items-footer > a > .quick-access > .glyphicon {
     font-size: 5vh;
     color: white;
