@@ -4,7 +4,7 @@ angular.module('app').constant('authConfig', {
 
     // Obrigatória - URL da API que retorna o usuário
     //urlUsuario: 'http://10.99.3.24/AutDemo.WebApi/api/acessos/usuario',
-    urlUsuario: 'http://localhost:9090/api/usuario',
+    urlUsuario: 'http://localhost:9090/api/logged-user',
 
     // Obrigatória - URL da aplicação que possui o formulário de login
     urlLogin: '/login',

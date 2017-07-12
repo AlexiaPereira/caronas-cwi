@@ -46,13 +46,13 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             });
     }
 
-    function selecionar(rotina) {
-        if (isUndefinedOrNull(rotina)) {
+    function selecionar(idRotina) {
+        if (isUndefinedOrNull(idRotina)) {
             console.log('undefined or null');
             return;
         }
         RotinaService
-            .selecionar(rotina)
+            .selecionar(idRotina)
             .then(response => {
                 console.log(response);
             });
@@ -60,22 +60,27 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
 
     function criar(rotina) {
         debugger;
-        rotina.origem = origem;
-        rotina.destino = destino;
         if (isUndefinedOrNull(rotina)) {
             console.log('undefined or null');
             return;
-        } else if (rotina.motorista === true) {
-            rotina.vagasTotais = $scope.total;
-            rotina.vagasDisponiveis = $scope.disponivel;
         }
 
-        var rotinaDiaSemana = [];
-        for (var diaSemana in rotina.diaSemana) {
-            rotinaDiaSemana.push(diaSemana);
-        }
+        rotina.origem = origem;
+        rotina.destino = destino;
+        rotina.vagasTotais = $scope.total || 0;
+        rotina.vagasDisponiveis = $scope.disponivel || 0;
 
-        console.log(RotinaDiaSemana);
+        var aux = [];
+        for (var diaSemana in rotina.rotinaDiaSemanaList) {
+            aux
+            .push({
+                'diaSemana': 
+                { 'nome': diaSemana },
+                'vagasDisponiveis': rotina.vagasDisponiveis,
+            });
+        }
+        rotina.rotinaDiaSemanaList = aux;
+        console.log(rotina.rotinaDiaSemanaList);
         // console.log(rotina);
         // for (var diaSemana in rotina.diaSemana) {
         //     console.log(typeof (diaSemana) + ": " + diaSemana);
@@ -87,13 +92,13 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             });
     }
 
-    function excluir(rotina) {
-        if (isUndefinedOrNull(rotina)) {
+    function excluir(idRotina) {
+        if (isUndefinedOrNull(idRotina)) {
             console.log('undefined or null');
             return;
         }
         RotinaService
-            .excluir(rotina)
+            .excluir(idRotina)
             .then(response => {
                 console.log(response);
             });
@@ -138,15 +143,15 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
   var matrizPassageiro = [];
   var listaDistanciaRotina = [];
 
-  function procurarMatchs(rotinaPassageiro){
-    var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotinaPassageiro);
-    var respostaMatrix = matrix(rotinaPassageiro, respostaMetodoPrimeirasVerificacoes);
+  function procurarMatchs(rotina){
+    var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
+    var respostaMatrix = matrix(rotina, respostaMetodoPrimeirasVerificacoes);
     var matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
     return matchs;
   };
 
-  function verificarMatchHorarioEQuantidadeDeVagas(rotinaPassageiro){
-    rotinaService.getRotinasMatchHorarioEComVaga(rotinaPassageiro).then(function (response) {
+  function verificarMatchHorarioEQuantidadeDeVagas(idRotina){
+    rotinaService.getRotinasMatchHorarioEComVaga(idRotina).then(function (response) {
       listaDeRotinasMotorista = response.data;
     })
     return listaDeRotinasMotorista;

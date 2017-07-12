@@ -1,6 +1,6 @@
 angular.module('app').factory('GrupoService', ['$http', function($http) {
-    
-    let porta = 123;
+
+    let porta = 9090;
     let url = `http://localhost:${porta}/api/grupos`;
 
     function listar() {
@@ -23,26 +23,9 @@ angular.module('app').factory('GrupoService', ['$http', function($http) {
         });
     }
 
-    function sair(grupo) {
-        return $http({
-            url: `${url}/sair`,
-            method: 'POST',
-            data: grupo
-        });
-    }
-
-    function remover(usuarioGrupo) {
-        return $http({
-            url: `${url}/remover`,
-            method: 'POST',
-            data: usuarioGrupo
-        });
-    }
-
     return ({
         listar: listar,
         aceitar: aceitar,
-        recusar: recusar,
-        sair: sair
+        recusar: recusar
     });
 }]);
