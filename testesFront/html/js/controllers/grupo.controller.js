@@ -1,5 +1,4 @@
-angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', 'UsuarioGrupoService',
-'SolicitacaoService', function ($scope, GrupoService, SolicitacaoService, UsuarioGrupoService) {
+angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', 'UsuarioGrupoService', 'SolicitacaoService', function ($scope, GrupoService, SolicitacaoService, UsuarioGrupoService) {
 
     $scope.listar = listar;
     $scope.aceitar = aceitar;

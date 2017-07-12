@@ -1,4 +1,4 @@
-angular.module('app').factory('GrupoService', ['$http', function($http) {
+angular.module('app').factory('GrupoService', ['$http', function ($http) {
 
     let porta = 9090;
     let url = `http://localhost:${porta}/api/grupos`;

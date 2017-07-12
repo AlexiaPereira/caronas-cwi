@@ -1,13 +1,17 @@
 <div class="side-bar">
-<div class="row myAnim" ng-repeat="match in matches">> 
+    <div class="items-side-bar" ng-repeat="rotina in rotinas"><button class="btn btn-info" ng-click="clique(rotina)"></button></div>
+</div>
+
+<div class="row" ng-repeat="match in matches">
     <div class="col-xs-3 col-xs-offset-3 col-sm-3 col-sm-offset-3 col-md-3 col-md-offset-3">
         <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3">
-        <div>{{ match.nome }}</div>
+        <div>Nome</div>
+        <div>Semana</div>
+        <div>Horário</div>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
-        <button type="button" class="btn btn-orange-button" ng-click="selecionar(match)"><span class="glyphicon glyphicon-ok"></span></button>
-    </div>
+        <button type="button" class="btn btn-orange-button" ng-click="selecionar(rotina)"><span class="glyphicon glyphicon-ok"></span></button>
     </div>
 </div>

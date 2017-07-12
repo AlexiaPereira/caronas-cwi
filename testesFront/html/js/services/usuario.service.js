@@ -1,4 +1,5 @@
-angular.module('app').factory('UsuarioService', ['$http', function($http) {    
+angular.module('app').factory('UsuarioService', ['$http', function ($http) {
+
     let porta = 9090;
     let url = `http://localhost:${porta}/api/usuarios`;
 
@@ -13,4 +14,6 @@ angular.module('app').factory('UsuarioService', ['$http', function($http) {
     return ({
         criar: criar
     });
+
+
 }]);
