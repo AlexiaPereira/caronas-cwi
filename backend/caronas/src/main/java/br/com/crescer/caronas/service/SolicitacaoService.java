@@ -32,6 +32,9 @@ public class SolicitacaoService {
     }
 
     public Solicitacao save(Solicitacao solicitacao) {
+        if (!this.solicitacaoEhValida(solicitacao)) {
+            throw new RuntimeException("Solicitação Inválida");
+        }
         return solicitacaoRepository.save(solicitacao);
     }
 
@@ -56,6 +59,10 @@ public class SolicitacaoService {
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacaoDTO.getSolicitacao().getUsuarioDono(), grupo, new Date());
         usuarioGrupoService.save(usuarioGrupo);
         solicitacaoRepository.delete(solicitacaoDTO.getSolicitacao());
+    }
+
+    private boolean solicitacaoEhValida(Solicitacao solicitacao) {
+        return solicitacao.getUsuarioAlvo().getIdAutorizacao() != solicitacao.getUsuarioDono().getIdAutorizacao();
     }
 
 }
