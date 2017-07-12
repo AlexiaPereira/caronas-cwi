@@ -1,7 +1,7 @@
 package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.service.UsuarioService;
 import br.com.crescer.caronas.entity.Usuario;
+import br.com.crescer.caronas.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,12 +27,12 @@ public class UsuarioController {
     public Iterable<Usuario> findAll() {
         return usuarioService.findAll();
     }
-    
+
     @GetMapping(value = "/email")
     public Usuario loadByEmail(@RequestBody String email) {
         return usuarioService.findByEmail(email);
     }
-    
+
     @GetMapping(value = "/{id}")
     public Usuario loadById(@PathVariable Long id) {
         return usuarioService.loadById(id);
@@ -52,5 +52,5 @@ public class UsuarioController {
     public void remove(@PathVariable Long idUsuario) {
         Usuario usuario = usuarioService.loadById(idUsuario);
         usuarioService.remove(usuario);
-    }    
+    }
 }

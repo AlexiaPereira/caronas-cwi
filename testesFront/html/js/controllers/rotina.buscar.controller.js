@@ -10,7 +10,7 @@ angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaSer
   $scope.buscarDiaSemana = buscarDiaSemana;
 
   function listar() {
-    RotinaService.listar().then(response => {
+    RotinaService.listarPorPassageiro(true).then(response => {
       $scope.rotinas = response.data;
     })
   }
@@ -72,7 +72,7 @@ angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaSer
   }
 
   function enviarSolicitacao(rotina) {
-    let solicitacao = {usuarioAlvo: rotina.usuario};
+    let solicitacao = {usuarioAlvo: rotina.usuario, rotinaMotorista: rotina};
     SolicitacoesService.enviar(solicitacao).then(res => alert('Solicitação enviada com sucesso'));
   }
 
