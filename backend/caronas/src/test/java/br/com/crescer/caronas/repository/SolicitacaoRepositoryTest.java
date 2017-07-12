@@ -1,7 +1,15 @@
 package br.com.crescer.caronas.repository;
 
+import br.com.crescer.caronas.entity.Destino;
+import br.com.crescer.caronas.entity.DiaSemana;
+import br.com.crescer.caronas.entity.Origem;
+import br.com.crescer.caronas.entity.Rotina;
+import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
+import java.math.BigDecimal;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import java.util.stream.StreamSupport;
@@ -113,7 +121,20 @@ public class SolicitacaoRepositoryTest {
     private Solicitacao instanciarSolicitacao() {
         Usuario usuarioDono = new Usuario("Teste", "teste@teste.com", "Masculino", "7665654", "senha");
         Usuario usuarioAlvo = new Usuario("Teste Alvo", "testealvo@teste.com", "Feminino", "0989809", "senha2");
-        return new Solicitacao(usuarioDono, usuarioAlvo);
+        return new Solicitacao(usuarioDono, usuarioAlvo, instanciarRotina(usuarioDono));
+    }
+
+    private Rotina instanciarRotina(Usuario usuarioDono) {
+        Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
+        Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
+        List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
+        listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
+        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuarioDono);
+        for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
+            rotinaDiaSemana.setRotina(rotina);
+        }
+
+        return rotina;
     }
 
 }

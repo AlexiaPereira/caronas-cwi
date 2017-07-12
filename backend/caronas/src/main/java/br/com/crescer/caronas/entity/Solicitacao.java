@@ -45,6 +45,11 @@ public class Solicitacao implements Serializable {
     @ManyToOne(cascade = CascadeType.PERSIST)
     private Usuario usuarioAlvo;
 
+    @NotNull
+    @JoinColumn(name = "ID_ROTINA_USUARIO_DONO", referencedColumnName = "ID_ROTINA")
+    @ManyToOne(cascade = CascadeType.PERSIST)
+    private Rotina rotinaUsuarioDono;
+
     public Solicitacao() {
     }
 
@@ -58,9 +63,10 @@ public class Solicitacao implements Serializable {
         this.usuarioAlvo = usuarioAlvo;
     }
 
-    public Solicitacao(Usuario usuarioDono, Usuario usuarioAlvo) {
+    public Solicitacao(Usuario usuarioDono, Usuario usuarioAlvo, Rotina rotinaUsuarioDono) {
         this.usuarioDono = usuarioDono;
         this.usuarioAlvo = usuarioAlvo;
+        this.rotinaUsuarioDono = rotinaUsuarioDono;
     }
 
     public Long getIdSolicitacao() {
@@ -85,6 +91,14 @@ public class Solicitacao implements Serializable {
 
     public void setUsuarioAlvo(Usuario usuarioAlvo) {
         this.usuarioAlvo = usuarioAlvo;
+    }
+
+    public Rotina getRotinaUsuarioDono() {
+        return rotinaUsuarioDono;
+    }
+
+    public void setRotinaUsuarioDono(Rotina rotinaUsuarioDono) {
+        this.rotinaUsuarioDono = rotinaUsuarioDono;
     }
 
 }
