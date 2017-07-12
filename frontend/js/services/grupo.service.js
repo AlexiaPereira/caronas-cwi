@@ -12,8 +12,3 @@ angular.module('app').factory('GrupoService', ['$http', function ($http) {
         buscarGrupo: buscarGrupo
     });
 }]);
-
-angular.module('app').factory('GrupoService', ['$http', function ($http) {
-
-    let porta = 9090;
-        buscarGrupo: buscarGrupo

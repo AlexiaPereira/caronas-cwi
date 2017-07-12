@@ -1,0 +1,20 @@
+<br>
+<h1>Rotinas</h1>
+<div class="rotinas-visualizar">
+    <table class="table table-striped" id="cssTable">
+        <thead>
+            <th>Nome</th>
+            <th>Dia Semana</th>
+            <th>Horário</th>
+            <th>Excluir</th>
+        </thead>
+        <tbody>
+            <tr ng-repeat="rotina in rotinas">
+                <td class="dados">Nome</td>
+                <td class="dados">Dia Semana</td>
+                <td class="dados">Horário</td>
+                <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
+            </tr>
+        </tbody>
+    </table>
+</div>
