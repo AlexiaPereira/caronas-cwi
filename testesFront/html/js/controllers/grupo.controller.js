@@ -1,6 +1,8 @@
 angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', 'UsuarioGrupoService', 'SolicitacaoService', function ($scope, GrupoService, SolicitacaoService, UsuarioGrupoService) {
 
-    $scope.listar = listar;
+listarGrupos();
+
+    $scope.listarGrupos = listarGrupos;
     $scope.aceitar = aceitar;
     $scope.recusar = recusar;
     $scope.remover = remover;
@@ -11,6 +13,14 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', '
             .then(response => {
                 console.log(response);
             });
+    }
+
+    function listarGrupos() {
+        GrupoService
+            .listarGrupos()
+            .then(response => {
+                $scope.grupos = response.data;
+            })
     }
 
     function aceitar(solicitacaoDTO) {
