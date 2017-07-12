@@ -23,6 +23,10 @@ angular.module('app').factory('RotinaService', ['$http', function ($http) {
         return $http.post(`${url}/match/distancia/${idRotina}`, listaDistanciaRotina);
     }
 
+    function listarPorPassageiro (passageiro) {
+      return $http.get(`${url}/usuario/passageiro/${passageiro}`);
+    }
+
     function criar(rotina) {
         return $http({
             url: `${url}`,
@@ -42,6 +46,7 @@ angular.module('app').factory('RotinaService', ['$http', function ($http) {
         criar: criar,
         excluir: excluir,
         getRotinasMatchHorarioEComVaga: getRotinasMatchHorarioEComVaga,
-        getRotinasComMatchDistancia: getRotinasComMatchDistancia
+        getRotinasComMatchDistancia: getRotinasComMatchDistancia,
+        listarPorPassageiro: listarPorPassageiro
     });
 }]);
