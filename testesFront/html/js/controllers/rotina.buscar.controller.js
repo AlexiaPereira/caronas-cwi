@@ -7,6 +7,7 @@ angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaSer
   $scope.matches = [];
   $scope.procurarMatchs = procurarMatchs;
   $scope.enviarSolicitacao = enviarSolicitacao;
+  $scope.buscarDiaSemana = buscarDiaSemana;
 
   function listar() {
     RotinaService.listar().then(response => {
@@ -72,9 +73,24 @@ angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaSer
 
   function enviarSolicitacao(rotina) {
     let solicitacao = {usuarioAlvo: rotina.usuario};
-    console.log(rotina);
-    console.log(solicitacao);
-    SolicitacoesService.enviar(solicitacao).then(res => console.log(res));
+    SolicitacoesService.enviar(solicitacao).then(res => alert('Solicitação enviada com sucesso'));
+  }
+
+  function buscarDiaSemana(match) {
+    let ordenador = {
+      "domingo": 1,
+      "segunda": 2,
+      "terca": 3,
+      "quarta": 4,
+      "quinta": 5,
+      "sexta": 6,
+      "sabado": 7
+    };
+
+    let diasSemana = [];
+    diasSemana = match.rotinaDiaSemanaList.map(rds => rds.diaSemana.nome);
+    diasSemana.sort((a, b) => ordenador[a] > ordenador[b]);
+    return diasSemana.shift() + ' - ' + diasSemana.pop();
   }
 
   // TODO: Implementar utilização de Selecionar ou remover método
