@@ -1,5 +1,7 @@
 <div class="side-bar">
-    <div class="items-side-bar" ng-repeat="rotina in rotinas"><button class="btn btn-info" ng-click="clique(rotina)"></button></div>
+    <div class="items-side-bar" ng-repeat="rotina in rotinas">
+      <button class="btn btn-info" ng-click="procurarMatchs(rotina)">Rotina Aqui</button>
+    </div>
 </div>
 
 <div class="row" ng-repeat="match in matches">
