@@ -2,10 +2,10 @@ package br.com.crescer.caronas.repository;
 
 import br.com.crescer.caronas.entity.Destino;
 import br.com.crescer.caronas.entity.DiaSemana;
-import br.com.crescer.caronas.entity.Rotina;
-import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.Origem;
+import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
+import br.com.crescer.caronas.entity.Usuario;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Date;
@@ -208,7 +208,7 @@ public class RotinaRepositoryTest {
         Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
         listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
-        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
+        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario, true);
         for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
             rotinaDiaSemana.setRotina(rotina);
         }

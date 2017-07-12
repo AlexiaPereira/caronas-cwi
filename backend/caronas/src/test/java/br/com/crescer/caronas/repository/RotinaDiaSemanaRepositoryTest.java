@@ -105,20 +105,19 @@ public class RotinaDiaSemanaRepositoryTest {
         testEntityManager.persist(diaSemana);
         return new RotinaDiaSemana(5, diaSemana, this.instanciarRotina());
     }
-    
+
     private Rotina instanciarRotina() {
         Usuario usuario = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
         Destino destino = new Destino("destino", BigDecimal.ONE, BigDecimal.ONE);
         Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
         listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
-        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
+        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario, true);
         for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
             rotinaDiaSemana.setRotina(rotina);
         }
-        
+
         return rotina;
     }
-
 
 }

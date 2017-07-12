@@ -129,7 +129,7 @@ public class SolicitacaoRepositoryTest {
         Origem origem = new Origem("origem", BigDecimal.ONE, BigDecimal.ONE);
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
         listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
-        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuarioDono);
+        Rotina rotina = new Rotina(true, new Date(), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuarioDono, true);
         for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
             rotinaDiaSemana.setRotina(rotina);
         }

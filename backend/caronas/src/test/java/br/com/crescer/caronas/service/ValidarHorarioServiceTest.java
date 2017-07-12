@@ -120,7 +120,7 @@ public class ValidarHorarioServiceTest {
         List<RotinaDiaSemana> listaDeDias = new ArrayList<>();
         listaDeDias.add(new RotinaDiaSemana(5, new DiaSemana("SEGUNDA")));
         String horario = "12/12/2012 07:15";
-        Rotina rotina = new Rotina(true, formatador.parse(horario), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario);
+        Rotina rotina = new Rotina(true, formatador.parse(horario), BigDecimal.TEN, BigDecimal.ZERO, listaDeDias, destino, origem, usuario, true);
         for (RotinaDiaSemana rotinaDiaSemana : listaDeDias) {
             rotinaDiaSemana.setRotina(rotina);
         }
