@@ -1,4 +1,4 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', '$q', function ($scope, RotinaService, $q) {
+angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', 'MapService', '$q', function ($scope, RotinaService, MapService, $q) {
 
     // listar();
     // console.log($scope.rotinas);
@@ -15,42 +15,66 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.subTotal = subTotal;
     $scope.addDisponivel = addDisponivel;
     $scope.subDisponivel = subDisponivel;
+    $scope.rotinasPassageiro = [];
+    $scope.rotinasMotorista = [];
 
     $scope.distancia = 0;
+    $scope.rotinas = listar();
+    console.log($scope.rotinas);
 
-    $scope.matches = [
-        { 'nome': 'eu', 'foto': 'dois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' }
-    ];
+    // $scope.matches = [];
+    // $scope.matches = [
+    //     { 'nome': 'eu', 'foto': 'dois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' }
+    // ];
+    var cwi = {lat: -29.7646612, lng:  -51.1435347};
+    mapaCWI(cwi);
+
+    function mapaCWI(cwi) {
+      MapService.iniciarMapa(cwi);
+    }
+
+    $scope.clique = clique;
+    function clique(rotina) {
+        console.log(rotina);
+        procurarMatchs(rotina);
+    }
 
     var destino = {
         lat: -29.794918,
         lng: -51.146509
     }
 
-    console.log($scope.matches);
-
     function listar() {
         RotinaService
             .listar()
             .then(response => {
-                $scope.rotinas = response.data;
-                procurarMatchs($scope.rotinas[0]);
+                let rotinas = response.data;
+                rotinas.forEach(function(rotina) {
+                  if(rotina.passageiro == false){
+                    console.log('add mot');
+                    $scope.rotinasMotorista.push(rotina);
+                  }
+                  else {
+                    console.log('add pass');
+                    $scope.rotinasPassageiro.push(rotina);
+                  }
+                });
             })
     }
 
@@ -164,23 +188,38 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     var matrizPassageiro = [];
     var listaDistanciaRotina = [];
 
+    $scope.matches = [];
+    $scope.procurarMatchs = procurarMatchs;
     function procurarMatchs(rotina) {
+        debugger;
+        function async() {
+            return $q(function(resolve, reject) {
+                setTimeout(function() {
+                    verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
+                }, 1000);
+            });
+        }
         var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-        matrix(rotina, respostaMetodoPrimeirasVerificacoes).then(res => {
-            var respostaMatrix = res;
-            var matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
-        });
+        matrix(rotina, respostaMetodoPrimeirasVerificacoes)
+            .then(res => {
+                $scope.respostaMatrix = res;
+                $scope.matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
+            });
         return matchs;
     };
 
     function verificarMatchHorarioEQuantidadeDeVagas(idRotina) {
-        RotinaService.getRotinasMatchHorarioEComVaga(idRotina).then(function (response) {
-            listaDeRotinasMotorista = response.data;
-            return listaDeRotinasMotorista;
-        })
+        debugger;
+        RotinaService
+            .getRotinasMatchHorarioEComVaga(idRotina)
+            .then(function (response) {
+                $scope.listaDeRotinasMotorista = response.data;
+                return listaDeRotinasMotorista;
+            })
     };
 
     function matrix(rotinaPassageiro, listaDeRotinasMotorista) {
+        debugger;
         var matrixDeferred = $q.defer();
         /*listaMotorista = [{idOrigem:{latitude:-30.0624354, longitude:-51.1749197}, idUsuario:5},
         {idOrigem:{latitude:-30.0153303, longitude:-51.1130727}, idUsuario:4},
@@ -258,4 +297,4 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         return deferred.promise;
     }
 
-}]);
+}])

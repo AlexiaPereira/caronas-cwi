@@ -1,12 +1,17 @@
-angular.module('app').controller('LoginController', ['$scope', 'authService', 'UsuarioService', function ($scope, authService, UsuarioService) {
+angular.module('app').controller('LoginController', ['$scope', 'authService', 'MapService', 'UsuarioService', function ($scope, authService, MapService, UsuarioService) {
 
     $scope.name = 'Por favor, autentique-se.';
-
     $scope.FacebookLogin = FacebookLogin;
     $scope.FacebookLogout = FacebookLogout;
 
     $scope.GoogleLogin = GoogleLogin;
     $scope.GoogleLogout = GoogleLogout;
+    var cwi = {lat: -29.7646612, lng:  -51.1435347};
+    mapaCWI(cwi);
+
+    function mapaCWI(cwi) {
+      MapService.iniciarMapa(cwi);
+    }
 
     function FacebookLogin() {
         FB.login(function (response) {
@@ -78,11 +83,13 @@ angular.module('app').controller('LoginController', ['$scope', 'authService', 'U
             .then(
             function (response) {
                 console.log(response);
-                toastr.success('Login realizado com sucesso.');
+                // toastr.success('Login realizado com sucesso.');
+                alert('Login realizado com sucesso.');
             },
             function (response) {
                 console.log(response);
-                toastr.error('Falha ao logar.');
+                // toastr.error('Falha ao logar.');
+                alert('Falha ao logar');
             });
     };
 }]);

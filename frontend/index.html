@@ -13,16 +13,19 @@
         crossorigin="anonymous">
 
     <link rel="stylesheet" href="css/index.css">
+
 </head>
 
-<body>
+<body ng-controller="MainController">
 
     <div class="container-fluid">
-
         <div class="row header">
-            <div class="col-xs-3 col-sm-3 col-md-3 items-header">Algo</div>
-            <div class="col-xs-6 col-sm-6 col-md-6 items-header">HEADER</div>
-            <div class="col-xs-3 col-sm-3 col-md-3 items-header">Profile</div>
+            <div class="col-xs-6 col-sm-6 col-md-6 items-header">
+                <img class="img-circle" src="https://lh3.googleusercontent.com/-BUzv8rZ0eRM/AAAAAAAAAAI/AAAAAAAAAAA/AI6yGXyLT9dgHdqExhAA0D1F6mCoiRETpA/s96-c/photo.jpg">
+                <div class="username"> Olá, {{ username }}</div>
+            </div>
+            <div class="col-xs-4 col-sm-4 col-md-4 items-header">{{ header }}</div>
+            <div class="col-xs-2 col-sm-2 col-md-2 items-header"><input type="button" ng-click="logout()" value="Sair"></div>
         </div>
 
         <div class="row view">
@@ -35,21 +38,25 @@
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/rotina-cadastrar">
                     <div class="quick-access"><span class="glyphicon glyphicon-plus"></span></div>
+                    <div>Adicionar</div>
                 </a>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/rotina-buscar">
                     <div class="quick-access"><span class="glyphicon glyphicon-search"></span></div>
+                    <div>Pesquisar</div>
                 </a>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/rotina-visualizar">
                     <div class="quick-access"><span class="glyphicon glyphicon-time"></span></div>
+                    <div>Rotinas</div>
                 </a>
             </div>
             <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
                 <a href="#!/meus-grupos">
                     <div class="quick-access"><span class="glyphicon glyphicon-list"></span></div>
+                    <div>Grupos</div>
                 </a>
             </div>
         </div>
@@ -57,7 +64,8 @@
 
     <!-- Google Authentication -->
     <script src="https://apis.google.com/js/platform.js"></script>
-    <script src="https://maps.googleapis.com/maps/api/js?key=KEY&libraries=places"></script>
+    <script src="https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/markerclusterer.js"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBIEtdVGyQwwjkxzouIqzv42Qce8p6FBPU&libraries=places"></script>
 
     <!-- Angular CDN-->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/angular.js/1.6.4/angular.js"></script>
@@ -73,14 +81,20 @@
     <script src="js/applications/app.directives.js"></script>
 
     <!-- Controllers -->
+    <script src="js/controllers/main.controller.js"></script>
     <script src="js/controllers/login.controller.js"></script>
     <script src="js/controllers/rotina.controller.js"></script>
+    <script src="js/controllers/rotina.buscar.controller.js"></script>
     <script src="js/controllers/grupo.controller.js"></script>
 
     <!-- Services -->
     <script src="js/services/usuario.service.js"></script>
     <script src="js/services/rotina.service.js"></script>
     <script src="js/services/grupo.service.js"></script>
+    <script src="js/services/solicitacoes.service.js"></script>
+    <script src="js/services/map.service.js"></script>
+    <script src="js/services/usuario.grupo.service.js"></script>
+
 </body>
 
 </html>
