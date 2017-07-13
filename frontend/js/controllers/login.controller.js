@@ -1,12 +1,17 @@
-angular.module('app').controller('LoginController', ['$scope', 'authService', 'UsuarioService', function ($scope, authService, UsuarioService) {
+angular.module('app').controller('LoginController', ['$scope', 'authService', 'MapService', 'UsuarioService', function ($scope, authService, MapService, UsuarioService) {
 
     $scope.name = 'Por favor, autentique-se.';
-
     $scope.FacebookLogin = FacebookLogin;
     $scope.FacebookLogout = FacebookLogout;
 
     $scope.GoogleLogin = GoogleLogin;
     $scope.GoogleLogout = GoogleLogout;
+    var cwi = {lat: -29.7646612, lng:  -51.1435347};
+    mapaCWI(cwi);
+
+    function mapaCWI(cwi) {
+      MapService.iniciarMapa(cwi);
+    }
 
     function FacebookLogin() {
         FB.login(function (response) {
