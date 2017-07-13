@@ -32,7 +32,7 @@ public class GrupoService {
 
     //TODO: VERIFICAR SE ELE VAI A BANCO PERSISTIR AS NOTIFICAÇÕES
     public void remove(Grupo grupo) {
-        String conteudoNotificacao = String.format("O grupo \"%s\" que você participa foi excluído", grupo.getNome());
+        String conteudoNotificacao = String.format("O grupo '%s' que você participa foi excluído", grupo.getNome());
         Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
         grupo.getUsuarioGrupoList()
                 .stream()

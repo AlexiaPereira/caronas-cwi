@@ -44,7 +44,7 @@ public class Grupo implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
-    @OneToOne(cascade = CascadeType.ALL)
+    @OneToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ID_ROTINA")
     private Rotina rotina;
 
@@ -62,7 +62,7 @@ public class Grupo implements Serializable {
         this.idGrupo = idGrupo;
         this.nome = nome;
     }
-    
+
     public Grupo(String nome) {
         this.nome = nome;
     }

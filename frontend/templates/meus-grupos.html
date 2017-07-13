@@ -1,49 +1,84 @@
 <br>
+<!-- SOLICITACOES -->
+<h1>SOLICITAÇÕES</h1>
+<table class="table table-striped" id="cssTable">
+  <thead>
+    <th>Foto</th>
+    <th>Nome</th>
+    <th>Dia Semana</th>
+    <th>Horário</th>
+    <th>Grupo</th>
+    <th>Aceitar</th>
+    <th>Recusar</th>
+  </thead>
+  <tbody>
+    <tr ng-repeat="solicitacao in solicitacoes">
+      <h2>{{ solicitacao.usuarioDono.nome }} deseja entrar no seu grupo {{solicitacao.grupo.nome}}</h2>
+      <td>
+        {{ solicitacao.usuarioDono.urilFoto }}
+      </td>
+      <td>
+        {{ solicitacao.usuarioDono.Nome }}
+      </td>
+      <td class="dados">
+        <ul ng-repeat="diaSemana in solicitacao.rotinaUsuarioDono.rotinaDiaSemanaList">
+          <li>{{ diaSemana.diaSemana.nome }}</li>
+        </ul>
+      </td>
+      <td class="dados">{{ solicitacao.rotinaUsuarioDono.horario | date:'HH:mm' }}</td>
+      <td><button type="button" class="btn btn-success btn-lg" ng-click="aceitar(solicitacao)"><span class="glyphicon glyphicon-remove"></span></button></td>
+      <td><button type="button" class="btn btn-danger btn-lg" ng-click="recusar(solicitacao)"><span class="glyphicon glyphicon-remove"></span></button></td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!-- GRUPOS -->
 <h1>Motorista</h1>
 <div class="grupos">
+  <table class="table table-striped" id="cssTable">
+    <thead>
+      <th>Foto</th>
+      <!--<th>Id Prov</th>-->
+      <th>Dia Semana</th>
+      <th>Horário</th>
+      <th>Excluir Grupo</th>
+    </thead>
+    <tbody>
+      <tr ng-repeat="grupoMotorista in gruposMotorista">
+        <div ng-if="gruposMotorista === undefined">Nenhum grupo encontrado!</div>
+        <td></td>
+        <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
+        <!--<td class="dados">{{ grupoMotorista.idGrupo }}</td>-->
+        <td class="dados">
+          <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+        </td>
+        <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
+        <td><button type="button" class="btn btn-danger btn-lg" ng-click="removerGrupo(grupoMotorista.idGrupo)"><span class="glyphicon glyphicon-remove"></span></button></td>
+      </tr>
+    </tbody>
+  </table>
+  <h1>Passageiro</h1>
+  <div class="grupos">
     <table class="table table-striped" id="cssTable">
-        <thead>
-            <th>Foto</th>
-            <!--<th>Id Prov</th>-->
-            <th>Dia Semana</th>
-            <th>Horário</th>
-            <th>Excluir Grupo</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="grupoMotorista in gruposMotorista">
-                <div ng-if="gruposMotorista === undefined">Nenhum grupo encontrado!</div>                
-                <td></td>
-                <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
-                <!--<td class="dados">{{ grupoMotorista.idGrupo }}</td>-->
-                <td class="dados">
-                    <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
-                </td>
-                <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
-                <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(grupoMotorista)"><span class="glyphicon glyphicon-remove"></span></button></td>
-            </tr>
-        </tbody>
+      <thead>
+        <th>Foto</th>
+        <th>Dia Semana</th>
+        <th>Horário</th>
+        <th>Sair</th>
+      </thead>
+      <tbody>
+        <tr ng-repeat="grupoPassageiro in gruposPassageiro">
+          <div ng-if="gruposPassageiros === undefined">Nenhum grupo encontrado!</div>
+          <td></td>
+          <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
+          <td class="dados">{{ grupoMotorista.idGrupo }}</td>
+          <td class="dados">
+            <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+          </td>
+          <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
+          <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
+        </tr>
+      </tbody>
     </table>
-<h1>Passageiro</h1>
-<div class="grupos">
-    <table class="table table-striped" id="cssTable">
-        <thead>
-            <th>Foto</th>
-            <th>Dia Semana</th>
-            <th>Horário</th>
-            <th>Sair</th>
-        </thead>
-        <tbody>
-            <tr ng-repeat="grupoPassageiro in gruposPassageiro">
-                <div ng-if="gruposPassageiros === undefined">Nenhum grupo encontrado!</div>
-                <td></td>
-                <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
-                <td class="dados">{{ grupoMotorista.idGrupo }}</td>
-                <td class="dados">
-                    <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
-                </td>
-                <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
-                <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
-            </tr>
-        </tbody>
-    </table>
-</div>
+  </div>

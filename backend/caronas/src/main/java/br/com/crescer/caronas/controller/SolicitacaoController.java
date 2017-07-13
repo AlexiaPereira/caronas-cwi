@@ -29,29 +29,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/solicitacoes")
 public class SolicitacaoController {
-
+    
     @Autowired
     SolicitacaoService solicitacaoService;
-
+    
     @Autowired
     UsuarioService usuarioService;
-
+    
     @Autowired
     GrupoService grupoService;
-
+    
     @Autowired
     RotinaService rotinaService;
-
+    
     @GetMapping
     public Iterable<Solicitacao> findAll() {
         return solicitacaoService.findAll();
     }
-
+    
     @GetMapping(value = "/{id}")
     public Solicitacao loadById(@PathVariable Long id) {
         return solicitacaoService.loadById(id);
     }
-
+    
     @PostMapping
     public Solicitacao save(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
         Usuario usuarioDono = usuarioService.findByIdAutorizacao(user.getUsername());
@@ -61,29 +61,30 @@ public class SolicitacaoController {
         Solicitacao solicitacaoParaPersistir = new Solicitacao(usuarioDono, usuarioAlvo, rotinaPassageiro, grupo);
         return solicitacaoService.save(solicitacaoParaPersistir);
     }
-
+    
     @PutMapping
     public Solicitacao update(@RequestBody Solicitacao solicitacao) {
         return solicitacaoService.update(solicitacao);
     }
-
+    
     @DeleteMapping(value = "/{idSolicitacao}")
     public void remove(@PathVariable Long idSolicitacao) {
         Solicitacao solicitacao = solicitacaoService.loadById(idSolicitacao);
         solicitacaoService.remove(solicitacao);
     }
-
-    @GetMapping(value = "/pendentes/{idUsuario}")
-    public List<Solicitacao> solicitacoesPendentes(@PathVariable Long idUsuario) {
-        Usuario usuario = usuarioService.loadById(idUsuario);
+    
+    @GetMapping(value = "/pendentes")
+    public List<Solicitacao> solicitacoesPendentes(@AuthenticationPrincipal User user) {
+        Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
         return solicitacaoService.loadByUsuarioAlvo(usuario);
     }
-
+    
     @PostMapping(value = "/aceitar")
     public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(user.getUsername());
         solicitacao.setUsuarioAlvo(usuarioAlvo);
+        solicitacao.setUsuarioDono(usuarioService.findByIdAutorizacao(solicitacao.getUsuarioDono().getIdAutorizacao()));
         solicitacaoService.aceitarSolicitacao(solicitacao);
     }
-
+    
 }
