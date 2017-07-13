@@ -79,6 +79,11 @@ public class Rotina implements Serializable {
     @ManyToOne(optional = false, cascade = CascadeType.ALL)
     private Usuario usuario;
 
+    @Basic(optional = false)
+    @NotNull
+    @Column(name = "DISPONIVEL")
+    private boolean disponivel;
+
     public Rotina() {
     }
 
@@ -94,7 +99,7 @@ public class Rotina implements Serializable {
         this.duracao = duracao;
     }
 
-    public Rotina(boolean passageiro, Date horario, BigDecimal distancia, BigDecimal duracao, List<RotinaDiaSemana> rotinaDiaSemanaList, Destino destino, Origem origem, Usuario usuario) {
+    public Rotina(boolean passageiro, Date horario, BigDecimal distancia, BigDecimal duracao, List<RotinaDiaSemana> rotinaDiaSemanaList, Destino destino, Origem origem, Usuario usuario, boolean disponivel) {
         this.passageiro = passageiro;
         this.horario = horario;
         this.distancia = distancia;
@@ -103,6 +108,7 @@ public class Rotina implements Serializable {
         this.destino = destino;
         this.origem = origem;
         this.usuario = usuario;
+        this.disponivel = disponivel;
     }
 
     public Long getIdRotina() {
@@ -176,6 +182,22 @@ public class Rotina implements Serializable {
 
     public void setUsuario(Usuario usuario) {
         this.usuario = usuario;
+    }
+
+    public Origem getOrigem() {
+        return origem;
+    }
+
+    public void setOrigem(Origem origem) {
+        this.origem = origem;
+    }
+
+    public boolean isDisponivel() {
+        return disponivel;
+    }
+
+    public void setDisponivel(boolean disponivel) {
+        this.disponivel = disponivel;
     }
 
 }
