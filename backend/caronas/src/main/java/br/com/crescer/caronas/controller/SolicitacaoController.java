@@ -6,6 +6,7 @@ import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.GrupoService;
+import br.com.crescer.caronas.service.RotinaService;
 import br.com.crescer.caronas.service.SolicitacaoService;
 import br.com.crescer.caronas.service.UsuarioService;
 import java.util.List;
@@ -38,6 +39,9 @@ public class SolicitacaoController {
     @Autowired
     GrupoService grupoService;
 
+    @Autowired
+    RotinaService rotinaService;
+
     @GetMapping
     public Iterable<Solicitacao> findAll() {
         return solicitacaoService.findAll();
@@ -52,7 +56,7 @@ public class SolicitacaoController {
     public Solicitacao save(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
         Usuario usuarioDono = usuarioService.findByIdAutorizacao(user.getUsername());
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(solicitacaoDTO.getSolicitacao().getUsuarioAlvo().getIdAutorizacao());
-        Rotina rotinaPassageiro = solicitacaoDTO.getSolicitacao().getRotinaUsuarioDono();
+        Rotina rotinaPassageiro = rotinaService.loadById(solicitacaoDTO.getSolicitacao().getRotinaUsuarioDono().getIdRotina());
         Grupo grupo = grupoService.loadByRotina(solicitacaoDTO.getRotinaMotorista());
         Solicitacao solicitacaoParaPersistir = new Solicitacao(usuarioDono, usuarioAlvo, rotinaPassageiro, grupo);
         return solicitacaoService.save(solicitacaoParaPersistir);

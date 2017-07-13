@@ -50,7 +50,7 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.findOne(id);
     }
 
-    private boolean usuarioEstaNoGrupo(UsuarioGrupo usuarioGrupo) {
+    public boolean usuarioEstaNoGrupo(UsuarioGrupo usuarioGrupo) {
         return usuarioGrupo.getGrupo().getUsuarioGrupoList()
                 .stream()
                 .map(UsuarioGrupo::getUsuario)
