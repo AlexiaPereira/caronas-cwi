@@ -48,12 +48,12 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
     let matrizPassageiro = [{ lat: rotinaPassageiro.idOrigem.latitude, lng: rotinaPassageiro.idOrigem.longitude }];
     
     for (var i = (matrizMotoristas.length/25); i>=0; i--) {
-      if (matrizMotorista.length > 25) {
+      if (matrizMotoristas.length > 25) {
         matrizAuxiliar = matrizMotoristas.splice(0, 25);
       }
 
       else {
-        matrizAuxiliar = matrizMotorista;
+        matrizAuxiliar = matrizMotoristas;
       }
 
       new google.maps.DistanceMatrixService().getDistanceMatrix({
