@@ -7,8 +7,12 @@ angular.module('app').factory('GrupoService', ['$http', function ($http) {
         return $http.get(`${url}/${idGrupo}`);
     }
 
+    function listarGrupos() {
+        return $http.get(`${url}/usuario`);
+    }
 
     return ({
-        buscarGrupo: buscarGrupo
+        buscarGrupo: buscarGrupo,
+        listarGrupos: listarGrupos
     });
 }]);

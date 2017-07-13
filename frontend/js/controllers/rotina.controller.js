@@ -17,26 +17,35 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.subDisponivel = subDisponivel;
 
     $scope.distancia = 0;
+    $scope.rotinas = listar();
+    console.log($scope.rotinas);
 
-    $scope.matches = [
-        { 'nome': 'eu', 'foto': 'dois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' },
-        { 'nome': 'eudois', 'foto': 'fotodois' }
-    ];
+    // $scope.matches = [];
+    // $scope.matches = [
+    //     { 'nome': 'eu', 'foto': 'dois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' },
+    //     { 'nome': 'eudois', 'foto': 'fotodois' }
+    // ];
+
+    $scope.clique = clique;
+    function clique(rotina) {
+        console.log(rotina);
+        procurarMatchs(rotina);
+    }
 
     var destino = {
         lat: -29.794918,
@@ -50,7 +59,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             .listar()
             .then(response => {
                 $scope.rotinas = response.data;
-                procurarMatchs($scope.rotinas[0]);
+                // procurarMatchs($scope.rotinas[0]);
             })
     }
 
@@ -164,23 +173,38 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     var matrizPassageiro = [];
     var listaDistanciaRotina = [];
 
+    $scope.matches = [];
+    $scope.procurarMatchs = procurarMatchs;
     function procurarMatchs(rotina) {
+        debugger;
+        function async() {
+            return $q(function(resolve, reject) {
+                setTimeout(function() {
+                    verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
+                }, 1000);
+            });
+        }
         var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-        matrix(rotina, respostaMetodoPrimeirasVerificacoes).then(res => {
-            var respostaMatrix = res;
-            var matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
-        });
+        matrix(rotina, respostaMetodoPrimeirasVerificacoes)
+            .then(res => {
+                $scope.respostaMatrix = res;
+                $scope.matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
+            });
         return matchs;
     };
 
     function verificarMatchHorarioEQuantidadeDeVagas(idRotina) {
-        RotinaService.getRotinasMatchHorarioEComVaga(idRotina).then(function (response) {
-            listaDeRotinasMotorista = response.data;
-            return listaDeRotinasMotorista;
-        })
+        debugger;
+        RotinaService
+            .getRotinasMatchHorarioEComVaga(idRotina)
+            .then(function (response) {
+                $scope.listaDeRotinasMotorista = response.data;
+                return listaDeRotinasMotorista;
+            })
     };
 
     function matrix(rotinaPassageiro, listaDeRotinasMotorista) {
+        debugger;
         var matrixDeferred = $q.defer();
         /*listaMotorista = [{idOrigem:{latitude:-30.0624354, longitude:-51.1749197}, idUsuario:5},
         {idOrigem:{latitude:-30.0153303, longitude:-51.1130727}, idUsuario:4},
@@ -258,4 +282,4 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         return deferred.promise;
     }
 
-}]);
+}])
