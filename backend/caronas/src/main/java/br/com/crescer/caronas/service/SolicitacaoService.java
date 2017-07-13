@@ -54,6 +54,7 @@ public class SolicitacaoService {
 
     public void aceitarSolicitacao(Solicitacao solicitacao) {
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo(), new Date());
+        solicitacao.getRotinaUsuarioDono().setDisponivel(false);
         usuarioGrupoService.save(usuarioGrupo);
         solicitacaoRepository.delete(solicitacao);
     }
