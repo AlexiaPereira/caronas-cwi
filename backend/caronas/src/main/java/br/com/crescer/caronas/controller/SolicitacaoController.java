@@ -76,10 +76,10 @@ public class SolicitacaoController {
     }
 
     @PostMapping(value = "/aceitar")
-    public void aceitarSolicitacao(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
+    public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(user.getUsername());
-        solicitacaoDTO.getSolicitacao().setUsuarioAlvo(usuarioAlvo);
-        solicitacaoService.aceitarSolicitacao(solicitacaoDTO);
+        solicitacao.setUsuarioAlvo(usuarioAlvo);
+        solicitacaoService.aceitarSolicitacao(solicitacao);
     }
 
 }
