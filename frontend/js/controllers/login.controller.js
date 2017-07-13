@@ -28,7 +28,7 @@ angular.module('app').controller('LoginController', ['$scope', 'authService', 'M
                     var accessToken = FB.getAuthResponse().accessToken;
                     console.log(`Token: ${accessToken}`);
 
-                    let usuario = { nome: response.name, email: response.email, idAutorizacao: response.id, senha: response.id, UrlFoto: response.picture.data.url };
+                    let usuario = { nome: response.name, email: response.email, idAutorizacao: response.id, senha: response.id, urlFoto: response.picture.data.url };
                     console.log(usuario);
 
                     criarUsuario(usuario);
@@ -54,7 +54,7 @@ angular.module('app').controller('LoginController', ['$scope', 'authService', 'M
                 console.log(response);
                 $scope.idGoogle = response.w3.Eea;
 
-                let usuario = { nome: response.w3.ig, email: response.w3.U3, idAutorizacao: response.w3.Eea, senha: response.w3.Eea, UrlFoto: response.w3.Paa };
+                let usuario = { nome: response.w3.ig, email: response.w3.U3, idAutorizacao: response.w3.Eea, senha: response.w3.Eea, urlFoto: response.w3.Paa };
                 console.log(usuario);
 
                 criarUsuario(usuario);
