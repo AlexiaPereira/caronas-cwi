@@ -4,6 +4,8 @@ import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
+import br.com.crescer.caronas.entity.UsuarioGrupo;
+import br.com.crescer.caronas.repository.GrupoRepository;
 import br.com.crescer.caronas.repository.RotinaRepository;
 import java.text.ParseException;
 import java.util.List;
@@ -79,6 +81,18 @@ public class RotinaService {
     public List<Rotina> matchHorarios(Rotina rotina) throws ParseException {
         this.validarHorarioService = new ValidarHorarioService();
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
+        for(Rotina motorista: rotinasDeMotoristas){
+            if(motorista.getUsuario() == rotina.getUsuario()) {
+                rotinasDeMotoristas.remove(motorista);    
+            }
+            List<UsuarioGrupo> listaUsuarioGrupo = grupoService.loadByRotina(motorista).getUsuarioGrupoList();
+            for(UsuarioGrupo usuarioGrupo: listaUsuarioGrupo){
+                if(usuarioGrupo.getUsuario() == rotina.getUsuario()) {
+                    rotinasDeMotoristas.remove(motorista);    
+                }
+            }
+            
+        };
         return validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas);
     }
 
