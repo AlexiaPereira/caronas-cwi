@@ -11,10 +11,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.criar = criar;
     $scope.excluir = excluir;
 
-    $scope.total = 4;
     $scope.disponivel = 0;
-    // $scope.addTotal = addTotal;
-    // $scope.subTotal = subTotal;
     $scope.addDisponivel = addDisponivel;
     $scope.subDisponivel = subDisponivel;
     $scope.rotinasPassageiro = [];
@@ -146,9 +143,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     }
 
     function addDisponivel() {
-        if ($scope.disponivel < $scope.total) {
-            $scope.disponivel++;
-        }
+        $scope.disponivel++;
     }
 
     function subDisponivel() {

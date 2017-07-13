@@ -7,9 +7,18 @@ a:link, a:visited, a:hover, a:focus, a:active {
 }
 
 .container {
-    background-color: gray;
+    background-color: #fff;
     position: relative;
 }
+
+/*.container-fluid {
+    margin: 0;
+    padding: 0;
+}
+
+.row {
+    margin: 0;
+}*/
 
 .btn-orange-button {
     border: 2px solid black;
@@ -31,12 +40,12 @@ a:link, a:visited, a:hover, a:focus, a:active {
 .header, .footer {
     height: 8vh;
     width: 100%;
-    background-color: #C4CAC8;
+    background-color: #fff;
     position: fixed;
     z-index: 1;
     font-size: 2vh;
     font-weight: bold;
-    color: white;
+    color: #777;
 }
 
 .header {
@@ -80,9 +89,17 @@ a:link, a:visited, a:hover, a:focus, a:active {
   background-color: #fffafa;
 }
 
+.footer > .items-footer {
+    border-left: 1px solid #ccc;
+}
+
+.footer > .items-footer > a {
+    text-decoration: none; 
+}
+
 .footer > .items-footer > a > .quick-access > .glyphicon {
     font-size: 3vh;
-    color: white;
+    color: #777;
     margin-top: 1vh;
     transition-duration: 0.8s;
 }
@@ -100,6 +117,13 @@ a:link, a:visited, a:hover, a:focus, a:active {
 .view {
     position: relative;
     top: 8vh;
+}
+
+.view > div {
+    background: rgba(255,255,255,0.8);
+    border: 2px solid white;
+    border-radius: 5px;
+    margin: 5px;
 }
 /* INDEX */
 
@@ -125,51 +149,87 @@ a:link, a:visited, a:hover, a:focus, a:active {
 
 /* ROTINA-CADASTRO */
 /* Input */
+
 input[type="checkbox"], input[type="radio"] {
     position: absolute;
     opacity: 0;
     z-index: -1;
 }
 
-label {
-    position: relative;
-    display: inline-block;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    padding-left: 30px;
-    padding-right: 10px;
-    line-height: 36px;
-    cursor: pointer;
+input[type="text"] {
+    width: 70vw;
 }
 
-label::before {
+.horario, .local > div > input[type="text"] {
+    font-size: 20px;
+}
+
+.passageiro > div > label {
+    position: relative;
+    display: inline-block;
+    /*margin-right: 10px;
+    margin-bottom: 10px;
+    padding-left: 30px;
+    padding-right: 10px;*/
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 36px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.passageiro > div > label::before {
     content: " ";
     position: absolute;
-    top: 6px;
+    /*top: 6px;*/
     left: 0;
     display: inline-block;
-    width: 24px;
-    height: 24px;
+    width: 100%;
+    height: 100%;
     border: 2px solid #EB8514;
     border-radius: 4px;
-    z-index: -1;
+    z-index: 1;
+}
+
+.dia-semana > div > label {
+    position: relative;
+    display: inline-block;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 36px;
+    cursor: pointer;
+    font-size: 20px;
+}
+
+.dia-semana > div > label::before {
+    content: " ";
+    position: absolute;
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border: 2px solid #EB8514;
+    border-radius: 4px;
+    z-index: 1;
 }
 
 input[type="radio"] + label::before {
     border-radius: 18px;
+    z-index: 1;
 }
 
 /* Checked */
 input[type="checkbox"]:checked + label, input[type="radio"]:checked + label {
-    padding-left: 10px;
+    /*padding-left: 10px;*/
     color: #fff;
+    z-index: 1;
 }
 
 input[type="checkbox"]:checked + label::before, input[type="radio"]:checked + label::before {
     top: 0;
     width: 100%;
     height: 100%;
-    background: #FC9600
+    background: #FC9600;
+    z-index: -1;
 }
 
 /* Transition */
@@ -178,4 +238,12 @@ label, label::before {
     -webkit-transition: .25s all ease;
     -o-transition: .25s all ease;
     transition: .25s all ease;
+}
+
+#map {
+    position: absolute;
+    height: 100vh;
+    width: 100%;
+    z-index: -999;
+    overflow: hidden;
 }
