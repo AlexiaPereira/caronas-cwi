@@ -1,7 +1,18 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', '$q', function ($scope, RotinaService, $q) {
+angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', '$q', '$location', function ($scope, RotinaService, $q, $location) {
 
     // listar();
     // console.log($scope.rotinas);
+
+    // verificar essa parte
+    setTimeout(function () {
+        console.log('start timeout');
+        if (isUndefinedOrNull($scope.rotinasPassageiro)) {
+            $location.path('/rotina-cadastrar');
+        }
+        console.log('end timeout');
+    }, 1000);
+
+    $scope.rotinasPassageiro = [];
 
     $scope.listar = listar;
     $scope.procurar = procurar;
@@ -13,8 +24,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.disponivel = 0;
     $scope.addTotal = addTotal;
     $scope.subTotal = subTotal;
-    $scope.addDisponivel = addDisponivel;
-    $scope.subDisponivel = subDisponivel;
 
     $scope.distancia = 0;
     $scope.rotinas = listar();
@@ -134,6 +143,11 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
                 .then(response => {
                     console.log(response);
                     rotina.rotinaDiaSemanaList = null;
+                    if (rotina.passageiro) {
+                        $location.path('/rotina-visualizar');
+                    } else {
+                        $location.path('/meus-grupos');
+                    }
                 });
 
         });
@@ -162,18 +176,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         } else if ($scope.total > 0) {
             $scope.total--;
             $scope.$digest();
-        }
-    }
-
-    function addDisponivel() {
-        if ($scope.disponivel < $scope.total) {
-            $scope.disponivel++;
-        }
-    }
-
-    function subDisponivel() {
-        if ($scope.disponivel > 0) {
-            $scope.disponivel--;
         }
     }
 
@@ -226,7 +228,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         {idOrigem:{latitude:-30.0153303, longitude:-51.1130727}, idUsuario:4},
         {idOrigem:{latitude:-23.5505199, longitude:-46.6333094}, idUsuario:6}]
         matrizPassageiro = [{lat:-29.7949175,lng:-51.1465092}];*/
-        listaDeRotinasMotorista.forEach(function (motorista) {
+        rotinasPassageiro.forEach(function (motorista) {
             let objetoMotorista = { lat: motorista.idOrigem.latitude, lng: motorista.idOrigem.longitude };
             matrizMotoristas.push(objetoMotorista);
         });
