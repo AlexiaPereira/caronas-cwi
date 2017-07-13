@@ -11,11 +11,7 @@
         <tbody>
             <tr ng-repeat="rotina in rotinasPassageiro">
                 <td class="dados">
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[0].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[1].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[2].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[3].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[4].diaSemana.nome}}</div>
+                  <ul class="row margem" ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
                 </td>
                 <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
                 <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
@@ -35,18 +31,10 @@
             <tr ng-repeat="rotina in rotinasMotorista">
                 <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
                 <td class="dados">
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[0].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[1].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[2].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[3].diaSemana.nome}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[4].diaSemana.nome}}</div>
+                    <ul ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
                 </td>
                 <td class="dados">
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[0].vagasDisponiveis}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[1].vagasDisponiveis}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[2].vagasDisponiveis}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[3].vagasDisponiveis}}</div>
-                  <div class="row margem">{{rotina.rotinaDiaSemanaList[4].vagasDisponiveis}}</div>
+                    <ul ng-repeat="quantidadeVagas in rotina.rotinaDiaSemanaList"><li>{{quantidadeVagas.vagasDisponiveis }}</li>
                 </td>
                 <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
             </tr>
