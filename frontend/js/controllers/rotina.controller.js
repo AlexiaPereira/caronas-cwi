@@ -83,6 +83,19 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             });
     }
 
+    // function getNomeDiaSemana(diaSemana) {
+    //     debugger;
+    //     switch (diaSemana) {
+    //         case 0: return 'SEGUNDA';
+    //         case 1: return 'TERCA';
+    //         case 2: return 'QUARTA';
+    //         case 3: return 'QUINTA';
+    //         case 4: return 'SEXTA';
+    //         case 5: return 'SABADO';
+    //         case 6: return 'DOMINGO';
+    //     }
+    // }
+
     function criar(rotina) {
         debugger;
         if (isUndefinedOrNull(rotina)) {
@@ -101,6 +114,8 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
 
             var aux = [];
             for (var diaSemana in rotina.rotinaDiaSemanaList) {
+                console.log(diaSemana);
+                debugger;
                 aux
                     .push({
                         'diaSemana':
@@ -118,6 +133,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
                 .criar(rotina)
                 .then(response => {
                     console.log(response);
+                    rotina.rotinaDiaSemanaList = null;
                 });
 
         });
@@ -263,7 +279,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
 
 
     function distanciaRotina(origemPassageiro, destinoPassageiro) {
-        // debugger;
+        debugger;
         let origem = [origemPassageiro];
         let destino = [destinoPassageiro];
         var deferred = $q.defer();
