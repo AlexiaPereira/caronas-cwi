@@ -28,6 +28,7 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
   }
 
   function procurarMatchs(rotina) {
+    $scope.rotinaAtual = rotina;
     RotinaService
     .getRotinasMatchHorarioEComVaga(rotina.idRotina)
     .then(response => {
@@ -46,7 +47,7 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
     var distancias = [];
     let matrizMotoristas = montarArraysMatriz(listaDeRotinasMotorista);
     let matrizPassageiro = [{ lat: rotinaPassageiro.idOrigem.latitude, lng: rotinaPassageiro.idOrigem.longitude }];
-    
+
     for (var i = (matrizMotoristas.length/25); i>=0; i--) {
       if (matrizMotoristas.length > 25) {
         matrizAuxiliar = matrizMotoristas.splice(0, 25);
@@ -95,9 +96,10 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
       return auxiliar;
     }
 
-    function enviarSolicitacao(rotina) {
-      let solicitacao = {usuarioAlvo: rotina.usuario, rotinaMotorista: rotina};
-      SolicitacoesService.enviar(solicitacao).then(res => alert('Solicitação enviada com sucesso'));
+    function enviarSolicitacao(match) {
+      let solicitacao = {usuarioAlvo: match.usuario, rotinaUsuarioDono: $scope.rotinaAtual};
+      let solicitacaoDTO = {solicitacao: solicitacao, rotinaMotorista: match}
+      SolicitacoesService.enviar(solicitacaoDTO).then(res => alert('Solicitação enviada com sucesso'));
     }
 
     function buscarDiaSemana(match) {
