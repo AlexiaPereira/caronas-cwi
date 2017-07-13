@@ -49,7 +49,7 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
     
     for (var i = (matrizMotoristas.length/25); i>=0; i--) {
       if (matrizMotorista.length > 25) {
-        matrizAuxiliar = matrizMotorista.splice(0, 25);
+        matrizAuxiliar = matrizMotoristas.splice(0, 25);
       }
 
       else {

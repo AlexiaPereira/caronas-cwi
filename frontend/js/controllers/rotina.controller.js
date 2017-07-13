@@ -4,13 +4,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     // console.log($scope.rotinas);
 
     // verificar essa parte
-    setTimeout(function () {
-        console.log('start timeout');
-        if (isUndefinedOrNull($scope.rotinasPassageiro)) {
-            $location.path('/rotina-cadastrar');
-        }
-        console.log('end timeout');
-    }, 1000);
 
     $scope.listar = listar;
     $scope.procurar = procurar;
@@ -55,6 +48,9 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             .listar()
             .then(response => {
                 let rotinas = response.data;
+                if (rotinas.length === 0) {
+                    $location.path('/rotina-cadastrar');
+                }
                 rotinas.forEach(function (rotina) {
                     if (!rotina.passageiro) {
                         console.log('add mot');
