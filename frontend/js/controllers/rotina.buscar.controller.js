@@ -1,6 +1,6 @@
 angular.module('app').controller('RotinaBuscarController',
-['$scope', 'RotinaService', 'SolicitacoesService', '$q', '$location',
-function ($scope, RotinaService, SolicitacoesService, $q, $location) {
+['$scope', 'RotinaService', 'MapService', 'SolicitacoesService', '$q', '$location',
+function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location) {
 
   console.log($location.absUrl());
   $header = $location.absUrl();
@@ -16,6 +16,15 @@ function ($scope, RotinaService, SolicitacoesService, $q, $location) {
     RotinaService.listarPorPassageiro(true).then(response => {
       $scope.rotinas = response.data;
     })
+  }
+
+  var locations = [
+    {lat: -29.7646612, lng:  -51.1435347}
+  ];
+
+  mapaMatch(locations)
+  function mapaMatch(arrayDeLocais) {
+    MapService.mapaMatch(arrayDeLocais);
   }
 
   function procurarMatchs(rotina) {
@@ -62,6 +71,8 @@ function ($scope, RotinaService, SolicitacoesService, $q, $location) {
   function obterRotinasComMatchDistancia(idRotina, listaDistanciaRotina) {
     RotinaService.getRotinasComMatchDistancia(idRotina, listaDistanciaRotina).then(function (response) {
       $scope.matches = response.data;
+      var pontosMapa = montarArraysMatriz ($scope.matches);
+      mapaMatch(pontosMapa);
     })
   };
 
