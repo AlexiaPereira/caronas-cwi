@@ -1,7 +1,16 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', 'MapService', '$q', function ($scope, RotinaService, MapService, $q) {
+angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', 'MapService', '$q', '$location', function ($scope, RotinaService, MapService, $q, $location) {
 
     // listar();
     // console.log($scope.rotinas);
+
+    // verificar essa parte
+    setTimeout(function () {
+        console.log('start timeout');
+        if (isUndefinedOrNull($scope.rotinasPassageiro)) {
+            $location.path('/rotina-cadastrar');
+        }
+        console.log('end timeout');
+    }, 1000);
 
     $scope.listar = listar;
     $scope.procurar = procurar;
@@ -19,34 +28,15 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.rotinasMotorista = [];
 
     $scope.distancia = 0;
-    $scope.rotinas = listar();
+    listar();
     console.log($scope.rotinas);
 
-    // $scope.matches = [];
-    // $scope.matches = [
-    //     { 'nome': 'eu', 'foto': 'dois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' },
-    //     { 'nome': 'eudois', 'foto': 'fotodois' }
-    // ];
-    var cwi = {lat: -29.7646612, lng:  -51.1435347};
+
+    var cwi = { lat: -29.7646612, lng: -51.1435347 };
     mapaCWI(cwi);
 
     function mapaCWI(cwi) {
-      MapService.iniciarMapa(cwi);
+        MapService.iniciarMapa(cwi);
     }
 
     $scope.clique = clique;
@@ -65,17 +55,19 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             .listar()
             .then(response => {
                 let rotinas = response.data;
-                rotinas.forEach(function(rotina) {
-                  if(rotina.passageiro == false){
-                    console.log('add mot');
-                    $scope.rotinasMotorista.push(rotina);
-                  }
-                  else {
-                    console.log('add pass');
-                    $scope.rotinasPassageiro.push(rotina);
-                  }
+                rotinas.forEach(function (rotina) {
+                    if (!rotina.passageiro) {
+                        console.log('add mot');
+                        $scope.rotinasMotorista.push(rotina);
+                    }
+                    else {
+                        console.log('add pass');
+                        $scope.rotinasPassageiro.push(rotina);
+                    }
                 });
-            })
+                console.log($scope.rotinasPassageiro);
+                console.log($scope.rotinasMotorista);
+            });
     }
 
     function procurar() {
@@ -116,6 +108,8 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
 
             var aux = [];
             for (var diaSemana in rotina.rotinaDiaSemanaList) {
+                console.log(diaSemana);
+                debugger;
                 aux
                     .push({
                         'diaSemana':
@@ -133,8 +127,13 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
                 .criar(rotina)
                 .then(response => {
                     console.log(response);
+                    rotina.rotinaDiaSemanaList = null;
+                    if (rotina.passageiro) {
+                        $location.path('/rotina-visualizar');
+                    } else {
+                        $location.path('/meus-grupos');
+                    }
                 });
-
         });
     }
 
@@ -193,8 +192,8 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     function procurarMatchs(rotina) {
         debugger;
         function async() {
-            return $q(function(resolve, reject) {
-                setTimeout(function() {
+            return $q(function (resolve, reject) {
+                setTimeout(function () {
                     verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
                 }, 1000);
             });

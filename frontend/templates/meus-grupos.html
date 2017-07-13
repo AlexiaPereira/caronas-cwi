@@ -4,17 +4,23 @@
     <table class="table table-striped" id="cssTable">
         <thead>
             <th>Foto</th>
-            <th>Nome</th>
+            <!--<th>Id Prov</th>-->
             <th>Dia Semana</th>
             <th>Horário</th>
-            <th>Remover</th>
+            <th>Excluir Grupo</th>
         </thead>
         <tbody>
-            <td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>
-            <td class="dados">Nome</td>
-            <td class="dados">Semana</td>
-            <td class="dados">Horário</td>
-            <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
+            <tr ng-repeat="grupoMotorista in gruposMotorista">
+                <div ng-if="gruposMotorista === undefined">Nenhum grupo encontrado!</div>                
+                <td></td>
+                <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
+                <!--<td class="dados">{{ grupoMotorista.idGrupo }}</td>-->
+                <td class="dados">
+                    <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+                </td>
+                <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
+                <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(grupoMotorista)"><span class="glyphicon glyphicon-remove"></span></button></td>
+            </tr>
         </tbody>
     </table>
 <h1>Passageiro</h1>
@@ -22,17 +28,22 @@
     <table class="table table-striped" id="cssTable">
         <thead>
             <th>Foto</th>
-            <th>Nome</th>
             <th>Dia Semana</th>
             <th>Horário</th>
             <th>Sair</th>
         </thead>
         <tbody>
-            <td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>
-            <td class="dados">Nome</td>
-            <td class="dados">Semana</td>
-            <td class="dados">Horário</td>
-            <td><button type="button" class="btn btn-danger btn-lg" ng-click="sair(grupo)"><span class="glyphicon glyphicon-remove"></span></button></td>
+            <tr ng-repeat="grupoPassageiro in gruposPassageiro">
+                <div ng-if="gruposPassageiros === undefined">Nenhum grupo encontrado!</div>
+                <td></td>
+                <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
+                <td class="dados">{{ grupoMotorista.idGrupo }}</td>
+                <td class="dados">
+                    <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+                </td>
+                <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
+                <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
+            </tr>
         </tbody>
     </table>
 </div>
