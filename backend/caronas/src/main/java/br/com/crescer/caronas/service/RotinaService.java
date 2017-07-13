@@ -8,6 +8,7 @@ import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.RotinaRepository;
 import java.text.ParseException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,7 @@ public class RotinaService {
 
         rotina = rotinaRepository.save(rotina);
         Grupo grupoComEssaRotina = new Grupo("Grupo de " + rotina.getUsuario().getNome(), rotina);
+        grupoComEssaRotina.getUsuarioGrupoList().add(new UsuarioGrupo(rotina.getUsuario(), grupoComEssaRotina, new Date()));
         grupoService.save(grupoComEssaRotina);
         return rotina;
     }
@@ -94,13 +96,16 @@ public class RotinaService {
                 .forEach(auxiliarMotorista::add);
 
         rotinasDeMotoristas.stream().forEach(motorista -> {
-            List<UsuarioGrupo> listaUsuarioGrupo = grupoService.loadByRotina(motorista).getUsuarioGrupoList();
-            listaUsuarioGrupo
-                    .stream()
-                    .filter(usuarioGrupo -> usuarioGrupoService.usuarioEstaNoGrupo(usuarioGrupo))
-                    .map(UsuarioGrupo::getGrupo)
-                    .map(Grupo::getRotina)
-                    .forEach(auxiliarMotorista::add);
+            Grupo grupoDaRotina = grupoService.loadByRotina(motorista);
+            if (grupoDaRotina != null) {
+                List<UsuarioGrupo> listaUsuarioGrupo = grupoDaRotina.getUsuarioGrupoList();
+                listaUsuarioGrupo
+                        .stream()
+                        .filter(usuarioGrupo -> usuarioGrupoService.usuarioEstaNoGrupo(usuarioGrupo))
+                        .map(UsuarioGrupo::getGrupo)
+                        .map(Grupo::getRotina)
+                        .forEach(auxiliarMotorista::add);
+            }
         });
 
         rotinasDeMotoristas.removeAll(auxiliarMotorista);
