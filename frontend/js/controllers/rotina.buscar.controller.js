@@ -71,7 +71,7 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
   function obterRotinasComMatchDistancia(idRotina, listaDistanciaRotina) {
     RotinaService.getRotinasComMatchDistancia(idRotina, listaDistanciaRotina).then(function (response) {
       $scope.matches = response.data;
-      var pontosMapa = montarArraysMatriz ($scope.matches);
+      let pontosMapa = montarArraysMatriz ($scope.matches);
       mapaMatch(pontosMapa);
     })
   };
