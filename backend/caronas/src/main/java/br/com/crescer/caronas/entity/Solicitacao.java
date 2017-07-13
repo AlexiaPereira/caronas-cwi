@@ -47,7 +47,7 @@ public class Solicitacao implements Serializable {
 
     @NotNull
     @JoinColumn(name = "ID_ROTINA_USUARIO_DONO", referencedColumnName = "ID_ROTINA")
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Rotina rotinaUsuarioDono;
 
     @NotNull

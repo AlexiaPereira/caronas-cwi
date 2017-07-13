@@ -1,9 +1,9 @@
 package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
-import java.lang.Long;
 import java.util.Date;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -42,7 +42,7 @@ public class UsuarioGrupo implements Serializable {
     @Basic(optional = false)
     @NotNull
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    @ManyToOne
+    @ManyToOne(cascade = CascadeType.PERSIST)
     private Usuario usuario;
 
     @Basic(optional = false)
