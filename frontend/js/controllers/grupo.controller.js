@@ -4,6 +4,29 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', '
     $scope.recusar = recusar;
     $scope.remover = remover;
 
+    listarGrupos();
+
+    $scope.gruposMotorista = [];
+    $scope.gruposPassageiro = [];
+
+    function listarGrupos() {
+        GrupoService
+            .listarGrupos()
+            .then(response => {
+        debugger;
+                let grupos = response.data;
+                for (var grupo of grupos) {
+                    if (!grupo.passageiro) {
+                        $scope.gruposMotorista.push(grupo);
+                    } else {
+                        $scope.gruposPassageiro.push(grupo);
+                    }
+                }
+                console.log('Motorista' + $scope.gruposMotorista);
+                console.log('Passageiro' + $scope.gruposPassageiro);
+            });
+    }
+
     function buscarGrupo(idGrupo) {
         GrupoService
             .buscarGrupo(idGrupo)
