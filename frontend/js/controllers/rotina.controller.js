@@ -1,4 +1,4 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', '$q', function ($scope, RotinaService, $q) {
+angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', 'MapService', '$q', function ($scope, RotinaService, MapService, $q) {
 
     // listar();
     // console.log($scope.rotinas);
@@ -40,6 +40,12 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     //     { 'nome': 'eudois', 'foto': 'fotodois' },
     //     { 'nome': 'eudois', 'foto': 'fotodois' }
     // ];
+    var cwi = {lat: -29.7646612, lng:  -51.1435347};
+    mapaCWI(cwi);
+
+    function mapaCWI(cwi) {
+      MapService.iniciarMapa(cwi);
+    }
 
     $scope.clique = clique;
     function clique(rotina) {
