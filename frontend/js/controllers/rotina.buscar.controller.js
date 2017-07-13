@@ -18,15 +18,6 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
     })
   }
 
-  var locations = [
-    {lat: -29.7646612, lng:  -51.1435347}
-  ];
-
-  mapaMatch(locations)
-  function mapaMatch(arrayDeLocais) {
-    MapService.mapaMatch(arrayDeLocais);
-  }
-
   function procurarMatchs(rotina) {
     $scope.rotinaAtual = rotina;
     RotinaService

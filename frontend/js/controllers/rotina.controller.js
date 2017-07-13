@@ -25,13 +25,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     console.log($scope.rotinas);
 
 
-    var cwi = { lat: -29.7646612, lng: -51.1435347 };
-    mapaCWI(cwi);
-
-    function mapaCWI(cwi) {
-        MapService.iniciarMapa(cwi);
-    }
-
     $scope.clique = clique;
     function clique(rotina) {
         console.log(rotina);
