@@ -11,8 +11,13 @@ angular.module('app').factory('GrupoService', ['$http', function ($http) {
         return $http.get(`${url}/usuario`);
     }
 
+    function remover(idGrupo) {
+      return $http.delete(`${url}/${idGrupo}`)
+    }
+
     return ({
         buscarGrupo: buscarGrupo,
-        listarGrupos: listarGrupos
+        listarGrupos: listarGrupos,
+        remover: remover 
     });
 }]);

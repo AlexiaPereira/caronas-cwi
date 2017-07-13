@@ -2,7 +2,7 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', '
 
     $scope.aceitar = aceitar;
     $scope.recusar = recusar;
-    $scope.remover = remover;
+    $scope.removerGrupo = removerGrupo;
 
     listarGrupos();
 
@@ -59,13 +59,13 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService', '
             });
     }
 
-    function remover(idUsuarioGrupo) {
-        if (isUndefinedOrNull(idUsuarioGrupo)) {
+    function removerGrupo(idGrupo) {
+        if (isUndefinedOrNull(idGrupo)) {
             console.log('undefined or null');
             return;
         }
-        UsuarioGrupoService
-            .remover(idUsuarioGrupo)
+        GrupoService
+            .remover(idGrupo)
             .then(response => {
                 console.log(response);
             })
