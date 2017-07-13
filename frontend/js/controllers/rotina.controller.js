@@ -15,6 +15,8 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.subTotal = subTotal;
     $scope.addDisponivel = addDisponivel;
     $scope.subDisponivel = subDisponivel;
+    $scope.rotinasPassageiro = [];
+    $scope.rotinasMotorista = [];
 
     $scope.distancia = 0;
     $scope.rotinas = listar();
@@ -58,14 +60,21 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         lng: -51.146509
     }
 
-    console.log($scope.matches);
-
     function listar() {
         RotinaService
             .listar()
             .then(response => {
-                $scope.rotinas = response.data;
-                // procurarMatchs($scope.rotinas[0]);
+                let rotinas = response.data;
+                rotinas.forEach(function(rotina) {
+                  if(rotina.passageiro == false){
+                    console.log('add mot');
+                    $scope.rotinasMotorista.push(rotina);
+                  }
+                  else {
+                    console.log('add pass');
+                    $scope.rotinasPassageiro.push(rotina);
+                  }
+                });
             })
     }
 
