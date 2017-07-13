@@ -59,7 +59,8 @@ public class SolicitacaoService {
     }
 
     private boolean solicitacaoEhValida(Solicitacao solicitacao) {
-        return solicitacao.getUsuarioAlvo().getIdAutorizacao() != solicitacao.getUsuarioDono().getIdAutorizacao();
+        return solicitacao.getUsuarioAlvo().getIdAutorizacao() != solicitacao.getUsuarioDono().getIdAutorizacao()
+                && solicitacaoRepository.countByUsuarioDonoAndGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo()) == 0;
     }
 
 }
