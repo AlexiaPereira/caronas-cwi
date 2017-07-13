@@ -51,9 +51,9 @@ public class Solicitacao implements Serializable {
     private Rotina rotinaUsuarioDono;
 
     @NotNull
-    @JoinColumn(name = "ID_ROTINA_USUARIO_ALVO", referencedColumnName = "ID_ROTINA")
+    @JoinColumn(name = "ID_GRUPO", referencedColumnName = "ID_GRUPO")
     @ManyToOne(cascade = CascadeType.PERSIST)
-    private Rotina rotinaUsuarioAlvo;
+    private Grupo grupo;
 
     public Solicitacao() {
     }
@@ -62,11 +62,11 @@ public class Solicitacao implements Serializable {
         this.idSolicitacao = idSolicitacao;
     }
 
-    public Solicitacao(Usuario usuarioDono, Usuario usuarioAlvo, Rotina rotinaUsuarioDono, Rotina rotinaUsuarioAlvo) {
+    public Solicitacao(Usuario usuarioDono, Usuario usuarioAlvo, Rotina rotinaUsuarioDono, Grupo grupo) {
         this.usuarioDono = usuarioDono;
         this.usuarioAlvo = usuarioAlvo;
         this.rotinaUsuarioDono = rotinaUsuarioDono;
-        this.rotinaUsuarioAlvo = rotinaUsuarioAlvo;
+        this.grupo = grupo;
     }
 
     public Long getIdSolicitacao() {
@@ -101,12 +101,12 @@ public class Solicitacao implements Serializable {
         this.rotinaUsuarioDono = rotinaUsuarioDono;
     }
 
-    public Rotina getRotinaUsuarioAlvo() {
-        return rotinaUsuarioAlvo;
+    public Grupo getGrupo() {
+        return grupo;
     }
 
-    public void setRotinaUsuarioAlvo(Rotina rotinaUsuarioAlvo) {
-        this.rotinaUsuarioAlvo = rotinaUsuarioAlvo;
+    public void setGrupo(Grupo grupo) {
+        this.grupo = grupo;
     }
 
 }

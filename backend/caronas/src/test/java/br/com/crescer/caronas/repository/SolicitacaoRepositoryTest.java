@@ -2,6 +2,7 @@ package br.com.crescer.caronas.repository;
 
 import br.com.crescer.caronas.entity.Destino;
 import br.com.crescer.caronas.entity.DiaSemana;
+import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Origem;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
@@ -121,7 +122,8 @@ public class SolicitacaoRepositoryTest {
     private Solicitacao instanciarSolicitacao() {
         Usuario usuarioDono = new Usuario("Teste", "teste@teste.com", "Masculino", "7665654", "senha");
         Usuario usuarioAlvo = new Usuario("Teste Alvo", "testealvo@teste.com", "Feminino", "0989809", "senha2");
-        return new Solicitacao(usuarioDono, usuarioAlvo, instanciarRotina(usuarioDono), instanciarRotina(usuarioAlvo));
+        Grupo grupo = new Grupo("Grupo teste", instanciarRotina(usuarioAlvo));
+        return new Solicitacao(usuarioDono, usuarioAlvo, instanciarRotina(usuarioDono), grupo);
     }
 
     private Rotina instanciarRotina(Usuario usuarioDono) {
