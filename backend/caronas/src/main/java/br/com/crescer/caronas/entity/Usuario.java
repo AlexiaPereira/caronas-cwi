@@ -1,12 +1,15 @@
 package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
@@ -62,6 +65,9 @@ public class Usuario implements Serializable {
     @NotNull
     private String senha;
 
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    private List<Notificacao> notificacaoList;
+
     public Usuario() {
     }
 
@@ -75,6 +81,15 @@ public class Usuario implements Serializable {
         this.genero = genero;
         this.idAutorizacao = idAutorizacao;
         this.senha = senha;
+    }
+
+    public Usuario(String nome, String email, String genero, String idAutorizacao, String senha, List<Notificacao> notificacaoList) {
+        this.nome = nome;
+        this.email = email;
+        this.genero = genero;
+        this.idAutorizacao = idAutorizacao;
+        this.senha = senha;
+        this.notificacaoList = notificacaoList;
     }
 
     public Long getIdUsuario() {
@@ -124,10 +139,17 @@ public class Usuario implements Serializable {
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    
+
     public void criptografarSenha() {
-       this.senha = new BCryptPasswordEncoder().encode(this.senha);
+        this.senha = new BCryptPasswordEncoder().encode(this.senha);
     }
-            
+
+    public List<Notificacao> getNotificacaoList() {
+        return notificacaoList;
+    }
+
+    public void setNotificacaoList(List<Notificacao> notificacaoList) {
+        this.notificacaoList = notificacaoList;
+    }
 
 }
