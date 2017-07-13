@@ -50,7 +50,7 @@ public class RotinaController {
     @GetMapping(value = "/usuario/passageiro/{passageiro}")
     public List<Rotina> findByUsuarioAndPassageiro(@PathVariable Boolean passageiro, @AuthenticationPrincipal User user) {
         Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
-        return rotinaService.findByUsuarioAndPassageiro(usuario, passageiro);
+        return rotinaService.findByUsuarioAndPassageiroAndDisponivel(usuario, passageiro);
     }
 
     @PostMapping

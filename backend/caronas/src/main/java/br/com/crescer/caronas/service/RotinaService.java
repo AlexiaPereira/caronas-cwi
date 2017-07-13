@@ -74,8 +74,8 @@ public class RotinaService {
         return rotinaRepository.findByUsuario(usuario);
     }
 
-    public List<Rotina> findByUsuarioAndPassageiro(Usuario usuario, boolean passageiro) {
-        return rotinaRepository.findByUsuarioAndPassageiro(usuario, passageiro);
+    public List<Rotina> findByUsuarioAndPassageiroAndDisponivel(Usuario usuario, boolean passageiro) {
+        return rotinaRepository.findByUsuarioAndPassageiroAndDisponivel(usuario, passageiro, true);
     }
 
     public List<Rotina> matchHorarios(Rotina rotina) throws ParseException {

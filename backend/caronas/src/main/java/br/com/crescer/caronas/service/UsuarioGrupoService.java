@@ -1,7 +1,9 @@
 package br.com.crescer.caronas.service;
 
+import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
+import static java.util.stream.Collectors.toList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,7 +21,20 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.findAll();
     }
 
+    //TODO: VERIFICAR SE ELE VAI A BANCO PERSISTIR AS NOTIFICAÇÕES
     public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) {
+        if (usuarioEstaNoGrupo(usuarioGrupo)) {
+            throw new RuntimeException("O usuário já está nesse grupo");
+        }
+        String conteudoNotificacao = String.format("%s entrou no grupo %s", usuarioGrupo.getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
+        Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
+        usuarioGrupo.getGrupo().getUsuarioGrupoList()
+                .stream()
+                .map(UsuarioGrupo::getUsuario)
+                .forEach(usuario -> {
+                    notificacao.setUsuario(usuario);
+                    usuario.getNotificacaoList().add(notificacao);
+                });
         return usuarioGrupoRepository.save(usuarioGrupo);
     }
 
@@ -33,5 +48,13 @@ public class UsuarioGrupoService {
 
     public UsuarioGrupo loadById(Long id) {
         return usuarioGrupoRepository.findOne(id);
+    }
+
+    private boolean usuarioEstaNoGrupo(UsuarioGrupo usuarioGrupo) {
+        return usuarioGrupo.getGrupo().getUsuarioGrupoList()
+                .stream()
+                .map(UsuarioGrupo::getUsuario)
+                .collect(toList())
+                .contains(usuarioGrupo.getUsuario());
     }
 }

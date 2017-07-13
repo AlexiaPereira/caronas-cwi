@@ -1,8 +1,11 @@
 package br.com.crescer.caronas.controller;
 
 import br.com.crescer.caronas.dto.SolicitacaoRotinaDTO;
+import br.com.crescer.caronas.entity.Grupo;
+import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
+import br.com.crescer.caronas.service.GrupoService;
 import br.com.crescer.caronas.service.SolicitacaoService;
 import br.com.crescer.caronas.service.UsuarioService;
 import java.util.List;
@@ -32,6 +35,9 @@ public class SolicitacaoController {
     @Autowired
     UsuarioService usuarioService;
 
+    @Autowired
+    GrupoService grupoService;
+
     @GetMapping
     public Iterable<Solicitacao> findAll() {
         return solicitacaoService.findAll();
@@ -43,12 +49,13 @@ public class SolicitacaoController {
     }
 
     @PostMapping
-    public Solicitacao save(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
+    public Solicitacao save(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
         Usuario usuarioDono = usuarioService.findByIdAutorizacao(user.getUsername());
-        Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(solicitacao.getUsuarioAlvo().getIdAutorizacao());
-        solicitacao.setUsuarioDono(usuarioDono);
-        solicitacao.setUsuarioAlvo(usuarioAlvo);
-        return solicitacaoService.save(solicitacao);
+        Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(solicitacaoDTO.getSolicitacao().getUsuarioAlvo().getIdAutorizacao());
+        Rotina rotinaPassageiro = solicitacaoDTO.getSolicitacao().getRotinaUsuarioDono();
+        Grupo grupo = grupoService.loadByRotina(solicitacaoDTO.getRotinaMotorista());
+        Solicitacao solicitacaoParaPersistir = new Solicitacao(usuarioDono, usuarioAlvo, rotinaPassageiro, grupo);
+        return solicitacaoService.save(solicitacaoParaPersistir);
     }
 
     @PutMapping
@@ -69,10 +76,10 @@ public class SolicitacaoController {
     }
 
     @PostMapping(value = "/aceitar")
-    public void aceitarSolicitacao(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
+    public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(user.getUsername());
-        solicitacaoDTO.getSolicitacao().setUsuarioAlvo(usuarioAlvo);
-        solicitacaoService.aceitarSolicitacao(solicitacaoDTO);
+        solicitacao.setUsuarioAlvo(usuarioAlvo);
+        solicitacaoService.aceitarSolicitacao(solicitacao);
     }
 
 }

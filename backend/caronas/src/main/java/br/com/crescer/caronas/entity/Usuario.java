@@ -65,6 +65,10 @@ public class Usuario implements Serializable {
     @NotNull
     private String senha;
 
+    @Column(name = "URL_FOTO")
+    @Size(min = 1, max = 500)
+    private String urlFoto;
+
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
     private List<Notificacao> notificacaoList;
 
@@ -89,6 +93,16 @@ public class Usuario implements Serializable {
         this.genero = genero;
         this.idAutorizacao = idAutorizacao;
         this.senha = senha;
+        this.notificacaoList = notificacaoList;
+    }
+
+    public Usuario(String nome, String email, String genero, String idAutorizacao, String senha, String urlFoto, List<Notificacao> notificacaoList) {
+        this.nome = nome;
+        this.email = email;
+        this.genero = genero;
+        this.idAutorizacao = idAutorizacao;
+        this.senha = senha;
+        this.urlFoto = urlFoto;
         this.notificacaoList = notificacaoList;
     }
 
@@ -142,6 +156,14 @@ public class Usuario implements Serializable {
 
     public void criptografarSenha() {
         this.senha = new BCryptPasswordEncoder().encode(this.senha);
+    }
+
+    public String getUrlFoto() {
+        return urlFoto;
+    }
+
+    public void setUrlFoto(String urlFoto) {
+        this.urlFoto = urlFoto;
     }
 
     public List<Notificacao> getNotificacaoList() {

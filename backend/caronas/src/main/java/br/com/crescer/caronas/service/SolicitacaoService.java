@@ -1,7 +1,5 @@
 package br.com.crescer.caronas.service;
 
-import br.com.crescer.caronas.dto.SolicitacaoRotinaDTO;
-import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
@@ -54,15 +52,16 @@ public class SolicitacaoService {
         return solicitacaoRepository.findByUsuarioAlvo(usuarioAlvo);
     }
 
-    public void aceitarSolicitacao(SolicitacaoRotinaDTO solicitacaoDTO) {
-        Grupo grupo = grupoService.loadByRotina(solicitacaoDTO.getRotinaMotorista());
-        UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacaoDTO.getSolicitacao().getUsuarioDono(), grupo, new Date());
+    public void aceitarSolicitacao(Solicitacao solicitacao) {
+        UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo(), new Date());
+        solicitacao.getRotinaUsuarioDono().setDisponivel(false);
         usuarioGrupoService.save(usuarioGrupo);
-        solicitacaoRepository.delete(solicitacaoDTO.getSolicitacao());
+        solicitacaoRepository.delete(solicitacao);
     }
 
     private boolean solicitacaoEhValida(Solicitacao solicitacao) {
-        return solicitacao.getUsuarioAlvo().getIdAutorizacao() != solicitacao.getUsuarioDono().getIdAutorizacao();
+        return solicitacao.getUsuarioAlvo().getIdAutorizacao() != solicitacao.getUsuarioDono().getIdAutorizacao()
+                && solicitacaoRepository.countByUsuarioDonoAndGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo()) == 0;
     }
 
 }
