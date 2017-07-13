@@ -1,10 +1,10 @@
 package br.com.crescer.caronas.controller;
 
 import br.com.crescer.caronas.dto.SolicitacaoRotinaDTO;
-import br.com.crescer.caronas.service.UsuarioService;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.SolicitacaoService;
+import br.com.crescer.caronas.service.UsuarioService;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -43,7 +43,11 @@ public class SolicitacaoController {
     }
 
     @PostMapping
-    public Solicitacao save(@RequestBody Solicitacao solicitacao) {
+    public Solicitacao save(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
+        Usuario usuarioDono = usuarioService.findByIdAutorizacao(user.getUsername());
+        Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(solicitacao.getUsuarioAlvo().getIdAutorizacao());
+        solicitacao.setUsuarioDono(usuarioDono);
+        solicitacao.setUsuarioAlvo(usuarioAlvo);
         return solicitacaoService.save(solicitacao);
     }
 

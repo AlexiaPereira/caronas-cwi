@@ -1,13 +1,16 @@
-angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaService', '$q', function ($scope, RotinaService, $q) {
+angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaService', 'SolicitacoesService', '$q',
+  function ($scope, RotinaService, SolicitacoesService, $q) {
 
   listar();
 
   $scope.selecionar = selecionar;
   $scope.matches = [];
   $scope.procurarMatchs = procurarMatchs;
+  $scope.enviarSolicitacao = enviarSolicitacao;
+  $scope.buscarDiaSemana = buscarDiaSemana;
 
   function listar() {
-    RotinaService.listar().then(response => {
+    RotinaService.listarPorPassageiro(true).then(response => {
       $scope.rotinas = response.data;
     })
   }
@@ -66,6 +69,28 @@ angular.module('app').controller('RotinaBuscarController', ['$scope', 'RotinaSer
       auxiliar.push(objetoMatrix);
     });
     return auxiliar;
+  }
+
+  function enviarSolicitacao(rotina) {
+    let solicitacao = {usuarioAlvo: rotina.usuario, rotinaMotorista: rotina};
+    SolicitacoesService.enviar(solicitacao).then(res => alert('Solicitação enviada com sucesso'));
+  }
+
+  function buscarDiaSemana(match) {
+    let ordenador = {
+      "domingo": 1,
+      "segunda": 2,
+      "terca": 3,
+      "quarta": 4,
+      "quinta": 5,
+      "sexta": 6,
+      "sabado": 7
+    };
+
+    let diasSemana = [];
+    diasSemana = match.rotinaDiaSemanaList.map(rds => rds.diaSemana.nome);
+    diasSemana.sort((a, b) => ordenador[a] > ordenador[b]);
+    return diasSemana.shift() + ' - ' + diasSemana.pop();
   }
 
   // TODO: Implementar utilização de Selecionar ou remover método

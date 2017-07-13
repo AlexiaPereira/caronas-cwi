@@ -9,11 +9,11 @@
         <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3">
-        <div>Nome</div>
-        <div>Semana</div>
-        <div>Horário</div>
+        <div>Motorista: {{match.usuario.nome}}</div>
+        <div>Dias da Semana: {{buscarDiaSemana(match)}}</div>
+        <div>Horário: {{match.horatrio | date: 'HH:mm'}}</div>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
-        <button type="button" class="btn btn-orange-button" ng-click="selecionar(rotina)"><span class="glyphicon glyphicon-ok"></span></button>
+        <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
     </div>
 </div>

@@ -1,7 +1,7 @@
 package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.service.ValidarDistanciaService;
-import br.com.crescer.caronas.dto.DistanciaRotina;
+import br.com.crescer.caronas.dto.DistanciaRotinaDTO;
 import br.com.crescer.caronas.entity.Destino;
 import br.com.crescer.caronas.entity.DiaSemana;
 import br.com.crescer.caronas.entity.Rotina;
@@ -70,11 +70,11 @@ public class ValidarDistanciaServiceTest {
     @Test
     public void testVerificarDistancias() {
         List<Rotina> matches = new ArrayList<>();
-        List<DistanciaRotina> motoristas = new ArrayList<>();
+        List<DistanciaRotinaDTO> motoristas = new ArrayList<>();
         final Rotina rotinaMotorista = instanciarRotina2();
         final Rotina rotinaPassageiro = instanciarRotina();
         final BigDecimal distancia = new BigDecimal ("500");
-        final DistanciaRotina distanciaRotina = new DistanciaRotina(distancia, rotinaMotorista);
+        final DistanciaRotinaDTO distanciaRotina = new DistanciaRotinaDTO(distancia, rotinaMotorista);
         motoristas.add(distanciaRotina);
         matches = service.verificarDistancias(rotinaPassageiro, motoristas);
         assertEquals(1, matches.size());
@@ -83,11 +83,11 @@ public class ValidarDistanciaServiceTest {
     @Test
     public void testVerificarDistanciasFalso() {
         List<Rotina> matches = new ArrayList<>();
-        List<DistanciaRotina> motoristas = new ArrayList<>();
+        List<DistanciaRotinaDTO> motoristas = new ArrayList<>();
         final Rotina rotinaMotorista = instanciarRotina2();
         final Rotina rotinaPassageiro = instanciarRotina();
         final BigDecimal distancia = new BigDecimal ("2000");
-        final DistanciaRotina distanciaRotina = new DistanciaRotina(distancia, rotinaMotorista);
+        final DistanciaRotinaDTO distanciaRotina = new DistanciaRotinaDTO(distancia, rotinaMotorista);
         motoristas.add(distanciaRotina);
         matches = service.verificarDistancias(rotinaPassageiro, motoristas);
         assertEquals(0, matches.size());
