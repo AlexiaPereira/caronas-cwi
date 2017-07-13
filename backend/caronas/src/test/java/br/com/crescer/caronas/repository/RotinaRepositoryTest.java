@@ -178,22 +178,22 @@ public class RotinaRepositoryTest {
         rotinaComOutroUsuario.setUsuario(novoUsuario);
         testEntityManager.persist(rotinaComOutroUsuario);
 
-        assertFalse(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+        assertFalse(repositorio.findByUsuarioAndPassageiroAndDisponivel(rotinaDois.getUsuario(), true, true)
                 .stream()
                 .map(Rotina::getIdRotina)
                 .collect(toList())
                 .contains(rotinaComOutroUsuario.getIdRotina()));
 
-        assertFalse(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+        assertFalse(repositorio.findByUsuarioAndPassageiroAndDisponivel(rotinaDois.getUsuario(), true, true)
                 .stream()
                 .map(Rotina::getIdRotina)
                 .collect(toList())
                 .contains(segundaRotina.getIdRotina()));
 
-        assertEquals(1, repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true).size());
-        assertEquals(1, repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), false).size());
+        assertEquals(1, repositorio.findByUsuarioAndPassageiroAndDisponivel(rotinaDois.getUsuario(), true, true).size());
+        assertEquals(1, repositorio.findByUsuarioAndPassageiroAndDisponivel(rotinaDois.getUsuario(), false, true).size());
 
-        assertTrue(repositorio.findByUsuarioAndPassageiro(rotinaDois.getUsuario(), true)
+        assertTrue(repositorio.findByUsuarioAndPassageiroAndDisponivel(rotinaDois.getUsuario(), true, true)
                 .stream()
                 .map(Rotina::getUsuario)
                 .map(Usuario::getIdUsuario)

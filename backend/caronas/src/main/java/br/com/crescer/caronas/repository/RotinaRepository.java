@@ -9,12 +9,12 @@ import org.springframework.data.repository.CrudRepository;
  *
  * @author chris
  */
-public interface RotinaRepository extends CrudRepository<Rotina, Long>{
-    
+public interface RotinaRepository extends CrudRepository<Rotina, Long> {
+
     public List<Rotina> findByPassageiro(Boolean bool);
-    
-    public List<Rotina> findByUsuario (Usuario usuario);
-    
-    public List<Rotina> findByUsuarioAndPassageiro (Usuario usuario, boolean passageiro);
-    
+
+    public List<Rotina> findByUsuario(Usuario usuario);
+
+    public List<Rotina> findByUsuarioAndPassageiroAndDisponivel(Usuario usuario, boolean passageiro, boolean disponivel);
+
 }
