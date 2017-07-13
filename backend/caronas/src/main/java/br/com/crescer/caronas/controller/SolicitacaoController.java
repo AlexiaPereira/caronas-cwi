@@ -6,6 +6,7 @@ import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.GrupoService;
+import br.com.crescer.caronas.service.RotinaService;
 import br.com.crescer.caronas.service.SolicitacaoService;
 import br.com.crescer.caronas.service.UsuarioService;
 import java.util.List;
@@ -28,58 +29,62 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/solicitacoes")
 public class SolicitacaoController {
-
+    
     @Autowired
     SolicitacaoService solicitacaoService;
-
+    
     @Autowired
     UsuarioService usuarioService;
-
+    
     @Autowired
     GrupoService grupoService;
-
+    
+    @Autowired
+    RotinaService rotinaService;
+    
     @GetMapping
     public Iterable<Solicitacao> findAll() {
         return solicitacaoService.findAll();
     }
-
+    
     @GetMapping(value = "/{id}")
     public Solicitacao loadById(@PathVariable Long id) {
         return solicitacaoService.loadById(id);
     }
-
+    
     @PostMapping
     public Solicitacao save(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
         Usuario usuarioDono = usuarioService.findByIdAutorizacao(user.getUsername());
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(solicitacaoDTO.getSolicitacao().getUsuarioAlvo().getIdAutorizacao());
-        Rotina rotinaPassageiro = solicitacaoDTO.getSolicitacao().getRotinaUsuarioDono();
+        Rotina rotinaPassageiro = rotinaService.loadById(solicitacaoDTO.getSolicitacao().getRotinaUsuarioDono().getIdRotina());
         Grupo grupo = grupoService.loadByRotina(solicitacaoDTO.getRotinaMotorista());
         Solicitacao solicitacaoParaPersistir = new Solicitacao(usuarioDono, usuarioAlvo, rotinaPassageiro, grupo);
         return solicitacaoService.save(solicitacaoParaPersistir);
     }
-
+    
     @PutMapping
     public Solicitacao update(@RequestBody Solicitacao solicitacao) {
         return solicitacaoService.update(solicitacao);
     }
-
+    
     @DeleteMapping(value = "/{idSolicitacao}")
     public void remove(@PathVariable Long idSolicitacao) {
         Solicitacao solicitacao = solicitacaoService.loadById(idSolicitacao);
         solicitacaoService.remove(solicitacao);
     }
-
-    @GetMapping(value = "/pendentes/{idUsuario}")
-    public List<Solicitacao> solicitacoesPendentes(@PathVariable Long idUsuario) {
-        Usuario usuario = usuarioService.loadById(idUsuario);
+    
+    @GetMapping(value = "/pendentes")
+    public List<Solicitacao> solicitacoesPendentes(@AuthenticationPrincipal User user) {
+        Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
         return solicitacaoService.loadByUsuarioAlvo(usuario);
     }
-
+    
     @PostMapping(value = "/aceitar")
     public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(user.getUsername());
         solicitacao.setUsuarioAlvo(usuarioAlvo);
+        solicitacao.setUsuarioDono(usuarioService.findByIdAutorizacao(solicitacao.getUsuarioDono().getIdAutorizacao()));
         solicitacaoService.aceitarSolicitacao(solicitacao);
     }
-
+    
 }

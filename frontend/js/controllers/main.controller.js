@@ -1,4 +1,4 @@
-angular.module('app').controller('MainController', ['$scope', 'authService', function ($scope, authService) {
+angular.module('app').controller('MainController', ['$scope', 'authService', 'MapService', function ($scope, authService, MapService) {
 
     $scope.logout = logout;
 
@@ -15,4 +15,12 @@ angular.module('app').controller('MainController', ['$scope', 'authService', fun
             });
         }
     }
+
+    var cwi = { lat: -29.7646612, lng: -51.1435347 };
+    mapaCWI(cwi);
+
+    function mapaCWI(cwi) {
+        MapService.iniciarMapa(cwi);
+    }
+
 }]);

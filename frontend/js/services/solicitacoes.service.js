@@ -3,19 +3,19 @@ angular.module('app').factory('SolicitacoesService', ['$http', function ($http) 
     let porta = 9090;
     let url = `http://localhost:${porta}/api/solicitacoes`;
 
-    function enviar(solicitacao) {
+    function enviar(solicitacaoDTO) {
         return $http({
             url: `${url}`,
             method: 'POST',
-            data: solicitacao
+            data: solicitacaoDTO
         });
     }
 
-    function aceitar(solicitacaoDTO) {
+    function aceitar(solicitacao) {
         return $http({
             url: `${url}/aceitar`,
             method: 'POST',
-            data: solicitacaoDTO
+            data: solicitacao
         });
     }
 
@@ -23,8 +23,8 @@ angular.module('app').factory('SolicitacoesService', ['$http', function ($http) 
         return $http.delete(`${url}/${idSolicitacao}`);
     }
 
-    function buscarPendentes(idUsuario) {
-        $http.get(`${url}/pendentes/${idUsuario}`);
+    function buscarPendentes() {
+        return $http.get(`${url}/pendentes`);
     }
 
     return ({

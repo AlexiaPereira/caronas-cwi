@@ -31,7 +31,7 @@ public class ValidarDistanciaService {
             BigDecimal distanciaPassageiroAteCWI = rotinaPrincipal.getDistancia();
             BigDecimal distanciaComCaroneiro = rotina.getDistancia().add(distanciaPassageiroAteCWI);
             BigDecimal diferencaDePercurso = distanciaComCaroneiro.subtract(distanciaSemCaroneiro);
-            BigDecimal desvioPermitido = new BigDecimal("1000");
+            BigDecimal desvioPermitido = new BigDecimal("4000");
             if ((desvioPermitido.compareTo(diferencaDePercurso)) == 1) {
                 rotinasComDistanciaAceitavel.add(rotina.getRotina());
             }

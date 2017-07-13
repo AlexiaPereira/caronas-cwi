@@ -6,12 +6,6 @@ angular.module('app').controller('LoginController', ['$scope', 'authService', 'M
 
     $scope.GoogleLogin = GoogleLogin;
     $scope.GoogleLogout = GoogleLogout;
-    var cwi = {lat: -29.7646612, lng:  -51.1435347};
-    mapaCWI(cwi);
-
-    function mapaCWI(cwi) {
-      MapService.iniciarMapa(cwi);
-    }
 
     function FacebookLogin() {
         FB.login(function (response) {
