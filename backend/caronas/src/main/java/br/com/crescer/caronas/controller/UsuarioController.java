@@ -1,8 +1,11 @@
 package br.com.crescer.caronas.controller;
 
 import br.com.crescer.caronas.entity.Usuario;
+import br.com.crescer.caronas.service.NotificacaoService;
 import br.com.crescer.caronas.service.UsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -22,6 +25,9 @@ public class UsuarioController {
 
     @Autowired
     UsuarioService usuarioService;
+
+    @Autowired
+    NotificacaoService notificacaoService;
 
     @GetMapping
     public Iterable<Usuario> findAll() {
@@ -53,4 +59,11 @@ public class UsuarioController {
         Usuario usuario = usuarioService.loadById(idUsuario);
         usuarioService.remove(usuario);
     }
+
+    @DeleteMapping(value = "/limpar-notificacoes")
+    public void limparNotificacoes(@AuthenticationPrincipal User user) {
+        Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
+        notificacaoService.clearByUser(usuario);
+    }
+
 }

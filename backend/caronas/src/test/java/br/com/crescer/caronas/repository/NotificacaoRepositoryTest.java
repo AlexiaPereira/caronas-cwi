@@ -91,6 +91,28 @@ public class NotificacaoRepositoryTest {
         assertEquals(conteudoNovo, repositorio.findOne(notificacao.getIdNotificacao()).getConteudo());
     }
 
+    @Test
+    public void testDeleteByUsuario() {
+        Usuario donoDaPrimeira = new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha");
+        final Notificacao notificacao = instanciarNotificacao();
+        notificacao.setUsuario(donoDaPrimeira);
+        testEntityManager.persist(notificacao);
+        final Notificacao outraNotificacao = instanciarNotificacao();
+        outraNotificacao.setConteudo("Conteudo de teste clear");
+        outraNotificacao.setUsuario(new Usuario("Outro Teste", "outroteste@teste.com", "Masculino", "10", "senha"));
+        testEntityManager.persist(outraNotificacao);
+
+        repositorio.deleteByUsuario(donoDaPrimeira);
+
+        assertEquals(1, repositorio.findAll().spliterator().getExactSizeIfKnown());
+        assertTrue(StreamSupport.stream(repositorio.findAll().spliterator(), false)
+                .map(Notificacao::getConteudo)
+                .collect(toList())
+                .contains(outraNotificacao.getConteudo()));
+        assertNull(repositorio.findOne(notificacao.getIdNotificacao()));
+
+    }
+
     private Notificacao instanciarNotificacao() {
         return new Notificacao("Notificacao teste", new Usuario("Teste", "teste@teste.com", "Masculino", "2", "senha"));
     }

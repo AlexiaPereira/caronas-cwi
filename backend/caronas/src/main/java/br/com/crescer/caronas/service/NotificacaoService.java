@@ -1,6 +1,7 @@
 package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.entity.Notificacao;
+import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.NotificacaoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,6 +30,10 @@ public class NotificacaoService {
 
     public void remove(Notificacao notificacao) {
         notificacaoRepository.delete(notificacao);
+    }
+
+    public void clearByUser(Usuario usuario) {
+        notificacaoRepository.deleteByUsuario(usuario);
     }
 
     public Notificacao loadById(Long id) {
