@@ -79,6 +79,11 @@ public class RotinaService {
     public List<Rotina> matchHorarios(Rotina rotina) throws ParseException {
         this.validarHorarioService = new ValidarHorarioService();
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
+        rotinasDeMotoristas.stream()
+                           .filter((elemento) -> (elemento.getUsuario() == rotina.getUsuario()))
+                           .forEachOrdered((elemento) -> {rotinasDeMotoristas.remove(elemento);
+        });
+;
         return validarHorarioService.buscarRotinasDeMotoristasComHorariosCompativeis(rotina, rotinasDeMotoristas);
     }
 
