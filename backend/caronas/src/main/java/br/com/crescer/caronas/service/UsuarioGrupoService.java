@@ -1,5 +1,6 @@
 package br.com.crescer.caronas.service;
 
+import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +20,17 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.findAll();
     }
 
+    //TODO: VERIFICAR SE ELE VAI A BANCO PERSISTIR AS NOTIFICAÇÕES
     public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) {
+        String conteudoNotificacao = String.format("%s entrou no grupo %s", usuarioGrupo.getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
+        Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
+        usuarioGrupo.getGrupo().getUsuarioGrupoList()
+                .stream()
+                .map(UsuarioGrupo::getUsuario)
+                .forEach(usuario -> {
+                    notificacao.setUsuario(usuario);
+                    usuario.getNotificacaoList().add(notificacao);
+                });
         return usuarioGrupoRepository.save(usuarioGrupo);
     }
 
