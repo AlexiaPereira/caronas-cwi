@@ -121,7 +121,7 @@ public class SolicitacaoRepositoryTest {
     private Solicitacao instanciarSolicitacao() {
         Usuario usuarioDono = new Usuario("Teste", "teste@teste.com", "Masculino", "7665654", "senha");
         Usuario usuarioAlvo = new Usuario("Teste Alvo", "testealvo@teste.com", "Feminino", "0989809", "senha2");
-        return new Solicitacao(usuarioDono, usuarioAlvo, instanciarRotina(usuarioDono));
+        return new Solicitacao(usuarioDono, usuarioAlvo, instanciarRotina(usuarioDono), instanciarRotina(usuarioAlvo));
     }
 
     private Rotina instanciarRotina(Usuario usuarioDono) {
