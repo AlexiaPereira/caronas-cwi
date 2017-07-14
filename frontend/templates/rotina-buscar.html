@@ -1,3 +1,4 @@
+<div ng-include="'templates/header.html'"></div>
 <div class="side-bar">
     <div class="items-side-bar" ng-repeat="rotina in rotinas">
       <button class="btn btn-info" ng-click="procurarMatchs(rotina)">Rotina Aqui</button>
@@ -16,3 +17,5 @@
         <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
     </div>
 </div>
+<div ng-include="'templates/footer.html'"></div>
+
