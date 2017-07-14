@@ -20,17 +20,16 @@ a:link, a:visited, a:hover, a:focus, a:active {
     margin: 0;
 }*/
 
-.btn-orange-button {
-    border: 2px solid black;
-    border-radius: 8px;
-    background: #FC9600;
-    transition-duration: 0.2s;
-}
-
-.btn-orange-button:hover {
-    transition-duration: 0.2s;
-    background: #EB8514;
-}
+.btn-orange-button { 
+    border: 2px solid #FC9600; 
+    border-radius: 8px; 
+    background-color: rgba(255, 255, 255, 0);  
+    transition-duration: 0.2s; 
+} 
+ 
+.btn-orange-button:hover { 
+    transition-duration: 0.2s; 
+} 
 
 .btn.btn-orange-button:focus {
     outline: none;
@@ -191,6 +190,14 @@ input[type="text"] {
     z-index: 1;
 }
 
+label { 
+    max-width: 150%; 
+} 
+ 
+label > input[type="text"] { 
+    text-align: center; 
+}
+
 .dia-semana > div > label {
     position: relative;
     display: inline-block;
@@ -205,6 +212,7 @@ input[type="text"] {
     content: " ";
     position: absolute;
     display: inline-block;
+    left: 0;
     width: 100%;
     height: 100%;
     border: 2px solid #EB8514;
