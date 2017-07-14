@@ -1,8 +1,5 @@
 angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesService', 'RotinaService', 'MapService', '$q', '$location', function ($scope, NotificacoesService, RotinaService, MapService, $q, $location) {
 
-    // listar();
-    // console.log($scope.rotinas);
-
     $scope.listar = listar;
     $scope.procurar = procurar;
     $scope.selecionar = selecionar;
@@ -17,13 +14,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
 
     $scope.distancia = 0;
     listar();
-    console.log($scope.rotinas);
-
-    $scope.clique = clique;
-    function clique(rotina) {
-        console.log(rotina);
-        procurarMatchs(rotina);
-    }
 
     var destino = {
         lat: -29.794918,
@@ -40,16 +30,12 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
                 }
                 rotinas.forEach(function (rotina) {
                     if (!rotina.passageiro) {
-                        console.log('add mot');
                         $scope.rotinasMotorista.push(rotina);
                     }
                     else {
-                        console.log('add pass');
                         $scope.rotinasPassageiro.push(rotina);
                     }
                 });
-                console.log($scope.rotinasPassageiro);
-                console.log($scope.rotinasMotorista);
             });
     }
 
@@ -74,7 +60,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     }
 
     function criar(rotina) {
-        debugger;
         if (isUndefinedOrNull(rotina)) {
             console.log('undefined or null');
             return;
@@ -155,38 +140,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     var matrizPassageiro = [];
     var listaDistanciaRotina = [];
 
-    $scope.matches = [];
-    $scope.procurarMatchs = procurarMatchs;
-    function procurarMatchs(rotina) {
-        debugger;
-        function async() {
-            return $q(function (resolve, reject) {
-                setTimeout(function () {
-                    verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-                }, 1000);
-            });
-        }
-        var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-        matrix(rotina, respostaMetodoPrimeirasVerificacoes)
-            .then(res => {
-                $scope.respostaMatrix = res;
-                $scope.matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
-            });
-        return matchs;
-    };
-
-    function verificarMatchHorarioEQuantidadeDeVagas(idRotina) {
-        debugger;
-        RotinaService
-            .getRotinasMatchHorarioEComVaga(idRotina)
-            .then(function (response) {
-                $scope.listaDeRotinasMotorista = response.data;
-                return listaDeRotinasMotorista;
-            })
-    };
-
     function matrix(rotinaPassageiro, listaDeRotinasMotorista) {
-        debugger;
         var matrixDeferred = $q.defer();
         /*listaMotorista = [{idOrigem:{latitude:-30.0624354, longitude:-51.1749197}, idUsuario:5},
         {idOrigem:{latitude:-30.0153303, longitude:-51.1130727}, idUsuario:4},
@@ -250,7 +204,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     }
 
     function distanciaRotina(origemPassageiro, destinoPassageiro) {
-        // debugger;
         let origem = [origemPassageiro];
         let destino = [destinoPassageiro];
         var deferred = $q.defer();
