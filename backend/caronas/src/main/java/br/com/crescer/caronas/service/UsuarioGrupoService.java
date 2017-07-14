@@ -41,14 +41,14 @@ public class UsuarioGrupoService {
     public void remove(UsuarioGrupo usuarioGrupo) {
         String conteudoNotificacao = String.format("%s deixou o grupo '%s'", usuarioGrupo.getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
         Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
-        usuarioGrupo.getGrupo().getUsuarioGrupoList()
-                .stream()
-                .map(UsuarioGrupo::getUsuario)
-                .forEach(usuario -> {
-                    notificacao.setUsuario(usuario);
-                    usuario.getNotificacaoList().add(notificacao);
-                });
-//        this.enviarNotificacao(usuarioGrupo.getGrupo(), notificacao);
+//        usuarioGrupo.getGrupo().getUsuarioGrupoList()
+//                .stream()
+//                .map(UsuarioGrupo::getUsuario)
+//                .forEach(usuario -> {
+//                    notificacao.setUsuario(usuario);
+//                    usuario.getNotificacaoList().add(notificacao);
+//                });
+        this.enviarNotificacao(usuarioGrupo.getGrupo(), notificacao);
         usuarioGrupoRepository.delete(usuarioGrupo);
     }
 

@@ -1,5 +1,6 @@
 package br.com.crescer.caronas.entity;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +51,7 @@ public class Grupo implements Serializable {
     private Rotina rotina;
 
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @JsonBackReference
     private List<UsuarioGrupo> usuarioGrupoList;
 
     public Grupo() {
