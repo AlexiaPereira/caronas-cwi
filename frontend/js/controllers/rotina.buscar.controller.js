@@ -91,7 +91,7 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
     function enviarSolicitacao(match) {
       let solicitacao = {usuarioAlvo: match.usuario, rotinaUsuarioDono: $scope.rotinaAtual};
       let solicitacaoDTO = {solicitacao: solicitacao, rotinaMotorista: match}
-      SolicitacoesService.enviar(solicitacaoDTO).then(res => alert('Solicitação enviada com sucesso'));
+      SolicitacoesService.enviar(solicitacaoDTO).then(res => toastr.success('Solicitação enviada com sucesso'));
     }
 
     function buscarDiaSemana(match) {
