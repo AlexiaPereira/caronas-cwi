@@ -61,9 +61,16 @@ public class UsuarioGrupoController {
         usuarioGrupoService.remove(usuarioGrupo);
     }
 
-    @DeleteMapping(value = "/remover/{idGrupo}")
-    public void remove(@PathVariable Long idGrupo, @AuthenticationPrincipal User user) {
-        Grupo grupo = grupoService.loadById(idGrupo);
+//    @DeleteMapping(value = "/remover/{idGrupo}")
+//    public void remove(@PathVariable Long idGrupo, @AuthenticationPrincipal User user) {
+//        Grupo grupo = grupoService.loadById(idGrupo);
+//        Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
+//        UsuarioGrupo usuarioGrupoCorreto = usuarioGrupoService.findByUsuarioAndGrupo(usuario, grupo);
+//        usuarioGrupoService.remove(usuarioGrupoCorreto);
+//    }
+    @PostMapping(value = "/remover")
+    public void remove(@RequestBody Grupo grupo, @AuthenticationPrincipal User user) {
+//        Grupo grupo = grupoService.loadById(idGrupo);
         Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
         UsuarioGrupo usuarioGrupoCorreto = usuarioGrupoService.findByUsuarioAndGrupo(usuario, grupo);
         usuarioGrupoService.remove(usuarioGrupoCorreto);
