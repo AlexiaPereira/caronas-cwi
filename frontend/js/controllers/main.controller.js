@@ -17,6 +17,7 @@ angular.module('app').controller('MainController', ['$scope', 'authService', 'Ma
         });
 
         localStorage.clear();
+        sessionStorage.clear();
     }
 
     var cwi = { lat: -29.7646612, lng: -51.1435347 };
