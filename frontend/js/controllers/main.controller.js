@@ -7,17 +7,16 @@ angular.module('app').controller('MainController', ['$scope', 'authService', 'Ma
     $scope.logout = logout;
 
     function logout() {
-        function FacebookLogout() {
-            FB.logout(response => {
-                console.log(response);
-            });
-        }
-        function GoogleLogout() {
-            let auth2 = gapi.auth2.getAuthInstance();
-            auth2.signOut().then(function () {
-                console.log('User signed out.');
-            });
-        }
+        window.FB.logout(response => {
+            console.log(response);
+        });
+
+        let auth2 = window.gapi.auth2.getAuthInstance();
+        auth2.signOut().then(function () {
+            console.log('User signed out.');
+        });
+
+        localStorage.clear();
     }
 
     var cwi = { lat: -29.7646612, lng: -51.1435347 };

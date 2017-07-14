@@ -19,7 +19,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     listar();
     console.log($scope.rotinas);
 
-
     $scope.clique = clique;
     function clique(rotina) {
         console.log(rotina);
