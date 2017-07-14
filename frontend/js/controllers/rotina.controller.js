@@ -20,11 +20,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.distancia = 0;
     listar();
     console.log($scope.rotinas);
-rota ();
-    function rota () {
-      MapService.rota();
-    }
-
 
     $scope.clique = clique;
     function clique(rotina) {
@@ -248,8 +243,13 @@ rota ();
         $scope.latitude = place.geometry.location.lat();
         $scope.longitude = place.geometry.location.lng();
         origem = { endereco: place.formatted_address, latitude: $scope.latitude, longitude: $scope.longitude };
+        var origemMap = {lat: $scope.latitude, lng: $scope.longitude};
+        rota (origemMap);
     }
 
+    function rota (local) {
+      MapService.rota(local);
+    }
 
     function distanciaRotina(origemPassageiro, destinoPassageiro) {
         // debugger;

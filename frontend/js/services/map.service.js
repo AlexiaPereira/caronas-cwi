@@ -11,21 +11,21 @@ angular.module('app').factory('MapService', ['$http', function ($http) {
     });
   }
 
-  function rota() {
+  function rota(local) {
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
     var map = new google.maps.Map(document.getElementById('legal'), {
-      zoom: 14,
+      zoom: 16,
       center: {lat: -29.7646612, lng:  -51.1435347}
     });
     directionsDisplay.setMap(map);
-    calculateAndDisplayRoute(directionsService, directionsDisplay);
+    calculateAndDisplayRoute(directionsService, directionsDisplay, local);
   }
 
-  function calculateAndDisplayRoute(directionsService, directionsDisplay) {
+  function calculateAndDisplayRoute(directionsService, directionsDisplay, local) {
     directionsService.route({
       origin: {lat: -29.7646612, lng:  -51.1435347},
-      destination: {lat: -28.2554, lng: -52.4101},
+      destination: local,
       travelMode: google.maps.TravelMode.DRIVING
     }, function(response, status) {
       if (status == 'OK') {
