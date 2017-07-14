@@ -20,6 +20,10 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.distancia = 0;
     listar();
     console.log($scope.rotinas);
+rota ();
+    function rota () {
+      MapService.rota();
+    }
 
 
     $scope.clique = clique;
