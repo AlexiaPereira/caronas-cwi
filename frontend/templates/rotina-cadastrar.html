@@ -1,3 +1,4 @@
+<div ng-include="'templates/header.html'"></div>
 <h4>Você é um...</h4>
 <div class="row passageiro">
     <div class="col-xs-5 col-xs-offset-1">
@@ -13,9 +14,10 @@
 
 <br>
 <div class="barraProgresso" ng-show="rotina.passageiro === 'false'">
-    <button type="button" class="btn btn-orangeButton" ng-click="subDisponivel()"><span class="glyphicon glyphicon-minus"></span></button>
+<h4>Vagas disponíveis no veículo...</h4>
+    <button type="button" class="btn btn-orange-button" ng-click="subDisponivel()"><span class="glyphicon glyphicon-minus"></span></button>
     <label><input type="text" ng-model="disponivel" value="{{ disponivel }}" ng-disabled="true"></label>
-    <button type="button" class="btn btn-orangeButton" ng-click="addDisponivel()"><span class="glyphicon glyphicon-plus"></span></button>
+    <button type="button" class="btn btn-orange-button" ng-click="addDisponivel()"><span class="glyphicon glyphicon-plus"></span></button>
     <br><br>
 </div>
 
@@ -64,6 +66,8 @@
 <br>
 <div class="row">
     <div class="col-xs-3 col-xs-offset-4 col-sm-3 col-sm-offset-5">
-        <button type="submit" class="btn btn-success" ng-click="criar(rotina)">Cadastrar</button>
+        <button type="submit" class="btn btn-orange-button" ng-click="criar(rotina)">Cadastrar</button>
     </div>
 </div>
+<div ng-include="'templates/footer.html'"></div>
+
