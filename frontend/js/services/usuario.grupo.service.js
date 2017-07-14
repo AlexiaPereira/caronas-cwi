@@ -7,6 +7,11 @@ angular.module('app').factory('UsuarioGrupoService', ['$http', function ($http) 
         return $http.delete(`${url}/remover/${idGrupo}`);
     }
 
+    function remover(grupo) {
+        return $http.post(`${url}/remover`, grupo);
+    }
+
+
     return ({
         remover: remover
     });

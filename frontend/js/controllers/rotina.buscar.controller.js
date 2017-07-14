@@ -6,7 +6,6 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location,
   $header = $location.absUrl();
   listar();
 
-  $scope.selecionar = selecionar;
   $scope.matches = [];
   $scope.procurarMatchs = procurarMatchs;
   $scope.enviarSolicitacao = enviarSolicitacao;
