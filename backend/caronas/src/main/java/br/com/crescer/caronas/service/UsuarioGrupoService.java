@@ -24,7 +24,6 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.findAll();
     }
 
-    //TODO: VERIFICAR SE ELE VAI A BANCO PERSISTIR AS NOTIFICAÇÕES
     public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) {
         if (usuarioEstaNoGrupo(usuarioGrupo)) {
             throw new RuntimeException("O usuário já está nesse grupo");

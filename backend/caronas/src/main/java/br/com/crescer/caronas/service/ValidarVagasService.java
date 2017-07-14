@@ -37,4 +37,12 @@ public class ValidarVagasService {
                 .collect(toList());
     }
 
+    public void descontarVagas(Rotina rotinaPrincipal, Rotina rotinaMatchMotorista) {
+        List<RotinaDiaSemana> diasDaSemanaComMatch = this.filtrarDiaSemana(this.gerarDiasRotinaPrincipal(rotinaPrincipal), rotinaMatchMotorista);
+        diasDaSemanaComMatch.forEach((diaSemanaComMatch) -> {
+            diaSemanaComMatch.setVagasDisponiveis(diaSemanaComMatch.getVagasDisponiveis() - 1);
+        });
+
+    }
+
 }

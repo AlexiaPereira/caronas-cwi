@@ -25,6 +25,8 @@ public class SolicitacaoService {
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
 
+    private ValidarVagasService validarVagasService;
+
     public Iterable<Solicitacao> findAll() {
         return solicitacaoRepository.findAll();
     }
@@ -53,8 +55,10 @@ public class SolicitacaoService {
     }
 
     public void aceitarSolicitacao(Solicitacao solicitacao) {
+        validarVagasService = new ValidarVagasService();
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo(), new Date());
         solicitacao.getRotinaUsuarioDono().setDisponivel(false);
+        validarVagasService.descontarVagas(solicitacao.getRotinaUsuarioDono(), solicitacao.getGrupo().getRotina());
         usuarioGrupoService.save(usuarioGrupo);
         solicitacaoRepository.delete(solicitacao);
     }
