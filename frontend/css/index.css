@@ -36,6 +36,14 @@ a:link, a:visited, a:hover, a:focus, a:active {
     outline: none;
 }
 
+div > .svg {
+    margin-top: 2vh;
+    margin-bottom: 2vh;
+    width: 200px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
 /* INDEX */
 .header, .footer {
     height: 8vh;
