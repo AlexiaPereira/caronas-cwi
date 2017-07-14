@@ -1,5 +1,9 @@
 angular.module('app').controller('MainController', ['$scope', 'authService', 'MapService', function ($scope, authService, MapService) {
 
+
+    $scope.usuario = localStorage.getItem('nome');
+    $scope.foto = localStorage.getItem('foto');
+    
     $scope.logout = logout;
 
     function logout() {
