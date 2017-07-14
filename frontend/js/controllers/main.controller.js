@@ -16,7 +16,7 @@ angular.module('app').controller('MainController', ['$scope', 'authService', 'Ma
         }
     }
 
-    var cwi = { lat: -29.7646612, lng: -51.1435347 };
+    var cwi = {lat: -29.7954709, lng: -51.1584814};
     mapaCWI(cwi);
 
     function mapaCWI(cwi) {
