@@ -1,8 +1,10 @@
 package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.entity.Notificacao;
+import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
+import java.util.List;
 import static java.util.stream.Collectors.toList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,10 @@ public class UsuarioGrupoService {
 
     public UsuarioGrupo loadById(Long id) {
         return usuarioGrupoRepository.findOne(id);
+    }
+    
+    public List<UsuarioGrupo> findByUsuario (Usuario usuario) {
+        return usuarioGrupoRepository.findByUsuario(usuario);
     }
 
     public boolean usuarioEstaNoGrupo(UsuarioGrupo usuarioGrupo) {

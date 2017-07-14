@@ -95,7 +95,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             var aux = [];
             for (var diaSemana in rotina.rotinaDiaSemanaList) {
                 console.log(diaSemana);
-                debugger;
                 aux
                     .push({
                         'diaSemana':
@@ -119,6 +118,8 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
                     } else {
                         $location.path('/meus-grupos');
                     }
+                }, res => {
+                    rotina.rotinaDiaSemanaList = null;
                 });
         });
     }

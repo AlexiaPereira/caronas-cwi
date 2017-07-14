@@ -18,6 +18,7 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService',
     .listarGrupos()
     .then(response => {
       let grupos = response.data;
+      console.log(grupos); 
       for (var grupo of grupos) {
         if (!grupo.passageiro) {
           $scope.gruposMotorista.push(grupo);

@@ -1,6 +1,7 @@
 package br.com.crescer.caronas.entity;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Basic;
 import javax.persistence.CascadeType;
@@ -70,6 +71,7 @@ public class Grupo implements Serializable {
     public Grupo(String nome, Rotina rotina) {
         this.nome = nome;
         this.rotina = rotina;
+        this.usuarioGrupoList = new ArrayList<>();
     }
 
     public Long getIdGrupo() {
