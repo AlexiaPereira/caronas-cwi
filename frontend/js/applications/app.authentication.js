@@ -1,13 +1,4 @@
 // FACEBOOK
-window.fbAsyncInit = function () {
-    FB.init({
-        appId: '333401583755791',
-        autoLogAppEvents: true,
-        xfbml: true,
-        version: 'v2.9'
-    });
-    FB.AppEvents.logPageView();
-};
 
 (function (d, s, id) {
     var js, fjs = d.getElementsByTagName(s)[0];
@@ -24,6 +15,18 @@ window.fbAsyncInit = function () {
   js.src = "//connect.facebook.net/pt_BR/sdk.js#xfbml=1&version=v2.9";
   fjs.parentNode.insertBefore(js, fjs);
 }(document, 'script', 'facebook-jssdk'));
+
+window.fbAsyncInit = function () {
+    FB.init({
+        appId: '333401583755791',
+        autoLogAppEvents: true,
+        xfbml: true,
+        status: true,
+        cookies: true,
+        version: 'v2.9'
+    });
+    FB.AppEvents.logPageView();
+};
 
 // GOOGLE
 GoogleInit();

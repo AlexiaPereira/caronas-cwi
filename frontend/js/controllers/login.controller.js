@@ -1,4 +1,4 @@
-angular.module('app').controller('LoginController', ['$scope', 'authService', 'MapService', 'UsuarioService', function ($scope, authService, MapService, UsuarioService) {
+angular.module('app').controller('LoginController', ['$scope', 'authService', 'MapService', 'UsuarioService', '$window', function ($scope, authService, MapService, UsuarioService, $window) {
 
     $scope.name = 'Por favor, autentique-se.';
     $scope.FacebookLogin = FacebookLogin;
@@ -6,6 +6,7 @@ angular.module('app').controller('LoginController', ['$scope', 'authService', 'M
 
     $scope.GoogleLogin = GoogleLogin;
     $scope.GoogleLogout = GoogleLogout;
+
 
     function FacebookLogin() {
         FB.login(function (response) {
@@ -79,6 +80,9 @@ angular.module('app').controller('LoginController', ['$scope', 'authService', 'M
                 console.log(response);
                 // toastr.success('Login realizado com sucesso.');
                 alert('Login realizado com sucesso.');
+                localStorage.setItem('nome', usuario.nome);
+                localStorage.setItem('foto', usuario.urlFoto);
+                $window.location.reload();
             },
             function (response) {
                 console.log(response);

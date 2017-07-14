@@ -3,8 +3,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     // listar();
     // console.log($scope.rotinas);
 
-    // verificar essa parte
-
     $scope.listar = listar;
     $scope.procurar = procurar;
     $scope.selecionar = selecionar;

@@ -1,70 +1,74 @@
-<h4>Você é um...</h4>
-<div class="row passageiro">
-    <div class="col-xs-5 col-xs-offset-1">
-        <input type="radio" value="false" name="campo-radio" ng-model="rotina.passageiro" id="motorista" />
-        <label for="motorista">Motorista</label>
-    </div>
-    <div class="col-xs-5">
-        <input type="radio" value="true" name="campo-radio" ng-model="rotina.passageiro" id="passageiro" />
-        <label for="passageiro">Passageiro</label>
-      </div>
-    </div>
-</div>
-
-<br>
-<div class="barraProgresso" ng-show="rotina.passageiro === 'false'">
-    <button type="button" class="btn btn-orangeButton" ng-click="subDisponivel()"><span class="glyphicon glyphicon-minus"></span></button>
-    <label><input type="text" ng-model="disponivel" value="{{ disponivel }}" ng-disabled="true"></label>
-    <button type="button" class="btn btn-orangeButton" ng-click="addDisponivel()"><span class="glyphicon glyphicon-plus"></span></button>
-    <br><br>
-</div>
-
-<h4>Qual horário você pretende ir trabalhar?</h4>
-<div class="row horario">
-    <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1">
-        <input type="time" ng-model="rotina.horario" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$">
-    </div>
-</div>
-
-<br>
-<h4>E em quais dias da semana?</h4>
-<div class="row dia-semana">
-    <div class="col-xs-2 col-xs-offset-1">
-        <input type="checkbox" id="segunda" name="cb" ng-model="rotina.rotinaDiaSemanaList.segunda">
-        <label for="segunda">S</label>
-      </div>
-
-      <div class="col-xs-2">
-        <input type="checkbox" id="terca" ng-model="rotina.rotinaDiaSemanaList.terca">
-        <label for="terca">T</label>
-      </div>
-      <div class="col-xs-2">
-        <input type="checkbox" id="quarta" ng-model="rotina.rotinaDiaSemanaList.quarta">
-        <label for="quarta">Q</label>
-      </div>
-      <div class="col-xs-2">
-        <input type="checkbox" id="quinta" ng-model="rotina.rotinaDiaSemanaList.quinta">
-        <label for="quinta">Q</label>
-      </div>
-      <div class="col-xs-2">
-        <input type="checkbox" id="sexta" ng-model="rotina.rotinaDiaSemanaList.sexta">
-        <label for="sexta">S</label>
-      </div>
-    </div>
-</div>
-
-<br>
-<h4>Ponto de partida...</h4>
-<div class="row local">
-    <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1">
-        <input id="autocomplete" type="text" ng-model="rotina.origem">
-    </div>
-</div>
-<div id="legal"></div>
-
-<br>
-<div class="row">
-    <div class="col-xs-3 col-xs-offset-4 col-sm-3 col-sm-offset-5">
-        <button type="submit" class="btn btn-success" ng-click="criar(rotina)">Cadastrar</button>
-    </div>
-</div>
+<div ng-include="'templates/header.html'"></div>
+<h4>Você é um...</h4>
+<div class="row passageiro">
+    <div class="col-xs-5 col-xs-offset-1">
+        <input type="radio" value="false" name="campo-radio" ng-model="rotina.passageiro" id="motorista" />
+        <label for="motorista">Motorista</label>
+    </div>
+    <div class="col-xs-5">
+        <input type="radio" value="true" name="campo-radio" ng-model="rotina.passageiro" id="passageiro" />
+        <label for="passageiro">Passageiro</label>
+      </div>
+    </div>
+</div>
+
+<br>
+<div class="barraProgresso" ng-show="rotina.passageiro === 'false'">
+<h4>Vagas disponíveis no veículo...</h4>
+    <button type="button" class="btn btn-orange-button" ng-click="subDisponivel()"><span class="glyphicon glyphicon-minus"></span></button>
+    <label><input type="text" ng-model="disponivel" value="{{ disponivel }}" ng-disabled="true"></label>
+    <button type="button" class="btn btn-orange-button" ng-click="addDisponivel()"><span class="glyphicon glyphicon-plus"></span></button>
+    <br><br>
+</div>
+
+<h4>Qual horário você pretende ir trabalhar?</h4>
+<div class="row horario">
+    <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1">
+        <input type="time" ng-model="rotina.horario" pattern="^([0-1]?[0-9]|2[0-4]):([0-5][0-9])(:[0-5][0-9])?$">
+    </div>
+</div>
+
+<br>
+<h4>E em quais dias da semana?</h4>
+<div class="row dia-semana">
+    <div class="col-xs-2 col-xs-offset-1">
+        <input type="checkbox" id="segunda" name="cb" ng-model="rotina.rotinaDiaSemanaList.segunda">
+        <label for="segunda">S</label>
+      </div>
+
+      <div class="col-xs-2">
+        <input type="checkbox" id="terca" ng-model="rotina.rotinaDiaSemanaList.terca">
+        <label for="terca">T</label>
+      </div>
+      <div class="col-xs-2">
+        <input type="checkbox" id="quarta" ng-model="rotina.rotinaDiaSemanaList.quarta">
+        <label for="quarta">Q</label>
+      </div>
+      <div class="col-xs-2">
+        <input type="checkbox" id="quinta" ng-model="rotina.rotinaDiaSemanaList.quinta">
+        <label for="quinta">Q</label>
+      </div>
+      <div class="col-xs-2">
+        <input type="checkbox" id="sexta" ng-model="rotina.rotinaDiaSemanaList.sexta">
+        <label for="sexta">S</label>
+      </div>
+    </div>
+</div>
+
+<br>
+<h4>Ponto de partida...</h4>
+<div class="row local">
+    <div class="col-xs-3 col-xs-offset-1 col-sm-3 col-sm-offset-1">
+        <input id="autocomplete" type="text" ng-model="rotina.origem">
+    </div>
+</div>
+
+<br>
+<div class="row">
+    <div class="col-xs-3 col-xs-offset-4 col-sm-3 col-sm-offset-5">
+        <button type="submit" class="btn btn-orange-button" ng-click="criar(rotina)">Cadastrar</button>
+    </div>
+</div>
+<div ng-include="'templates/footer.html'"></div>
+
+<div id="legal"></div>
