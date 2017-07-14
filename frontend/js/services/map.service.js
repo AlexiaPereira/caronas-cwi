@@ -11,9 +11,32 @@ angular.module('app').factory('MapService', ['$http', function ($http) {
     });
   }
 
+  function rota(local) {
+    var directionsDisplay = new google.maps.DirectionsRenderer;
+    var directionsService = new google.maps.DirectionsService;
+    var map = new google.maps.Map(document.getElementById('cadastrar'), {
+      zoom: 16,
+      center: {lat: -29.7874, lng:  -51.1412}
+    });
+    directionsDisplay.setMap(map);
+    calculateAndDisplayRoute(directionsService, directionsDisplay, local);
+  }
+
+  function calculateAndDisplayRoute(directionsService, directionsDisplay, local) {
+    directionsService.route({
+      origin: {lat: -29.7954709, lng: -51.1584814},
+      destination: local,
+      travelMode: google.maps.TravelMode.DRIVING
+    }, function(response, status) {
+      if (status == 'OK') {
+        directionsDisplay.setDirections(response);
+      }
+    });
+  }
+
   function mapaMatch(arrayDeLocais) {
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('match'), {
       zoom: 8,
       center: {lat: -29.7646612, lng:  -51.1435347}
     });
@@ -35,8 +58,11 @@ angular.module('app').factory('MapService', ['$http', function ($http) {
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     }
 
+
+
     return ({
       iniciarMapa: iniciarMapa,
-      mapaMatch: mapaMatch
+      mapaMatch: mapaMatch,
+      rota: rota
     });
   }]);

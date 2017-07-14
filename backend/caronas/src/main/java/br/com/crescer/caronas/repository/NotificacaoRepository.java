@@ -2,6 +2,7 @@ package br.com.crescer.caronas.repository;
 
 import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Usuario;
+import java.util.List;
 import org.springframework.data.repository.PagingAndSortingRepository;
 
 /**
@@ -11,4 +12,6 @@ import org.springframework.data.repository.PagingAndSortingRepository;
 public interface NotificacaoRepository extends PagingAndSortingRepository<Notificacao, Long> {
 
     Long deleteByUsuario(Usuario usuario);
+    
+    List<Notificacao> findByUsuario (Usuario usuario);
 }

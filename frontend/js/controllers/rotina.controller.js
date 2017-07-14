@@ -1,9 +1,7 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', 'MapService', '$q', '$location', function ($scope, RotinaService, MapService, $q, $location) {
+angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesService', 'RotinaService', 'MapService', '$q', '$location', function ($scope, NotificacoesService, RotinaService, MapService, $q, $location) {
 
     // listar();
     // console.log($scope.rotinas);
-
-    // verificar essa parte
 
     $scope.listar = listar;
     $scope.procurar = procurar;
@@ -20,7 +18,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     $scope.distancia = 0;
     listar();
     console.log($scope.rotinas);
-
 
     $scope.clique = clique;
     function clique(rotina) {
@@ -244,8 +241,13 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         $scope.latitude = place.geometry.location.lat();
         $scope.longitude = place.geometry.location.lng();
         origem = { endereco: place.formatted_address, latitude: $scope.latitude, longitude: $scope.longitude };
+        var origemMap = {lat: $scope.latitude, lng: $scope.longitude};
+        rota (origemMap);
     }
 
+    function rota (local) {
+      MapService.rota(local);
+    }
 
     function distanciaRotina(origemPassageiro, destinoPassageiro) {
         // debugger;
@@ -265,6 +267,17 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             deferred.resolve(distanciaRetorno);
         })
         return deferred.promise;
+    }
+
+    function getNotificacoes() {
+      NotificacoesService.getNotificacoes().then(res => {
+        $scope.notificacoes = res.data
+        console.log($scope.notificacoes);
+      });
+    }
+
+    function deletarNotificacoes() {
+      NotificacoesService.deletarNotificacoes();
     }
 
 }])
