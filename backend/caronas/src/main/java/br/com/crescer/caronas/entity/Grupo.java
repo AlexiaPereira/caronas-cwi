@@ -45,7 +45,7 @@ public class Grupo implements Serializable {
     @Column(name = "NOME")
     private String nome;
 
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ID_ROTINA")
     private Rotina rotina;
 

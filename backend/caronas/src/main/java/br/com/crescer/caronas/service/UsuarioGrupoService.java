@@ -1,5 +1,6 @@
 package br.com.crescer.caronas.service;
 
+import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
@@ -23,7 +24,6 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.findAll();
     }
 
-    //TODO: VERIFICAR SE ELE VAI A BANCO PERSISTIR AS NOTIFICAÇÕES
     public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) {
         if (usuarioEstaNoGrupo(usuarioGrupo)) {
             throw new RuntimeException("O usuário já está nesse grupo");
@@ -51,8 +51,8 @@ public class UsuarioGrupoService {
     public UsuarioGrupo loadById(Long id) {
         return usuarioGrupoRepository.findOne(id);
     }
-    
-    public List<UsuarioGrupo> findByUsuario (Usuario usuario) {
+
+    public List<UsuarioGrupo> findByUsuario(Usuario usuario) {
         return usuarioGrupoRepository.findByUsuario(usuario);
     }
 
@@ -62,5 +62,9 @@ public class UsuarioGrupoService {
                 .map(UsuarioGrupo::getUsuario)
                 .collect(toList())
                 .contains(usuarioGrupo.getUsuario());
+    }
+
+    public void deleteByGrupo(Grupo grupo) {
+        usuarioGrupoRepository.deleteByGrupo(grupo);
     }
 }
