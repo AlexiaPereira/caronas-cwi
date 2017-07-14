@@ -1,4 +1,4 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', 'MapService', '$q', '$location', function ($scope, RotinaService, MapService, $q, $location) {
+angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesService', 'RotinaService', 'MapService', '$q', '$location', function ($scope, NotificacoesService, RotinaService, MapService, $q, $location) {
 
     // listar();
     // console.log($scope.rotinas);
@@ -267,6 +267,17 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             deferred.resolve(distanciaRetorno);
         })
         return deferred.promise;
+    }
+
+    function getNotificacoes() {
+      NotificacoesService.getNotificacoes().then(res => {
+        $scope.notificacoes = res.data
+        console.log($scope.notificacoes);
+      });
+    }
+
+    function deletarNotificacoes() {
+      NotificacoesService.deletarNotificacoes();
     }
 
 }])
