@@ -3,6 +3,7 @@ package br.com.crescer.caronas.service;
 import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.repository.NotificacaoRepository;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,6 +19,10 @@ public class NotificacaoService {
 
     public Iterable<Notificacao> findAll() {
         return notificacaoRepository.findAll();
+    }
+    
+    public List<Notificacao> findAllByUsuario(Usuario usuario) {
+        return notificacaoRepository.findByUsuario(usuario);
     }
 
     public Notificacao save(Notificacao notificacao) {

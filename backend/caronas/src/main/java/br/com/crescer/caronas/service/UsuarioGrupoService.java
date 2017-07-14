@@ -30,13 +30,7 @@ public class UsuarioGrupoService {
         }
         String conteudoNotificacao = String.format("%s entrou no grupo %s", usuarioGrupo.getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
         Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
-        usuarioGrupo.getGrupo().getUsuarioGrupoList()
-                .stream()
-                .map(UsuarioGrupo::getUsuario)
-                .forEach(usuario -> {
-                    notificacao.setUsuario(usuario);
-                    usuario.getNotificacaoList().add(notificacao);
-                });
+        this.enviarNotificacao(usuarioGrupo.getGrupo(), notificacao);
         return usuarioGrupoRepository.save(usuarioGrupo);
     }
 
@@ -45,6 +39,16 @@ public class UsuarioGrupoService {
     }
 
     public void remove(UsuarioGrupo usuarioGrupo) {
+        String conteudoNotificacao = String.format("%s deixou o grupo '%s'", usuarioGrupo.getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
+        Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
+//        usuarioGrupo.getGrupo().getUsuarioGrupoList()
+//                .stream()
+//                .map(UsuarioGrupo::getUsuario)
+//                .forEach(usuario -> {
+//                    notificacao.setUsuario(usuario);
+//                    usuario.getNotificacaoList().add(notificacao);
+//                });
+        this.enviarNotificacao(usuarioGrupo.getGrupo(), notificacao);
         usuarioGrupoRepository.delete(usuarioGrupo);
     }
 
@@ -66,5 +70,19 @@ public class UsuarioGrupoService {
 
     public void deleteByGrupo(Grupo grupo) {
         usuarioGrupoRepository.deleteByGrupo(grupo);
+    }
+
+    public UsuarioGrupo findByUsuarioAndGrupo(Usuario usuario, Grupo grupo) {
+        return usuarioGrupoRepository.findByUsuarioAndGrupo(usuario, grupo);
+    }
+
+    public void enviarNotificacao(Grupo grupo, Notificacao notificacao) {
+        grupo.getUsuarioGrupoList()
+                .stream()
+                .map(UsuarioGrupo::getUsuario)
+                .forEach(usuario -> {
+                    notificacao.setUsuario(usuario);
+                    usuario.getNotificacaoList().add(notificacao);
+                });
     }
 }

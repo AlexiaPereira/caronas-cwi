@@ -1,21 +1,24 @@
 <div ng-include="'templates/header.html'"></div>
-<div class="side-bar">
+<div class="clearfix">
+
+  <div class="side-bar">
     <div class="items-side-bar" ng-repeat="rotina in rotinas">
       <button class="btn btn-info" ng-click="procurarMatchs(rotina)">Rotina Aqui</button>
     </div>
-</div>
-<div class="row" ng-repeat="match in matches">
+  </div>
+  <div class="row" ng-repeat="match in matches">
     <div class="col-xs-3 col-xs-offset-3 col-sm-3 col-sm-offset-3 col-md-3 col-md-offset-3">
-        <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
+      <img class="img-thumbnail" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png">
     </div>
     <div class="col-xs-3 col-sm-3 col-md-3">
-        <div>Motorista: {{match.usuario.nome}}</div>
-        <div>Dias da Semana: {{buscarDiaSemana(match)}}</div>
-        <div>Horário: {{match.horario | date: 'HH:mm'}}</div>
+      <div>Motorista: {{match.usuario.nome}}</div>
+      <div>Dias da Semana: {{buscarDiaSemana(match)}}</div>
+      <div>Horário: {{match.horario | date: 'HH:mm'}}</div>
     </div>
     <div class="col-xs-2 col-sm-2 col-md-2">
-        <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
+      <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
     </div>
+  </div>
+  <div id="match"></div>
+  <div ng-include="'templates/footer.html'"></div>
 </div>
-<div ng-include="'templates/footer.html'"></div>
-

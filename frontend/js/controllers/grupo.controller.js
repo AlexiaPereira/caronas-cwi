@@ -1,101 +1,116 @@
 angular.module('app').controller('GrupoController', ['$scope', 'GrupoService',
-'SolicitacoesService', 'toastr', function ($scope, GrupoService, SolicitacoesService,toastr) {
+'SolicitacoesService', 'toastr', 'authService', 'UsuarioGrupoService',
+function ($scope, GrupoService, SolicitacoesService, toastr, authService,
+  UsuarioGrupoService) {
 
-  $scope.aceitar = aceitar;
-  $scope.recusar = recusar;
-  $scope.removerGrupo = removerGrupo;
-  $scope.aceitar = aceitar;
-  $scope.recusar = recusar;
+    $scope.aceitar = aceitar;
+    $scope.recusar = recusar;
+    $scope.removerGrupo = removerGrupo;
+    $scope.remover = remover;
+    $scope.aceitar = aceitar;
+    $scope.recusar = recusar;
 
-  listarGrupos();
-  buscarSolicitacoesPendentes();
+    listarGrupos();
+    buscarSolicitacoesPendentes();
 
-  $scope.gruposMotorista = [];
-  $scope.gruposPassageiro = [];
+    $scope.gruposMotorista = [];
+    $scope.gruposPassageiro = [];
 
-  function listarGrupos() {
-    GrupoService
-    .listarGrupos()
-    .then(response => {
-      let grupos = response.data;
-      console.log(grupos);
-      for (var grupo of grupos) {
-        if (!grupo.passageiro) {
-          $scope.gruposMotorista.push(grupo);
-        } else {
-          $scope.gruposPassageiro.push(grupo);
-        }
+    function listarGrupos() {
+      GrupoService
+      .listarGrupos()
+      .then(response => {
+        let grupos = response.data;
+
+        $scope.gruposMotorista = grupos.filter(grupo =>
+          grupo.rotina.usuario.idAutorizacao === authService.getUsuario().username);
+
+        $scope.gruposPassageiro = grupos.filter(grupo =>
+          $scope.gruposMotorista.indexOf(grupo) === -1);
+
+      });
+    }
+
+    function buscarGrupo(idGrupo) {
+      GrupoService
+      .buscarGrupo(idGrupo)
+      .then(response => {
+        console.log(response);
+      });
+    }
+
+    function aceitar(solicitacaoDTO) {
+      if (isUndefinedOrNull(solicitacaoDTO)) {
+        console.log('undefined or null');
+        return;
       }
-    });
-  }
-
-  function buscarGrupo(idGrupo) {
-    GrupoService
-    .buscarGrupo(idGrupo)
-    .then(response => {
-      console.log(response);
-    });
-  }
-
-  function aceitar(solicitacaoDTO) {
-    if (isUndefinedOrNull(solicitacaoDTO)) {
-      console.log('undefined or null');
-      return;
+      SolicitacoesService
+      .aceitar(solicitacaoDTO)
+      .then(response => {
+        console.log(response);
+      });
     }
-    SolicitacoesService
-    .aceitar(solicitacaoDTO)
-    .then(response => {
-      console.log(response);
-    });
-  }
 
-  function recusar(idSolicitacao) {
-    if (isUndefinedOrNull(idSolicitacao)) {
-      console.log('undefined or null');
-      return;
+    function recusar(idSolicitacao) {
+      if (isUndefinedOrNull(idSolicitacao)) {
+        console.log('undefined or null');
+        return;
+      }
+      SolicitacoesService
+      .recusar(idSolicitacao)
+      .then(response => {
+        console.log(response);
+      });
     }
-    SolicitacoesService
-    .recusar(idSolicitacao)
-    .then(response => {
-      console.log(response);
-    });
-  }
 
-  function removerGrupo(idGrupo) {
-    if (isUndefinedOrNull(idGrupo)) {
-      console.log('undefined or null');
-      return;
+    function removerGrupo(idGrupo) {
+      if (isUndefinedOrNull(idGrupo)) {
+        console.log('undefined or null');
+        return;
+      }
+      GrupoService
+      .remover(idGrupo)
+      .then(response => {
+        listarGrupos();
+      })
     }
-    GrupoService
-    .remover(idGrupo)
-    .then(response => {
-      listarGrupos();
-    })
-  }
 
-  function buscarSolicitacoesPendentes() {
-    SolicitacoesService.buscarPendentes().then(res => {
-      $scope.solicitacoes = res.data
-      console.log($scope.solicitacoes);
-    });
-  }
+    function remover(grupo) {
+      debugger;
+      if (isUndefinedOrNull(grupo)) {
+        console.log('undefined or null');
+        return;
+      }
+      UsuarioGrupoService
+      .remover(grupo)
+      .then(response => {
+        listarGrupos();
+      })
+    }
 
-  function aceitar(solicitacao) {
-    SolicitacoesService.aceitar(solicitacao).then(res => {
-      toastr.success(solicitacao.usuarioDono.nome + ' agora está no seu grupo!');
-      buscarSolicitacoesPendentes();
-      listarGrupos();
-    });
-  }
+    function buscarSolicitacoesPendentes() {
+      SolicitacoesService.buscarPendentes().then(res => {
+        $scope.solicitacoes = res.data
+        console.log($scope.solicitacoes);
+      });
+    }
 
-  function recusar(solicitacao) {
-    SolicitacoesService.recusar(solicitacao.idSolicitacao).then(res =>{
-      toastr.success('Solicitação recusada')
-      buscarSolicitacoesPendentes();
-    })
-  }
+    function aceitar(solicitacao) {
+      SolicitacoesService.aceitar(solicitacao).then(res => {
+        toastr.success(solicitacao.usuarioDono.nome + ' agora está no seu grupo!');
+        buscarSolicitacoesPendentes();
+        listarGrupos();
+      });
+    }
 
-  function isUndefinedOrNull(object) {
-    return (angular.isUndefined(object) || object === null);
-  }
-}]);
+    function recusar(solicitacao) {
+      SolicitacoesService.recusar(solicitacao.idSolicitacao).then(res =>{
+        toastr.success('Solicitação recusada')
+        buscarSolicitacoesPendentes();
+      })
+    }
+
+    function isUndefinedOrNull(object) {
+      return (angular.isUndefined(object) || object === null);
+    }
+  }]);

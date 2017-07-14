@@ -1,9 +1,4 @@
-angular.module('app').controller('RotinaController', ['$scope', 'RotinaService', 'MapService', '$q', '$location', function ($scope, RotinaService, MapService, $q, $location) {
-
-    // listar();
-    // console.log($scope.rotinas);
-
-    // verificar essa parte
+angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesService', 'RotinaService', 'MapService', '$q', '$location', function ($scope, NotificacoesService, RotinaService, MapService, $q, $location) {
 
     $scope.listar = listar;
     $scope.procurar = procurar;
@@ -19,14 +14,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
 
     $scope.distancia = 0;
     listar();
-    console.log($scope.rotinas);
-
-
-    $scope.clique = clique;
-    function clique(rotina) {
-        console.log(rotina);
-        procurarMatchs(rotina);
-    }
 
     var destino = {
         lat: -29.794918,
@@ -43,16 +30,12 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
                 }
                 rotinas.forEach(function (rotina) {
                     if (!rotina.passageiro) {
-                        console.log('add mot');
                         $scope.rotinasMotorista.push(rotina);
                     }
                     else {
-                        console.log('add pass');
                         $scope.rotinasPassageiro.push(rotina);
                     }
                 });
-                console.log($scope.rotinasPassageiro);
-                console.log($scope.rotinasMotorista);
             });
     }
 
@@ -77,7 +60,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     }
 
     function criar(rotina) {
-        debugger;
         if (isUndefinedOrNull(rotina)) {
             console.log('undefined or null');
             return;
@@ -158,38 +140,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
     var matrizPassageiro = [];
     var listaDistanciaRotina = [];
 
-    $scope.matches = [];
-    $scope.procurarMatchs = procurarMatchs;
-    function procurarMatchs(rotina) {
-        debugger;
-        function async() {
-            return $q(function (resolve, reject) {
-                setTimeout(function () {
-                    verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-                }, 1000);
-            });
-        }
-        var respostaMetodoPrimeirasVerificacoes = verificarMatchHorarioEQuantidadeDeVagas(rotina.idRotina);
-        matrix(rotina, respostaMetodoPrimeirasVerificacoes)
-            .then(res => {
-                $scope.respostaMatrix = res;
-                $scope.matchs = obterRotinasComMatchDistancia(rotinaPassageiro, respostaMatrix);
-            });
-        return matchs;
-    };
-
-    function verificarMatchHorarioEQuantidadeDeVagas(idRotina) {
-        debugger;
-        RotinaService
-            .getRotinasMatchHorarioEComVaga(idRotina)
-            .then(function (response) {
-                $scope.listaDeRotinasMotorista = response.data;
-                return listaDeRotinasMotorista;
-            })
-    };
-
     function matrix(rotinaPassageiro, listaDeRotinasMotorista) {
-        debugger;
         var matrixDeferred = $q.defer();
         /*listaMotorista = [{idOrigem:{latitude:-30.0624354, longitude:-51.1749197}, idUsuario:5},
         {idOrigem:{latitude:-30.0153303, longitude:-51.1130727}, idUsuario:4},
@@ -244,11 +195,15 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
         $scope.latitude = place.geometry.location.lat();
         $scope.longitude = place.geometry.location.lng();
         origem = { endereco: place.formatted_address, latitude: $scope.latitude, longitude: $scope.longitude };
+        var origemMap = {lat: $scope.latitude, lng: $scope.longitude};
+        rota (origemMap);
     }
 
+    function rota (local) {
+      MapService.rota(local);
+    }
 
     function distanciaRotina(origemPassageiro, destinoPassageiro) {
-        // debugger;
         let origem = [origemPassageiro];
         let destino = [destinoPassageiro];
         var deferred = $q.defer();
@@ -265,6 +220,17 @@ angular.module('app').controller('RotinaController', ['$scope', 'RotinaService',
             deferred.resolve(distanciaRetorno);
         })
         return deferred.promise;
+    }
+
+    function getNotificacoes() {
+      NotificacoesService.getNotificacoes().then(res => {
+        $scope.notificacoes = res.data
+        console.log($scope.notificacoes);
+      });
+    }
+
+    function deletarNotificacoes() {
+      NotificacoesService.deletarNotificacoes();
     }
 
 }])
