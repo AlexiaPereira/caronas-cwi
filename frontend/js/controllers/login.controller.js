@@ -1,5 +1,5 @@
 angular.module('app').controller('LoginController', ['$scope', 'authService', 'MapService',
-  'UsuarioService', 'toastr', function ($scope, authService, MapService, UsuarioService,toastr) {
+  'UsuarioService', 'toastr', '$window', function ($scope, authService, MapService, UsuarioService, toastr, $window) {
 
     $scope.name = 'Por favor, autentique-se.';
     $scope.FacebookLogin = FacebookLogin;

@@ -1,4 +1,4 @@
-angular.module('app', ['ngRoute', 'ngStorage', 'auth'/*, 'toastr'*/]);
+angular.module('app', ['ngRoute', 'ngStorage', 'auth', 'ngAnimate', 'toastr']);
 
 angular.module('app').constant('authConfig', {
 
