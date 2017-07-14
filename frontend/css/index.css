@@ -96,7 +96,7 @@ div > .svg {
 }
 
 .footer > .items-footer > a {
-    text-decoration: none; 
+    text-decoration: none;
 }
 
 .footer > .items-footer > a > .quick-access > .glyphicon {
@@ -259,7 +259,17 @@ label, label::before {
     z-index: -999;
     overflow: hidden;
 }
-#legal {
+#cadastrar {
+    height: 25vh;
+    width: 60%;
+    z-index: 999;
+    overflow: hidden;
+    border-style: solid;
+    border-width: medium;
+    margin-left: 20%;
+}
+
+#match {
     height: 25vh;
     width: 60%;
     z-index: 999;

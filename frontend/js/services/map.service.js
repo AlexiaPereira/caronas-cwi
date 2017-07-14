@@ -14,7 +14,7 @@ angular.module('app').factory('MapService', ['$http', function ($http) {
   function rota(local) {
     var directionsDisplay = new google.maps.DirectionsRenderer;
     var directionsService = new google.maps.DirectionsService;
-    var map = new google.maps.Map(document.getElementById('legal'), {
+    var map = new google.maps.Map(document.getElementById('cadastrar'), {
       zoom: 16,
       center: {lat: -29.7874, lng:  -51.1412}
     });
@@ -36,7 +36,7 @@ angular.module('app').factory('MapService', ['$http', function ($http) {
 
   function mapaMatch(arrayDeLocais) {
 
-    var map = new google.maps.Map(document.getElementById('map'), {
+    var map = new google.maps.Map(document.getElementById('match'), {
       zoom: 8,
       center: {lat: -29.7646612, lng:  -51.1435347}
     });
