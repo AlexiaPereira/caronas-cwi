@@ -20,45 +20,9 @@
 <body ng-controller="MainController">
     <div id="map"></div>
     <div class="container-fluid">
-        <div class="row header">
-            <div class="col-xs-6 col-sm-6 col-md-6 items-header">
-                <img class="img-circle" src="https://lh3.googleusercontent.com/-BUzv8rZ0eRM/AAAAAAAAAAI/AAAAAAAAAAA/AI6yGXyLT9dgHdqExhAA0D1F6mCoiRETpA/s96-c/photo.jpg">
-                <div class="username"> Olá, {{ username }}</div>
-            </div>
-            <div class="col-xs-4 col-sm-4 col-md-4 items-header">{{ header }}</div>
-            <div class="col-xs-2 col-sm-2 col-md-2 items-header"><input type="button" ng-click="logout()" value="Sair"></div>
-        </div>
-        <div id="map"></div>
         <div class="row view">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <ng-view></ng-view>
-            </div>
-        </div>
-
-        <div class="row footer">
-            <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
-                <a href="#!/rotina-cadastrar">
-                    <div class="quick-access"><span class="glyphicon glyphicon-plus"></span></div>
-                    <div>Adicionar</div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
-                <a href="#!/rotina-buscar">
-                    <div class="quick-access"><span class="glyphicon glyphicon-search"></span></div>
-                    <div>Pesquisar</div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
-                <a href="#!/rotina-visualizar">
-                    <div class="quick-access"><span class="glyphicon glyphicon-time"></span></div>
-                    <div>Rotinas</div>
-                </a>
-            </div>
-            <div class="col-xs-3 col-sm-3 col-md-3 items-footer">
-                <a href="#!/meus-grupos">
-                    <div class="quick-access"><span class="glyphicon ion-android-people"></span></div>
-                    <div>Grupos</div>
-                </a>
             </div>
         </div>
     </div>
