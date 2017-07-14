@@ -1,25 +1,23 @@
 <div ng-include="'templates/header.html'"></div>
 <br>
 <!-- SOLICITACOES -->
-<h1>SOLICITAÇÕES</h1>
+<h1>Solicitações</h1>
 <table class="table table-striped" id="cssTable">
   <thead>
     <th>Foto</th>
     <th>Nome</th>
     <th>Dia Semana</th>
     <th>Horário</th>
-    <th>Grupo</th>
     <th>Aceitar</th>
     <th>Recusar</th>
   </thead>
   <tbody>
     <tr ng-repeat="solicitacao in solicitacoes">
-      <h2>{{ solicitacao.usuarioDono.nome }} deseja entrar no seu grupo {{solicitacao.grupo.nome}}</h2>
       <td>
-        {{ solicitacao.usuarioDono.urilFoto }}
+        <img class="img-circle" ng-src="{{solicitacao.usuarioDono.urlFoto }}"/>
       </td>
       <td>
-        {{ solicitacao.usuarioDono.Nome }}
+        {{ solicitacao.usuarioDono.nome }}
       </td>
       <td class="dados">
         <ul ng-repeat="diaSemana in solicitacao.rotinaUsuarioDono.rotinaDiaSemanaList">
@@ -39,7 +37,6 @@
 <div class="grupos">
   <table class="table table-striped" id="cssTable">
     <thead>
-      <th>Foto</th>
       <!--<th>Id Prov</th>-->
       <th>Dia Semana</th>
       <th>Horário</th>
@@ -47,8 +44,7 @@
     </thead>
     <tbody>
       <tr ng-repeat="grupoMotorista in gruposMotorista">
-        <div ng-if="gruposMotorista === undefined">Nenhum grupo encontrado!</div>
-        <td></td>
+        <!-- <div ng-if="gruposMotorista === undefined">Nenhum grupo encontrado!</div> -->
         <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
         <!--<td class="dados">{{ grupoMotorista.idGrupo }}</td>-->
         <td class="dados">
@@ -63,21 +59,17 @@
   <div class="grupos">
     <table class="table table-striped" id="cssTable">
       <thead>
-        <th>Nome</th>
         <th>Dia Semana</th>
         <th>Horário</th>
-        <th>Sair</th>
         <th>Motorista</th>
       </thead>
       <tbody>
         <tr ng-repeat="grupoPassageiro in gruposPassageiro">
-          <div ng-if="grupoPassageiro === undefined">Nenhum grupo encontrado!</div>
-          <td>{{grupoPassageiro.nome}}</td>
+          <!-- <div ng-if="grupoPassageiro === undefined">Nenhum grupo encontrado!</div> -->
           <td class="dados">
             <ul ng-repeat="diaSemana in grupoPassageiro.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
           </td>
           <td class="dados">{{ grupoPassageiro.rotina.horario | date:'HH:mm' }}</td>
-          <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(grupoPassageiro)"><span class="glyphicon glyphicon-remove"></span></button></td>
           <td>{{grupoPassageiro.rotina.usuario.nome}}</td>
         </tr>
       </tbody>

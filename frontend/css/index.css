@@ -247,7 +247,7 @@ label, label::before {
 }
 
 #map {
-  position: absolute;
+  position:absolute;
   height: 100vh;
   width: 100%;
   z-index: -999;
@@ -266,8 +266,12 @@ label, label::before {
 #match {
   height: 25vh;
   width: 60%;
-  z-index: 1;
+  z-index: 9999;
   overflow: hidden;
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-35%);
   /*border-style: solid;
   border-width: medium;*/
   /*margin-left: 20%;*/
@@ -302,4 +306,32 @@ label, label::before {
 
 #botao-sair {
   margin-top: 2vh;
+}
+
+.btn .btn-info {
+  word-wrap: break-word;
+}
+
+.dia-semana {
+  text-transform: uppercase;
+  line-height: normal;
+}
+
+.title {
+  margin: 0 auto;
+  padding: 10px;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.busca {
+  width: 100%;
+  height: 100%;
+  margin-bottom: 5px;
+}
+
+.img-circle {
+  max-width: 7vw;
 }

@@ -127,4 +127,21 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location,
       return (angular.isUndefined(object) || object === null);
     }
 
+    $scope.formatarData = function tresLetras (match) {
+      let ordenador = {
+        "domingo": 1,
+        "segunda": 2,
+        "terca": 3,
+        "quarta": 4,
+        "quinta": 5,
+        "sexta": 6,
+        "sabado": 7
+      };
+
+      let diasSemana = [];
+      diasSemana = match.rotinaDiaSemanaList.map(rds => rds.diaSemana.nome);
+      diasSemana.sort((a, b) => ordenador[a] > ordenador[b]);
+      return (diasSemana.shift().substring(0,3) + ' - ' + diasSemana.pop().substring(0,3)).toUpperCase();
+    }
+
   }]);
