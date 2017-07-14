@@ -1,46 +1,49 @@
 <div ng-include="'templates/header.html'"></div>
-<br>
-<h1>Rotinas</h1>
-<div class="rotinas-visualizar">
-  <div class="rotinas-visualizar-table"> <h4>Passageiro</h4>
-    <table class="table table-striped" id="cssTable">
+<div class="inner">
+
+  <h1>Rotinas</h1>
+
+  <div class="rotinas-visualizar">
+    <div class="rotinas-visualizar-table"> <h4>Passageiro</h4>
+      <table class="table table-striped" id="cssTable">
         <thead>
-            <th>Dia Semana</th>
-            <th>Horário</th>
-            <th>Excluir</th>
+          <th>Dia Semana</th>
+          <th>Horário</th>
+          <th>Excluir</th>
         </thead>
         <tbody>
-            <tr ng-repeat="rotina in rotinasPassageiro">
-                <td class="dados">
-                  <ul class="row margem" ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
-                </td>
-                <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
-                <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
-            </tr>
+          <tr ng-repeat="rotina in rotinasPassageiro">
+            <td class="dados">
+              <ul class="row margem" ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+            </td>
+            <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
+            <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          </tr>
         </tbody>
-    </table>
-  </div>
-  <div class="rotinas-visualizar-table"> <h4>Motorista</h4>
-    <table class="table table-striped" id="cssTable">
+      </table>
+    </div>
+    <div class="rotinas-visualizar-table"> <h4>Motorista</h4>
+      <table class="table table-striped" id="cssTable">
         <thead>
-            <th>Horário</th>
-            <th>Dia Semana</th>
-            <th>Vagas</th>
-            <th>Excluir</th>
+          <th>Horário</th>
+          <th>Dia Semana</th>
+          <th>Vagas</th>
+          <th>Excluir</th>
         </thead>
         <tbody>
-            <tr ng-repeat="rotina in rotinasMotorista">
-                <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
-                <td class="dados">
-                    <ul ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
-                </td>
-                <td class="dados">
-                    <ul ng-repeat="quantidadeVagas in rotina.rotinaDiaSemanaList"><li>{{quantidadeVagas.vagasDisponiveis }}</li>
-                </td>
-                <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
+          <tr ng-repeat="rotina in rotinasMotorista">
+            <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
+            <td class="dados">
+              <ul ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+            </td>
+            <td class="dados">
+              <ul ng-repeat="quantidadeVagas in rotina.rotinaDiaSemanaList"><li>{{quantidadeVagas.vagasDisponiveis }}</li>
+              </td>
+              <td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>
             </tr>
-        </tbody>
-    </table>
-  </div>
-</div>
-<div ng-include="'templates/footer.html'"></div>
+          </tbody>
+        </table>
+      </div>
+    </div>  </div>
+
+  <div ng-include="'templates/footer.html'"></div>
