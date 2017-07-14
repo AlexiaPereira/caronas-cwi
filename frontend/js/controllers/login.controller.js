@@ -1,4 +1,5 @@
-angular.module('app').controller('LoginController', ['$scope', 'authService', 'MapService', 'UsuarioService', function ($scope, authService, MapService, UsuarioService) {
+angular.module('app').controller('LoginController', ['$scope', 'authService', 'MapService',
+  'UsuarioService', 'toastr', function ($scope, authService, MapService, UsuarioService,toastr) {
 
     $scope.name = 'Por favor, autentique-se.';
     $scope.FacebookLogin = FacebookLogin;
@@ -78,12 +79,12 @@ angular.module('app').controller('LoginController', ['$scope', 'authService', 'M
             function (response) {
                 console.log(response);
                 // toastr.success('Login realizado com sucesso.');
-                alert('Login realizado com sucesso.');
+                toastr.success('Login realizado com sucesso.');
             },
             function (response) {
                 console.log(response);
                 // toastr.error('Falha ao logar.');
-                alert('Falha ao logar');
+                toastr.successs('Falha ao logar');
             });
     };
 }]);

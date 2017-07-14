@@ -1,5 +1,5 @@
 angular.module('app').controller('GrupoController', ['$scope', 'GrupoService',
-'SolicitacoesService', function ($scope, GrupoService, SolicitacoesService) {
+'SolicitacoesService', 'toastr', function ($scope, GrupoService, SolicitacoesService,toastr) {
 
   $scope.aceitar = aceitar;
   $scope.recusar = recusar;
@@ -18,7 +18,7 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService',
     .listarGrupos()
     .then(response => {
       let grupos = response.data;
-      console.log(grupos); 
+      console.log(grupos);
       for (var grupo of grupos) {
         if (!grupo.passageiro) {
           $scope.gruposMotorista.push(grupo);
@@ -82,7 +82,7 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService',
 
   function aceitar(solicitacao) {
     SolicitacoesService.aceitar(solicitacao).then(res => {
-      alert(solicitacao.usuarioDono.nome + ' agora está no seu grupo!');
+      toastr.success(solicitacao.usuarioDono.nome + ' agora está no seu grupo!');
       buscarSolicitacoesPendentes();
       listarGrupos();
     });
@@ -90,7 +90,7 @@ angular.module('app').controller('GrupoController', ['$scope', 'GrupoService',
 
   function recusar(solicitacao) {
     SolicitacoesService.recusar(solicitacao.idSolicitacao).then(res =>{
-      alert('Solicitação recusada')
+      toastr.success('Solicitação recusada')
       buscarSolicitacoesPendentes();
     })
   }
