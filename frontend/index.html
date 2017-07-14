@@ -18,18 +18,10 @@
 </head>
 
 <body ng-controller="MainController">
-  <div id="map"></div>
   <div class="container-fluid">
-    <div class="row header">
-      <div class="col-xs-6 col-sm-6 col-md-6 items-header">
-        <img class="img-circle" src="https://lh3.googleusercontent.com/-BUzv8rZ0eRM/AAAAAAAAAAI/AAAAAAAAAAA/AI6yGXyLT9dgHdqExhAA0D1F6mCoiRETpA/s96-c/photo.jpg">
-        <div class="username"> Olá, {{ username }}</div>
-      </div>
-      <div class="col-xs-4 col-sm-4 col-md-4 items-header">{{ header }}</div>
-      <div class="col-xs-2 col-sm-2 col-md-2 items-header"><input type="button" ng-click="logout()" value="Sair"></div>
-    </div>
-    <div id="map"></div>
-    <div class="container-fluid">
+    <div id="map" class="clearfix"></div>
+    <!-- <div id="map"></div> -->
+    <div class="container">
         <div class="row view">
             <div class="col-xs-12 col-sm-12 col-md-12">
                 <ng-view></ng-view>
