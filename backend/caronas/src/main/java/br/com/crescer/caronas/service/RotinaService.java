@@ -97,15 +97,13 @@ public class RotinaService {
 
         rotinasDeMotoristas.stream().forEach(motorista -> {
             Grupo grupoDaRotina = grupoService.loadByRotina(motorista);
-            if (grupoDaRotina != null) {
-                List<UsuarioGrupo> listaUsuarioGrupo = grupoDaRotina.getUsuarioGrupoList();
-                listaUsuarioGrupo
-                        .stream()
-                        .filter(usuarioGrupo -> usuarioGrupoService.usuarioEstaNoGrupo(usuarioGrupo))
-                        .map(UsuarioGrupo::getGrupo)
-                        .map(Grupo::getRotina)
-                        .forEach(auxiliarMotorista::add);
-            }
+            List<UsuarioGrupo> listaUsuarioGrupo = grupoDaRotina.getUsuarioGrupoList();
+            listaUsuarioGrupo
+                    .stream()
+                    .filter(usuarioGrupo -> usuarioGrupo.getUsuario().equals(rotina.getUsuario()))
+                    .map(UsuarioGrupo::getGrupo)
+                    .map(Grupo::getRotina)
+                    .forEach(auxiliarMotorista::add);
         });
 
         rotinasDeMotoristas.removeAll(auxiliarMotorista);
