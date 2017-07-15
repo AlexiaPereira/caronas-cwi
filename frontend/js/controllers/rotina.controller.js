@@ -25,6 +25,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
             .listar()
             .then(response => {
                 let rotinas = response.data;
+                console.log(rotinas);
                 if (rotinas.length === 0) {
                     $location.path('/rotina-cadastrar');
                 }
