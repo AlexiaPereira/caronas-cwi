@@ -44,7 +44,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
         }
         rotina.origem = origem;
         rotina.destino = { endereco: 'CWI SOFTWARE', latitude: destino.lat, longitude: destino.lng };
-        rotina.vagasTotais = $scope.total || 0;
         rotina.vagasDisponiveis = $scope.disponivel || 0;
         rotina.duracao = 0;
         distanciaRotina({ lat: $scope.latitude, lng: $scope.longitude }, destino).then(res => {

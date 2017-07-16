@@ -13,6 +13,10 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
   function listar() {
     RotinaService.listarPorPassageiro(true).then(response => {
       $scope.rotinas = response.data;
+      if ($scope.rotinas.length === 0) {
+          swal("Você não possui nenhuma rotina disponível", "Rotinas disponíveis são aquelas em que você procura carona mas ainda não está em nenhum grupo", "info");
+          $location.path('rotina-visualizar');
+      }
     })
   }
 
@@ -71,6 +75,9 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
     function obterRotinasComMatchDistancia(idRotina, listaDistanciaRotina) {
       RotinaService.getRotinasComMatchDistancia(idRotina, listaDistanciaRotina).then(function (response) {
         $scope.matchs = response.data;
+        if ($scope.matchs.length === 0) {
+          swal("Atenção", "Não há nenhum motorista disponível para essa rotina", "info")
+        }
         console.log($scope.matchs);
         var matchsFormatoParaPlotarNoMapa = montarArraysMatriz($scope.matchs);
         MapService.mapaMatch(matchsFormatoParaPlotarNoMapa);

@@ -64,7 +64,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0);
   transition-duration: 0.2s;
-  box-shadow:0 5px 0 #EB8514;
+  /* box-shadow: 1px 4px 0 #EB8514; */
 }
 
 .btn-orange-button:active {
@@ -404,16 +404,14 @@ ul {
 }
 
 .items-buscar {
-  height:10vh;
-  margin-left:2vw;
-  margin-top:1vh;
-  margin-bottom:2vh;
+  height: 15vh;
+  margin: 3vh;
   border-bottom: 1px solid #ccc;
 }
 
 
 li {
-   list-style-type: none;
+  list-style-type: none;
 }
 
 /* ROTINA VISUALIZAR */
@@ -437,4 +435,30 @@ ul {
   #botao-sair {
     margin-top: 1vh;
   }
+}
+
+.content {
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  background: rgba(255,255,255,0.8);
+  border: 2px solid white;
+  width: 100%;
+}
+
+.limit {
+  height: 80vh;
+  width: 90vw;
+  position: relative;
+  top: -20px;
+  left: -20px;
+
+}
+
+.img-thumbnail {
+  max-width: 17vw;
+}
+
+.btn-wrapper {
+  padding: 10px 0px;
 }
