@@ -9,12 +9,9 @@
       </button>
     </div>
   </div>
-
-  <div id="match"></div>
-<div style="height:10vh;margin-left:2vw;margin-top:1vh;margin-bottom:2vh;border-bottom: 1px solid #ccc;" ng-repeat="match in matches">
   <div class="row">
     <div id="match"></div>
-    <div class="items-buscar" ng-repeat="match in matches">
+    <div class="items-buscar" ng-repeat="match in matchs">
       <div class="row">
         <div class="col-xs-3 col-xs-offset-3 no-padding col-sm-3 col-sm-offset-3 no-padding">
           <img class="img-thumbnail" ng-src="{{ match.usuario.urlFoto }}">
