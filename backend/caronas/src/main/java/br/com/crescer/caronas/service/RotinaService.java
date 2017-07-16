@@ -81,6 +81,10 @@ public class RotinaService {
         return rotinaRepository.findByUsuarioAndPassageiroAndDisponivel(usuario, passageiro, true);
     }
 
+    public List<Rotina> findByUsuarioAndPassageiroAndNaoDisponivel(Usuario usuario, boolean passageiro) {
+        return rotinaRepository.findByUsuarioAndPassageiroAndDisponivel(usuario, passageiro, false);
+    }
+
     public List<Rotina> matchHorarios(Rotina rotina) throws ParseException {
         this.validarHorarioService = new ValidarHorarioService();
         List<Rotina> rotinasDeMotoristas = this.findByPassageiro(false);
