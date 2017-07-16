@@ -31,7 +31,6 @@
   </tbody>
 </table>
 
-
 <!-- GRUPOS -->
 <h1>Motorista</h1>
 <div class="grupos">
@@ -40,6 +39,7 @@
       <!--<th>Id Prov</th>-->
       <th>Dia Semana</th>
       <th>Horário</th>
+      <th>Vagas</th>
       <th>Membros</th>
       <th>Excluir Grupo</th>
     </thead>
@@ -51,12 +51,12 @@
         <td class="dados">
           <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
         </td>
-        <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
-        <td>
-          <ul ng-repeat="membro in grupoMotorista.usuarioGrupoList">
-            <li>{{ membro.usuario.nome }}</li>
-            <button type="button" class="btn btn-danger btn-lg" ng-click="removerMembro(membro)">
-          </ul>
+        <td class="dados list-group">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
+        <td class="dados">
+          <ul class="list-group" ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.vagasDisponiveis }}</li></ul>
+        </td>
+        <td class="dados">
+          <ul class="list-group" ng-repeat="usuarioGrupo in grupoMotorista.usuarioGrupoList"><li>{{usuarioGrupo.usuario.nome}} <button type="button" class="btn btn-danger" ng-click="removerMembro(usuarioGrupo)"><span class="glyphicon glyphicon-remove"></span></button></li></ul>
         </td>
         <td><button type="button" class="btn btn-danger btn-lg" ng-click="removerGrupo(grupoMotorista.idGrupo)"><span class="glyphicon glyphicon-remove"></span></button></td>
       </tr>
