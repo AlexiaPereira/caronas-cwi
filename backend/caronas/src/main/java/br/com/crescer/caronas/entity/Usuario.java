@@ -69,7 +69,7 @@ public class Usuario implements Serializable {
     @Size(min = 1, max = 500)
     private String urlFoto;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.REMOVE, mappedBy = "usuario")
     private List<Notificacao> notificacaoList;
 
     public Usuario() {
