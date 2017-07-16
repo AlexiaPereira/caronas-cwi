@@ -7,6 +7,7 @@ import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.NotificacaoRepository;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,7 @@ public class NotificacaoService {
         notificacaoRepository.delete(notificacao);
     }
     
+    @Transactional
     public void clearByUser(Usuario usuario) {
         notificacaoRepository.deleteByUsuario(usuario);
     }
@@ -50,8 +52,15 @@ public class NotificacaoService {
     public Notificacao loadById(Long id) {
         return notificacaoRepository.findOne(id);
     }
+    
+    public void enviarNotificacaoDeAceite(Usuario usuario, String nomeDoGrupo) {
+        String conteudoNotificacao = String.format("Parabéns %s, você foi aceito no grupo '%s'", usuario.getNome(), nomeDoGrupo);
+        Notificacao notificacao = new Notificacao(conteudoNotificacao, usuario);
+        usuario.getNotificacaoList().add(notificacao);
+        this.save(notificacao);
+    }
 
-    public void enviarNotificacao(Grupo grupo, Notificacao notificacao) {
+    public void enviarNotificacaoTodosUsuariosDoGrupo(Grupo grupo, Notificacao notificacao) {
         List<UsuarioGrupo> usuariosDoGrupo = usuarioGrupoRepository.findByGrupo(grupo);
         usuariosDoGrupo
                 .stream()

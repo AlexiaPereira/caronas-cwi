@@ -41,7 +41,7 @@ public class GrupoService {
     public void remove(Grupo grupo) {
         String conteudoNotificacao = String.format("O grupo '%s' que você participa foi excluído", grupo.getNome());
         Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
-        notificacaoService.enviarNotificacao(grupo, notificacao);
+        notificacaoService.enviarNotificacaoTodosUsuariosDoGrupo(grupo, notificacao);
         grupoRepository.delete(grupo);
     }
 

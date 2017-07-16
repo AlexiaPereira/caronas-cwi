@@ -3,8 +3,10 @@ angular.module('app').controller('MainController', ['$scope', 'authService', 'Ma
 
   $scope.usuario = localStorage.getItem('nome');
   $scope.foto = localStorage.getItem('foto');
-
   $scope.logout = logout;
+  var cwi = {lat: -29.7954709, lng: -51.1584814};
+  
+  mapaCWI(cwi);
 
   function logout() {
     function FabebookLogout() {
@@ -24,9 +26,6 @@ angular.module('app').controller('MainController', ['$scope', 'authService', 'Ma
     sessionStorage.clear();
     $window.location.reload();
   }
-
-  var cwi = {lat: -29.7954709, lng: -51.1584814};
-  mapaCWI(cwi);
 
   function mapaCWI(cwi) {
     MapService.iniciarMapa(cwi);

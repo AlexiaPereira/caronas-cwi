@@ -1,8 +1,5 @@
 package br.com.crescer.caronas.service;
 
-import br.com.crescer.caronas.entity.Rotina;
-import br.com.crescer.caronas.entity.RotinaDiaSemana;
-import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
@@ -28,14 +25,15 @@ public class SolicitacaoService {
 
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
-    
+
     @Autowired
     NotificacaoService notificacaoService;
 
     @Autowired
     RotinaDiaSemanaService rotinaDiaSemanaService;
 
-    private ValidarVagasService validarVagasService;
+    @Autowired
+    RotinaService rotinaService;
 
     public Iterable<Solicitacao> findAll() {
         return solicitacaoRepository.findAll();
@@ -47,7 +45,7 @@ public class SolicitacaoService {
         }
         String conteudo = String.format("%s solicitou entrar no grupo %s", solicitacao.getUsuarioDono().getNome(), solicitacao.getGrupo().getNome());
         Notificacao notificacao = new Notificacao(conteudo, null);
-        notificacaoService.enviarNotificacao(solicitacao.getGrupo(), notificacao);
+        notificacaoService.enviarNotificacaoTodosUsuariosDoGrupo(solicitacao.getGrupo(), notificacao);
         return solicitacaoRepository.save(solicitacao);
     }
 
@@ -70,9 +68,9 @@ public class SolicitacaoService {
     public void aceitarSolicitacao(Solicitacao solicitacao) {
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo(), new Date());
         solicitacao.getRotinaUsuarioDono().setDisponivel(false);
-        this.descontarVagas(solicitacao.getRotinaUsuarioDono(), solicitacao.getGrupo().getRotina());
+        rotinaService.update(solicitacao.getRotinaUsuarioDono());
+        usuarioGrupoService.descontarVagas(solicitacao.getRotinaUsuarioDono(), solicitacao.getGrupo().getRotina(), -1);
         grupoService.update(usuarioGrupo.getGrupo());
-        //        rotinaService.update(usuarioGrupo.getGrupo().getRotina());
         usuarioGrupoService.save(usuarioGrupo);
         solicitacaoRepository.delete(solicitacao);
     }
@@ -80,23 +78,6 @@ public class SolicitacaoService {
     private boolean solicitacaoEhValida(Solicitacao solicitacao) {
         return solicitacao.getUsuarioAlvo().getIdAutorizacao() != solicitacao.getUsuarioDono().getIdAutorizacao()
                 && solicitacaoRepository.countByUsuarioDonoAndGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo()) == 0;
-    }
-
-    public void descontarVagas(Rotina rotinaPrincipal, Rotina rotinaMatchMotorista) {
-        validarVagasService = new ValidarVagasService();
-        List<RotinaDiaSemana> diasDaSemanaComMatch
-                = validarVagasService.filtrarDiaSemana(
-                        validarVagasService.gerarDiasRotinaPrincipal(rotinaPrincipal), rotinaMatchMotorista);
-//        List<RotinaDiaSemana> auxiliar = new ArrayList<>();
-        rotinaMatchMotorista.getRotinaDiaSemanaList()
-                .forEach(rotinaDiaSemana -> {
-                    rotinaDiaSemana.setRotina(rotinaMatchMotorista);
-                    if (diasDaSemanaComMatch.contains(rotinaDiaSemana)) {
-                        rotinaDiaSemana.setVagasDisponiveis(rotinaDiaSemana.getVagasDisponiveis() - 1);
-//                        rotinaDiaSemanaService.update(rotinaDiaSemana);
-                    }
-                });
-
     }
 
 }

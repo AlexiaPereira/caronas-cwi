@@ -6,6 +6,7 @@ import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.GrupoService;
+import br.com.crescer.caronas.service.NotificacaoService;
 import br.com.crescer.caronas.service.RotinaService;
 import br.com.crescer.caronas.service.SolicitacaoService;
 import br.com.crescer.caronas.service.UsuarioService;
@@ -32,6 +33,9 @@ public class SolicitacaoController {
     
     @Autowired
     SolicitacaoService solicitacaoService;
+    
+    @Autowired
+    NotificacaoService notificacaoService;
     
     @Autowired
     UsuarioService usuarioService;
@@ -85,6 +89,7 @@ public class SolicitacaoController {
         solicitacao.setUsuarioAlvo(usuarioAlvo);
         solicitacao.setUsuarioDono(usuarioService.findByIdAutorizacao(solicitacao.getUsuarioDono().getIdAutorizacao()));
         solicitacaoService.aceitarSolicitacao(solicitacao);
+        notificacaoService.enviarNotificacaoDeAceite(solicitacao.getUsuarioDono(), solicitacao.getGrupo().getNome());
     }
     
 }

@@ -13,19 +13,22 @@
   <div id="match"></div>
 <div style="height:10vh;margin-left:2vw;margin-top:1vh;margin-bottom:2vh;border-bottom: 1px solid #ccc;" ng-repeat="match in matches">
   <div class="row">
-    <div class="col-xs-3 col-xs-offset-3 no-padding col-sm-3 col-sm-offset-3 no-padding">
-      <img class="img-thumbnail" ng-src="{{ match.usuario.urlFoto }}">
-    </div>
-    <div class="col-xs-4 no-padding col-sm-4 no-padding">
-      <div>{{ match.usuario.nome }}</div>
-      <div>{{ buscarDiaSemana(match) }}</div>
-      <div>{{ match.horario | date: 'HH:mm' }}</div>
-    </div>
-    <div class="col-xs-1 col-sm-2">
-      <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
+    <div id="match"></div>
+    <div class="items-buscar" ng-repeat="match in matches">
+      <div class="row">
+        <div class="col-xs-3 col-xs-offset-3 no-padding col-sm-3 col-sm-offset-3 no-padding">
+          <img class="img-thumbnail" ng-src="{{ match.usuario.urlFoto }}">
+        </div>
+        <div class="col-xs-4 no-padding col-sm-4 no-padding">
+          <div>{{ match.usuario.nome }}</div>
+          <div>{{ buscarDiaSemana(match) }}</div>
+          <div>{{ match.horario | date: 'HH:mm' }}</div>
+        </div>
+        <div class="col-xs-2 col-sm-2 col-md-2">
+          <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-  <div ng-include="'templates/footer.html'"></div>
-</div>
-
+<div ng-include="'templates/footer.html'"></div>
