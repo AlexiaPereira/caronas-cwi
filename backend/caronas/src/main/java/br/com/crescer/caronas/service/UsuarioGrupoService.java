@@ -7,6 +7,8 @@ import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
+import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +31,11 @@ public class UsuarioGrupoService {
     @Autowired
     NotificacaoService notificacaoService;
 
+    @Autowired
+    RotinaService rotinaService;
+
     ValidarVagasService validarVagasService;
+    ValidarHorarioService validarHorarioService;
 
     public Iterable<UsuarioGrupo> findAll() {
         return usuarioGrupoRepository.findAll();
@@ -52,7 +58,7 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.save(usuarioGrupo);
     }
 
-    public void remove(UsuarioGrupo usuarioGrupo) {
+    public void remove(UsuarioGrupo usuarioGrupo) throws ParseException {
         if (!this.usuarioEstaNoGrupo(usuarioGrupo, usuarioGrupo.getGrupo())) {
             throw new RuntimeException("Usuário não está no grupo");
         }
@@ -114,14 +120,28 @@ public class UsuarioGrupoService {
                     rotinaDiaSemana.setRotina(rotinaMatchMotorista);
                     if (diasDaSemanaComMatch.contains(rotinaDiaSemana)) {
                         rotinaDiaSemana.setVagasDisponiveis(rotinaDiaSemana.getVagasDisponiveis() + fator);
-//                        rotinaDiaSemanaService.update(rotinaDiaSemana);
                     }
                 });
 
     }
 
-    private Rotina buscarRotinaUsuario(Usuario usuario, Rotina rotina) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    private Rotina buscarRotinaUsuario(Usuario usuario, Rotina rotina) throws ParseException {
+        List<Rotina> rotinasDoMotorista = new ArrayList<>();
+        rotinasDoMotorista.add(rotina);
+
+        List<Rotina> possibilidades = new ArrayList<>();
+
+        validarHorarioService = new ValidarHorarioService();
+
+        List<Rotina> rotinasDoUsuario = rotinaService.findByUsuarioAndPassageiroAndNaoDisponivel(usuario, true);
+        for (Rotina rotinaDoUsuario : rotinasDoUsuario) {
+            List<Rotina> matchHorario = validarHorarioService
+                    .buscarRotinasDeMotoristasComHorariosCompativeis(rotinaDoUsuario, rotinasDoMotorista);
+            if (matchHorario.size() > 0) {
+                possibilidades.add(rotinaDoUsuario);
+            }
+        }
+        return possibilidades.get(0);
     }
 
 }
