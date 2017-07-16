@@ -59,11 +59,4 @@ public class UsuarioController {
         Usuario usuario = usuarioService.loadById(idUsuario);
         usuarioService.remove(usuario);
     }
-
-    @DeleteMapping(value = "/limpar-notificacoes")
-    public void limparNotificacoes(@AuthenticationPrincipal User user) {
-        Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
-        notificacaoService.clearByUser(usuario);
-    }
-
 }
