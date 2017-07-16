@@ -3,8 +3,8 @@ angular.module('app').factory('UsuarioGrupoService', ['$http', function ($http) 
     let porta = 9090;
     let url = `http://localhost:${porta}/api/usuarios-grupo`;
 
-    function remover(idGrupo) {
-        return $http.delete(`${url}/remover/${idGrupo}`);
+    function removerMembro(idUsuarioGrupo) {
+        return $http.delete(`${url}/${idUsuarioGrupo}`);
     }
 
     function remover(grupo) {
@@ -13,6 +13,7 @@ angular.module('app').factory('UsuarioGrupoService', ['$http', function ($http) 
 
 
     return ({
-        remover: remover
+        remover: remover,
+        removerMembro: removerMembro
     });
 }]);

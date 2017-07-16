@@ -1,14 +1,14 @@
 package br.com.crescer.caronas.controller;
 
-import br.com.crescer.caronas.service.GrupoService;
+import br.com.crescer.caronas.dto.UsuarioGrupoDTO;
 import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
+import br.com.crescer.caronas.service.GrupoService;
 import br.com.crescer.caronas.service.UsuarioGrupoService;
 import br.com.crescer.caronas.service.UsuarioService;
 import java.util.ArrayList;
 import java.util.List;
-import static java.util.stream.Collectors.toList;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -31,10 +31,10 @@ public class GrupoController {
 
     @Autowired
     GrupoService grupoService;
-    
+
     @Autowired
     UsuarioService usuarioService;
-    
+
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
 
@@ -42,30 +42,22 @@ public class GrupoController {
     public Iterable<Grupo> findAll() {
         return grupoService.findAll();
     }
-    
-    @GetMapping (value = "/usuario")
-    public List<Grupo> findAllByUser(@AuthenticationPrincipal User user) {
-        List<Grupo> retorno = new ArrayList<>();
+
+    @GetMapping(value = "/usuario")
+    public List<UsuarioGrupoDTO> findAllByUser(@AuthenticationPrincipal User user) {
+        List<UsuarioGrupoDTO> retorno = new ArrayList<>();
+
         Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
         List<UsuarioGrupo> usuariosGrupo = usuarioGrupoService.findByUsuario(usuario);
+
         for (UsuarioGrupo usuarioGrupo : usuariosGrupo) {
-            retorno.add(usuarioGrupo.getGrupo());
+            Grupo grupo = usuarioGrupo.getGrupo();
+            List<UsuarioGrupo> membros = usuarioGrupoService.findByGrupo(grupo);
+            retorno.add(new UsuarioGrupoDTO(grupo, membros));
         }
         return retorno;
-//        return usuariosGrupo
-//                .stream()
-//                .map(UsuarioGrupo::getGrupo)
-//                .collect(toList());
-//        Iterable<Grupo> grupos = grupoService.findAll();
-        
-//        for(Grupo grupo: grupos) {
-//            if (grupo.getRotina().getUsuario() == usuario) {
-//                gruposDoUsuario.add(grupo);
-//            }
-//        };
-//        return gruposDoUsuario;
     }
-    
+
     @PostMapping
     public Grupo save(@RequestBody Grupo grupo) {
         return grupoService.save(grupo);
@@ -86,5 +78,4 @@ public class GrupoController {
     }
 
     //implementar get para buscar grupos de um usuário com os participantes
-    
 }
