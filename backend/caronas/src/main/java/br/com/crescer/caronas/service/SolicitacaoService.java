@@ -1,5 +1,7 @@
 package br.com.crescer.caronas.service;
 
+import br.com.crescer.caronas.entity.Grupo;
+import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
@@ -35,6 +37,9 @@ public class SolicitacaoService {
         if (!this.solicitacaoEhValida(solicitacao)) {
             throw new RuntimeException("Solicitação Inválida");
         }
+        String conteudo = String.format("%s solicitou entrar no grupo %s", solicitacao.getUsuarioDono().getNome(), solicitacao.getUsuarioAlvo().getNome());
+        Notificacao notificacao = new Notificacao(conteudo, null);
+        usuarioGrupoService.enviarNotificacao(solicitacao.getGrupo(), notificacao);
         return solicitacaoRepository.save(solicitacao);
     }
 

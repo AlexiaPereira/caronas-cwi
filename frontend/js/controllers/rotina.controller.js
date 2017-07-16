@@ -222,7 +222,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
         })
         return deferred.promise;
     }
-
+getNotificacoes()
     function getNotificacoes() {
       console.log('hey');
       NotificacoesService.getNotificacoes().then(res => {
