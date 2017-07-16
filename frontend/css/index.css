@@ -8,7 +8,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
 
 .container {
   position: relative;
-  margin: 0;
+  margin: 0 auto;
   padding: 0;
 }
 
@@ -59,7 +59,6 @@ a:link, a:visited, a:hover, a:focus, a:active {
 .row > .btn-container > .btn-cadastro-button:focus {
   outline: none;
 }
-
 .btn-orange-button {
   border: 2px solid #EB8514;
   border-radius: 8px;
@@ -87,8 +86,6 @@ a:link, a:visited, a:hover, a:focus, a:active {
   outline: none;
 }
 
-
-
 div > .svg {
   margin-top: 2vh;
   margin-bottom: 2vh;
@@ -96,8 +93,6 @@ div > .svg {
   border-radius: 10px;
   cursor: pointer;
 }
-
-
 
 /* INDEX */
 
@@ -181,11 +176,15 @@ div > .svg {
 }
 
 .view {
+  padding: 2.5vh;
+  position: absolute;
   width: 90vw;
   background: rgba(255,255,255,0.8);
   border: 2px solid white;
   border-radius: 5px;
   margin: 10vh auto;
+  left: 50%;
+  transform: translate(-50%);
 }
 
 
@@ -402,7 +401,7 @@ label, label::before {
 }
 
 ul {
-padding: 0;
+  padding: 0;
 }
 
 .no-padding {
@@ -417,6 +416,30 @@ padding: 0;
   border-bottom: 1px solid #ccc;
 }
 
+
 li {
    list-style-type: none; 
+}
+
+/* ROTINA VISUALIZAR */
+
+#cssTable {
+  table-layout: fixed;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* IPHONE 5 */
+@media screen and (max-width: 320px) {
+  #cssTable > thead > tr > th {
+    font-size: 12px;
+  }
+  #cssTable > tbody > tr > td {
+    font-size: 12px;
+  }
+  #botao-sair {
+    margin-top: 1vh;
+  }
 }
