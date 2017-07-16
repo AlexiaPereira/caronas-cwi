@@ -26,3 +26,7 @@ Após logar, haverá quatro telas para interação: cadastrar rotina, buscar car
 Ao logar pela primeira vez, o usuário será direcionado para cadastrar uma nova rotina, para que possa usufruir das demais funcionalidades da aplicação. Nessa tela, haverá dois modos de cadastro. Cadastrar como passageiro, na qual o objetivo é buscar pessoas que possam lhe conceder carona ou cadastrar como motorista, na qual o objetivo é o usuário ceder vagas disponíveis em seu carro para pessoas que estão próximas ao seu trajeto, em função de seu destino final ser coincidente.
 Após isso, caso cadastrada uma rotina como passageiro, o usuário poderá acessar a tela de buscar carona e pesquisar por possíveis pessoas que passam próximas ao seu ponto de partida e dispostas a lhe darem carona.
 Caso cadastrada uma rotina como motorista, o usuário automáticamente estará criando um grupo para posteriormente estar recebendo solicitações de pessoas que desejam ocupar uma das vagas que o usuário disponibilizou, em outras palavras, pertencer ao seu grupo.
+
+Observações e recomendações:
+-A aplicação permite que o usuário seja concedente de carona em uma rotina e passível de carona em outras;
+-A aplicação não limita o número de rotinas máxima do usuário, mas recomenda-se que cada rotina integre o maior número de dias possível para uma melhor integração entre usuários motoristas e usuários caroneiros.
