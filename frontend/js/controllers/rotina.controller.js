@@ -72,6 +72,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
                     rotina.rotinaDiaSemanaList = null;
                 });
         });
+        rotina.origem = '';
     }
 
     function excluir(idRotina) {
