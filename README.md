@@ -19,3 +19,10 @@ Para a webAPI
 
 Para a aplicação
 -Colocar no ar um servidor a partir da pasta frontend.
+
+Modo de uso:
+Ao entrar na aplicação, o usuário será direcionado para a tela de login social, podendo optar por google ou facebook.
+Após logar, haverá quatro telas para interação: cadastrar rotina, buscar carona, minhas rotinas, meus grupos.
+Ao logar pela primeira vez, o usuário será direcionado para cadastrar uma nova rotina, para que possa usufruir das demais funcionalidades da aplicação. Nessa tela, haverá dois modos de cadastro. Cadastrar como passageiro, na qual o objetivo é buscar pessoas que possam lhe conceder carona ou cadastrar como motorista, na qual o objetivo é o usuário ceder vagas disponíveis em seu carro para pessoas que estão próximas ao seu trajeto, em função de seu destino final ser coincidente.
+Após isso, caso cadastrada uma rotina como passageiro, o usuário poderá acessar a tela de buscar carona e pesquisar por possíveis pessoas que passam próximas ao seu ponto de partida e dispostas a lhe darem carona.
+Caso cadastrada uma rotina como motorista, o usuário automáticamente estará criando um grupo para posteriormente estar recebendo solicitações de pessoas que desejam ocupar uma das vagas que o usuário disponibilizou, em outras palavras, pertencer ao seu grupo.
