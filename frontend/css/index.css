@@ -30,7 +30,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
   margin: 0;
 }
 
-.btn-container > .btn-orange-button {
+.btn-container > .btn-cadastro-button {
   width: 70%;
   background-color: white;
   border: 3px solid #eb8514;
@@ -47,19 +47,20 @@ a:link, a:visited, a:hover, a:focus, a:active {
 }
 
 .row > .btn-container {
-  padding: 50px 0;
+  /*padding: 50px 0;*/
 }
 
-.row > .btn-container > .btn-orange-button:active {
+.row > .btn-container > .btn-cadastro-button:active {
   box-shadow: none;
   font: 20px Arial;
   width: 60%;
 }
 
-.row > .btn-container > .btn-orange-button:focus {
+.row > .btn-container > .btn-cadastro-button:focus {
   outline: none;
 }
-/*.btn-orange-button {
+
+.btn-orange-button {
   border: 2px solid #EB8514;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0);
@@ -84,7 +85,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
 
 .btn.btn-orange-button:focus {
   outline: none;
-}*/
+}
 
 
 
@@ -311,7 +312,7 @@ label, label::before {
 
 #map {
   position:absolute;
-  height: 125%;
+  height: 136vh;
   width: 100%;
   z-index: -999;
   overflow: hidden;
@@ -414,4 +415,8 @@ padding: 0;
   margin-top:1vh;
   margin-bottom:2vh;
   border-bottom: 1px solid #ccc;
+}
+
+li {
+   list-style-type: none; 
 }
