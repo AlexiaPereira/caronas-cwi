@@ -2,7 +2,6 @@ angular.module('app').controller('RotinaBuscarController',
 ['$scope', 'RotinaService', 'MapService', 'SolicitacoesService', '$q', '$location', 'toastr',
 function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location, toastr) {
 
-  console.log($location.absUrl());
   $header = $location.absUrl();
   listar();
 

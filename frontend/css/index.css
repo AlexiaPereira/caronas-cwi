@@ -318,7 +318,7 @@ label, label::before {
 }
 
 #cadastrar {
-  height: 25vh;
+  height: 125vh;
   width: 60%;
   z-index: 1;
   overflow: hidden;
