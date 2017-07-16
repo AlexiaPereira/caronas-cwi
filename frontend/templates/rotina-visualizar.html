@@ -1,7 +1,7 @@
 <div ng-include="'templates/header.html'"></div>
 <div class="inner">
   <h1>Novidades</h1>
-  <ul class="list-group" ng-repeat="notificacao in notificacoes">
+  <ul class="list-group text-center" ng-repeat="notificacao in notificacoes">
     <li class="list-group-item">{{ notificacao.conteudo }}</li>
   </ul>
   <button type="button" class="btn btn-warning btn-block" ng-click="excluirNotificacoes()">Marcar como lido</button>

@@ -10,25 +10,21 @@ function ($scope, GrupoService, SolicitacoesService, toastr, authService,
     $scope.remover = remover;
     $scope.aceitar = aceitar;
     $scope.recusar = recusar;
+    $scope.gruposMotorista = [];
+    $scope.gruposPassageiro = [];
 
     listarGrupos();
     buscarSolicitacoesPendentes();
-
-    $scope.gruposMotorista = [];
-    $scope.gruposPassageiro = [];
 
     function listarGrupos() {
       GrupoService
       .listarGrupos()
       .then(response => {
         let grupos = response.data;
-
         $scope.gruposMotorista = grupos.filter(grupo =>
           grupo.rotina.usuario.idAutorizacao === authService.getUsuario().username);
-
         $scope.gruposPassageiro = grupos.filter(grupo =>
           $scope.gruposMotorista.indexOf(grupo) === -1);
-
       });
     }
 
@@ -57,7 +53,6 @@ function ($scope, GrupoService, SolicitacoesService, toastr, authService,
       SolicitacoesService
       .recusar(idSolicitacao)
       .then(response => {
-        console.log(response);
       });
     }
 
@@ -98,7 +93,6 @@ function ($scope, GrupoService, SolicitacoesService, toastr, authService,
     function buscarSolicitacoesPendentes() {
       SolicitacoesService.buscarPendentes().then(res => {
         $scope.solicitacoes = res.data
-        console.log($scope.solicitacoes);
       });
     }
 
