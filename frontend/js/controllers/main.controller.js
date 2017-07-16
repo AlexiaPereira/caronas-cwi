@@ -1,6 +1,6 @@
 angular.module('app').controller('MainController', ['$scope', 'authService', 'MapService', '$window', function ($scope, authService, MapService, $window) {
 
-  google.maps.event.addDomListener(window, 'load',  mapFixed());
+  google.maps.event.addDomListener(window, 'load',  mapFixed);
 
   $scope.usuario = localStorage.getItem('nome');
   $scope.foto = localStorage.getItem('foto');
