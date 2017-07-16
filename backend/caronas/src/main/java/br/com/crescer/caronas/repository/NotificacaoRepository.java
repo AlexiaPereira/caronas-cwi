@@ -10,6 +10,8 @@ import org.springframework.data.repository.PagingAndSortingRepository;
  * @author alexia.pereira
  */
 public interface NotificacaoRepository extends PagingAndSortingRepository<Notificacao, Long> {
+
+    void deleteByUsuario(Usuario usuario);
     
     List<Notificacao> findByUsuario (Usuario usuario);
 }

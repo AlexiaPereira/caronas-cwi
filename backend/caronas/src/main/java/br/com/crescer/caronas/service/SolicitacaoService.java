@@ -28,6 +28,9 @@ public class SolicitacaoService {
 
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
+    
+    @Autowired
+    NotificacaoService notificacaoService;
 
     @Autowired
     RotinaDiaSemanaService rotinaDiaSemanaService;
@@ -44,7 +47,7 @@ public class SolicitacaoService {
         }
         String conteudo = String.format("%s solicitou entrar no grupo %s", solicitacao.getUsuarioDono().getNome(), solicitacao.getGrupo().getNome());
         Notificacao notificacao = new Notificacao(conteudo, null);
-        usuarioGrupoService.enviarNotificacao(solicitacao.getGrupo().getUsuarioGrupoList(), notificacao);
+        notificacaoService.enviarNotificacao(solicitacao.getGrupo(), notificacao);
         return solicitacaoRepository.save(solicitacao);
     }
 
