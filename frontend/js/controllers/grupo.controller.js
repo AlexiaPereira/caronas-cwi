@@ -6,6 +6,7 @@ function ($scope, GrupoService, SolicitacoesService, toastr, authService,
     $scope.aceitar = aceitar;
     $scope.recusar = recusar;
     $scope.removerGrupo = removerGrupo;
+    $scope.removerMembro = removerMembro;
     $scope.remover = remover;
     $scope.aceitar = aceitar;
     $scope.recusar = recusar;
@@ -71,6 +72,15 @@ function ($scope, GrupoService, SolicitacoesService, toastr, authService,
       GrupoService
       .remover(idGrupo)
       .then(response => {
+        listarGrupos();
+      })
+    }
+
+    function removerMembro(usuarioGrupo) {
+      UsuarioGrupoService
+      .removerMembro(usuarioGrupo.idUsuarioGrupo)
+      .then(response => {
+        toastr.success(usuarioGrupo.usuario.nome + ' foi removido do seu grupo');
         listarGrupos();
       })
     }
