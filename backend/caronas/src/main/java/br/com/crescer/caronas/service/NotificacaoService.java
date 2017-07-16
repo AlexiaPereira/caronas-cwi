@@ -7,6 +7,7 @@ import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.NotificacaoRepository;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
 import java.util.List;
+import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -43,6 +44,7 @@ public class NotificacaoService {
         notificacaoRepository.delete(notificacao);
     }
     
+    @Transactional
     public void clearByUser(Usuario usuario) {
         notificacaoRepository.deleteByUsuario(usuario);
     }
