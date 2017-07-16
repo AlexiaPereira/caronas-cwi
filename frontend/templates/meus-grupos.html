@@ -55,10 +55,10 @@
         <td>
           <ul ng-repeat="membro in grupoMotorista.usuarioGrupoList">
             <li>{{ membro.usuario.nome }}</li>
-            <button type="button" class="btn btn-danger btn-lg" ng-click="removerMembro(membro)">
+            <button ng-hide="souDonoDoGrupo(membro)" type="button" class="btn btn-danger btn-lg" ng-click="removerMembro(membro)">
           </ul>
         </td>
-        <td><button type="button" class="btn btn-danger btn-lg" ng-click="removerGrupo(grupoMotorista.idGrupo)"><span class="glyphicon glyphicon-remove"></span></button></td>
+        <td><button type="button" class="btn btn-danger btn-lg" ng-click="removerGrupo(grupoMotorista)"><span class="glyphicon glyphicon-remove"></span></button></td>
       </tr>
     </tbody>
   </table>
