@@ -6,7 +6,7 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location,
   $header = $location.absUrl();
   listar();
 
-  $scope.matches = [];
+  $scope.matchs = [];
   $scope.procurarMatchs = procurarMatchs;
   $scope.enviarSolicitacao = enviarSolicitacao;
   $scope.buscarDiaSemana = buscarDiaSemana;
@@ -71,10 +71,11 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location,
 
     function obterRotinasComMatchDistancia(idRotina, listaDistanciaRotina) {
       RotinaService.getRotinasComMatchDistancia(idRotina, listaDistanciaRotina).then(function (response) {
-        $scope.matches = response.data;
-        var matchsFormatoParaPlotarNoMapa = montarArraysMatriz($scope.matches);
+        $scope.matchs = response.data;
+        console.log($scope.matchs);
+        var matchsFormatoParaPlotarNoMapa = montarArraysMatriz($scope.matchs);
         MapService.mapaMatch(matchsFormatoParaPlotarNoMapa);
-        let pontosMapa = montarArraysMatriz($scope.matches);
+        let pontosMapa = montarArraysMatriz($scope.matchs);
       })
     };
 

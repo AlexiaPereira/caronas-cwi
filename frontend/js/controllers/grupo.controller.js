@@ -36,19 +36,16 @@ function ($scope, GrupoService, SolicitacoesService, toastr, authService,
       GrupoService
       .buscarGrupo(idGrupo)
       .then(response => {
-        console.log(response);
       });
     }
 
     function aceitar(solicitacaoDTO) {
       if (isUndefinedOrNull(solicitacaoDTO)) {
-        console.log('undefined or null');
         return;
       }
       SolicitacoesService
       .aceitar(solicitacaoDTO)
       .then(response => {
-        console.log(response);
       });
     }
 
