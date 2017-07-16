@@ -53,7 +53,7 @@ public class NotificacaoService {
         return notificacaoRepository.findOne(id);
     }
 
-    public void enviarNotificacao(Grupo grupo, Notificacao notificacao) {
+    public void enviarNotificacaoTodosUsuariosDoGrupo(Grupo grupo, Notificacao notificacao) {
         List<UsuarioGrupo> usuariosDoGrupo = usuarioGrupoRepository.findByGrupo(grupo);
         usuariosDoGrupo
                 .stream()
