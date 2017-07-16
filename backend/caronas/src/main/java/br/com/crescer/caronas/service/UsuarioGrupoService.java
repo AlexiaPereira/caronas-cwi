@@ -47,10 +47,18 @@ public class UsuarioGrupoService {
             throw new RuntimeException("Usuário não está no grupo");
         }
 
-        String conteudoNotificacao = String.format("%s deixou o grupo '%s'", usuarioGrupo.getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
+        String conteudoNotificacao = String.format("'%s': %s removeu %s do grupo",
+                usuarioGrupo.getGrupo().getNome(), usuarioGrupo.getGrupo().getRotina().getUsuario().getNome(),
+                usuarioGrupo.getUsuario().getNome());
+        String conteudoNotificaoEspecifica = String.format("%s removeu você do grupo %s",
+                usuarioGrupo.getGrupo().getRotina().getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
+
+        Notificacao notificacaoEspecifica = new Notificacao(conteudoNotificaoEspecifica, usuarioGrupo.getUsuario());
+        notificacaoService.save(notificacaoEspecifica);
+
         Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
-        notificacaoService.enviarNotificacao(usuarioGrupo.getGrupo(), notificacao);
         usuarioGrupoRepository.delete(usuarioGrupo);
+        notificacaoService.enviarNotificacao(usuarioGrupo.getGrupo(), notificacao);
     }
 
     public UsuarioGrupo loadById(Long id) {
@@ -59,15 +67,6 @@ public class UsuarioGrupoService {
 
     public List<UsuarioGrupo> findByUsuario(Usuario usuario) {
         return usuarioGrupoRepository.findByUsuario(usuario);
-    }
-
-    public boolean usuarioEstaNoGrupo(UsuarioGrupo usuarioGrupo, Grupo grupo) {
-        List<UsuarioGrupo> usuariosDoGrupo = usuarioGrupoRepository.findByGrupo(usuarioGrupo.getGrupo());
-        return usuariosDoGrupo
-                .stream()
-                .map(UsuarioGrupo::getUsuario)
-                .collect(toList())
-                .contains(usuarioGrupo.getUsuario());
     }
 
     public void deleteByGrupo(Grupo grupo) {
@@ -80,6 +79,15 @@ public class UsuarioGrupoService {
 
     public List<UsuarioGrupo> findByGrupo(Grupo grupo) {
         return usuarioGrupoRepository.findByGrupo(grupo);
+    }
+
+    public boolean usuarioEstaNoGrupo(UsuarioGrupo usuarioGrupo, Grupo grupo) {
+        List<UsuarioGrupo> usuariosDoGrupo = usuarioGrupoRepository.findByGrupo(usuarioGrupo.getGrupo());
+        return usuariosDoGrupo
+                .stream()
+                .map(UsuarioGrupo::getUsuario)
+                .collect(toList())
+                .contains(usuarioGrupo.getUsuario());
     }
 
 }
