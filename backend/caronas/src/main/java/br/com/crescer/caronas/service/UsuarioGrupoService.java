@@ -42,7 +42,6 @@ public class UsuarioGrupoService {
     }
 
     public void remove(UsuarioGrupo usuarioGrupo) {
-        List<UsuarioGrupo> usuariosDoGrupo = usuarioGrupoRepository.findByGrupo(usuarioGrupo.getGrupo());
 
         if (!this.usuarioEstaNoGrupo(usuarioGrupo, usuarioGrupo.getGrupo())) {
             throw new RuntimeException("Usuário não está no grupo");
@@ -77,6 +76,10 @@ public class UsuarioGrupoService {
 
     public UsuarioGrupo findByUsuarioAndGrupo(Usuario usuario, Grupo grupo) {
         return usuarioGrupoRepository.findByUsuarioAndGrupo(usuario, grupo);
+    }
+
+    public List<UsuarioGrupo> findByGrupo(Grupo grupo) {
+        return usuarioGrupoRepository.findByGrupo(grupo);
     }
 
 }
