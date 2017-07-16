@@ -6,6 +6,7 @@ import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.service.GrupoService;
 import br.com.crescer.caronas.service.UsuarioGrupoService;
 import br.com.crescer.caronas.service.UsuarioService;
+import java.text.ParseException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.User;
@@ -56,13 +57,13 @@ public class UsuarioGrupoController {
     }
 
     @DeleteMapping(value = "/{idUsuarioGrupo}")
-    public void remove(@PathVariable Long idUsuarioGrupo) {
+    public void remove(@PathVariable Long idUsuarioGrupo) throws ParseException {
         UsuarioGrupo usuarioGrupo = usuarioGrupoService.loadById(idUsuarioGrupo);
         usuarioGrupoService.remove(usuarioGrupo);
     }
 
     @PostMapping(value = "/remover")
-    public void remove(@RequestBody Grupo grupo, @AuthenticationPrincipal User user) {
+    public void remove(@RequestBody Grupo grupo, @AuthenticationPrincipal User user) throws ParseException {
         Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
         UsuarioGrupo usuarioGrupoCorreto = usuarioGrupoService.findByUsuarioAndGrupo(usuario, grupo);
         usuarioGrupoService.remove(usuarioGrupoCorreto);

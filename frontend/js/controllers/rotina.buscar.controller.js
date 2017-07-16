@@ -1,6 +1,6 @@
 angular.module('app').controller('RotinaBuscarController',
-['$scope', 'RotinaService', 'MapService', 'SolicitacoesService', '$q', '$location', 'toastr',
-function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location, toastr) {
+['$scope', 'RotinaService', 'MapService', 'SolicitacoesService', '$q', '$location',
+function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location) {
 
   $header = $location.absUrl();
   listar();
@@ -90,7 +90,7 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location,
     function enviarSolicitacao(match) {
       let solicitacao = {usuarioAlvo: match.usuario, rotinaUsuarioDono: $scope.rotinaAtual};
       let solicitacaoDTO = {solicitacao: solicitacao, rotinaMotorista: match}
-      SolicitacoesService.enviar(solicitacaoDTO).then(res => toastr.success('Solicitação enviada com sucesso'));
+      SolicitacoesService.enviar(solicitacaoDTO).then(res => swal("Sucesso", "Solicitação enviada!", "success"));
     }
 
     function buscarDiaSemana(match) {
