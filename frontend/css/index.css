@@ -419,3 +419,26 @@ ul {
   margin-bottom:2vh;
   border-bottom: 1px solid #ccc;
 }
+
+/* ROTINA VISUALIZAR */
+
+#cssTable {
+  table-layout: fixed;
+}
+
+ul {
+  list-style-type: none;
+}
+
+/* IPHONE 5 */
+@media screen and (max-width: 320px) {
+  #cssTable > thead > tr > th {
+    font-size: 12px;
+  }
+  #cssTable > tbody > tr > td {
+    font-size: 12px;
+  }
+  #botao-sair {
+    margin-top: 1vh;
+  }
+}
