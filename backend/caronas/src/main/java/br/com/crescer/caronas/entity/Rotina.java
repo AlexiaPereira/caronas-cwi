@@ -76,7 +76,7 @@ public class Rotina implements Serializable {
     private Origem origem;
 
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     private Usuario usuario;
 
     @Basic(optional = false)
