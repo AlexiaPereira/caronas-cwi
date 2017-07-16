@@ -64,6 +64,7 @@ public class UsuarioGrupoService {
         }
 
         Rotina rotinaUsuarioQueEstaSaindo = this.buscarRotinaUsuario(usuarioGrupo.getUsuario(), usuarioGrupo.getGrupo().getRotina());
+        rotinaUsuarioQueEstaSaindo.setDisponivel(true);
         this.descontarVagas(rotinaUsuarioQueEstaSaindo, usuarioGrupo.getGrupo().getRotina(), 1);
 
         String conteudoNotificacao = String.format("'%s': %s removeu %s do grupo",
