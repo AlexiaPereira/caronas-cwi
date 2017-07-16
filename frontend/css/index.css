@@ -462,3 +462,16 @@ ul {
 .btn-wrapper {
   padding: 10px 0px;
 }
+
+.vagas > div {
+  display: inline-block;
+}
+
+.vagas {
+  text-align: center;
+}
+
+.vagas > div > label > .form-control {
+  height: 30px;
+  background-color: white;
+}
