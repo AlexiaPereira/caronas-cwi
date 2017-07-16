@@ -193,12 +193,14 @@ div > .svg {
 /* ROTINA-BUSCAR */
 .side-bar {
   height: 84vh;
-  width: 20vw;
+  width: 22vw;
+  z-index: 2;
   background-color: #e2e2e2;
-  left: 0;
-  /*position: fixed;*/
+  /*left: 0;*/
+  position: fixed;
   float: left;
   overflow-y: scroll;
+  padding-bottom: 2vh;
 }
 
 .side-bar > .items-side-bar {
@@ -311,14 +313,14 @@ label, label::before {
 
 #map {
   position:absolute;
-  height: 100%;
+  height: 125%;
   width: 100%;
   z-index: -999;
   overflow: hidden;
 }
 
 #cadastrar {
-  height: 25vh;
+  height: 125vh;
   width: 60%;
   z-index: 1;
   overflow: hidden;
@@ -330,17 +332,17 @@ label, label::before {
 #match {
   height: 25vh;
   width: 60%;
-  z-index: 9999;
-  overflow: hidden;
-  position: absolute;
-  top: 50%;
-  left:50%;
-  transform: translate(-35%);
+  z-index: 1;
+  /*overflow: hidden;*/
+  position: fixed;
+  /*top: 50%;*/
+  left: 18vh;
+  /*transform: translate(-35%);*/
   /*border-style: solid;
   border-width: medium;*/
   /*margin-left: 20%;*/
-  display: block;
-  margin: 0 auto;
+  /*display: block;*/
+  /*margin: 0 auto;*/
 }
 
 .center-align {
@@ -401,5 +403,17 @@ label, label::before {
 }
 
 ul {
+padding: 0;
+}
+
+.no-padding {
   padding: 0;
+}
+
+.items-buscar {
+  height:10vh;
+  margin-left:2vw;
+  margin-top:1vh;
+  margin-bottom:2vh;
+  border-bottom: 1px solid #ccc;
 }

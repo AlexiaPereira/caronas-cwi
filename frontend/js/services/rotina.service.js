@@ -7,14 +7,6 @@ angular.module('app').factory('RotinaService', ['$http', function ($http) {
         return $http.get(`${url}/usuario`);
     }
 
-    function procurar() {
-        return $http.get(`${url}`);
-    }
-
-    function selecionar(idRotina) {
-        return $http.get(`${url}/${idRotina}`);
-    }
-
     function getRotinasMatchHorarioEComVaga(idRotina) {
         return $http.get(`${url}/match/horario/${idRotina}`);
     }
@@ -41,8 +33,6 @@ angular.module('app').factory('RotinaService', ['$http', function ($http) {
 
     return ({
         listar: listar,
-        procurar: procurar,
-        selecionar: selecionar,
         criar: criar,
         excluir: excluir,
         getRotinasMatchHorarioEComVaga: getRotinasMatchHorarioEComVaga,

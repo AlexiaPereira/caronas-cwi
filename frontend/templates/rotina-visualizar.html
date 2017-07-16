@@ -1,7 +1,7 @@
 <div ng-include="'templates/header.html'"></div>
 <div class="inner">
   <h1>Novidades</h1>
-  <ul class="list-group" ng-repeat="notificacao in notificacoes">
+  <ul class="list-group text-center" ng-repeat="notificacao in notificacoes">
     <li class="list-group-item">{{ notificacao.conteudo }}</li>
   </ul>
   <button type="button" class="btn btn-warning btn-block" ng-click="excluirNotificacoes()">Marcar como lido</button>
@@ -12,6 +12,7 @@
         <thead>
           <th>Dia Semana</th>
           <th>Horário</th>
+          <th>Distancia</th>
           <th>Endereço</th>
         </thead>
         <tbody>
@@ -21,7 +22,8 @@
             </td>
             <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
             <!--<td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>-->
-			<td class="dados">{{rotina.idOrigem.endereco}}</td>
+            <td class="dados">{{rotina.distancia}}</td>
+            <td class="dados">{{rotina.idOrigem.endereco}}</td>
           </tr>
         </tbody>
       </table>
@@ -29,7 +31,8 @@
     <div class="rotinas-visualizar-table"> <h4>Motorista</h4>
       <table class="table table-striped" id="cssTable">
         <thead>
-		      <th>Dia Semana</th>
+          <th>Dia Semana</th>
+          <th>Vagas</th>
           <th>Horário</th>
           <th>Endereço</th>
         </thead>
@@ -38,13 +41,16 @@
             <td>
               <ul ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
             </td>
+            <td>
+              <ul ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.vagasDisponiveis }}</li></ul>
+            </td>
             <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
-              <!--<td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>-->
-			  <td class="dados">{{rotina.idOrigem.endereco}}</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
+            <!--<td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>-->
+            <td class="dados">{{rotina.idOrigem.endereco}}</td>
+          </tr>
+        </tbody>
+      </table>
     </div>
   </div>
-  <div ng-include="'templates/footer.html'"></div>
+</div>
+<div ng-include="'templates/footer.html'"></div>
