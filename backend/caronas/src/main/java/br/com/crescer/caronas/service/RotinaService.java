@@ -2,7 +2,6 @@ package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Rotina;
-import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.RotinaRepository;
@@ -43,12 +42,8 @@ public class RotinaService {
     }
 
     public Rotina save(Rotina rotina) {
-        List<RotinaDiaSemana> diasSemana = rotina.getRotinaDiaSemanaList();
         rotina.setDisponivel(true);
-
-        for (RotinaDiaSemana rotinaDiaSemana : diasSemana) {
-            rotinaDiaSemana.setRotina(rotina);
-        }
+        this.atribuirRotinaAoRotinaDiaSemanaList(rotina);
 
         if (rotina.getPassageiro()) {
             return rotinaRepository.save(rotina);
@@ -62,6 +57,7 @@ public class RotinaService {
     }
 
     public Rotina update(Rotina rotina) {
+        this.atribuirRotinaAoRotinaDiaSemanaList(rotina);
         return rotinaRepository.save(rotina);
     }
 
@@ -115,5 +111,9 @@ public class RotinaService {
         this.validarVagasService = new ValidarVagasService();
         List<Rotina> rotinasValidadasPorHorario = this.matchHorarios(rotina);
         return validarVagasService.validarVagas(rotina, rotinasValidadasPorHorario);
+    }
+
+    private void atribuirRotinaAoRotinaDiaSemanaList(Rotina rotina) {
+        rotina.getRotinaDiaSemanaList().forEach(rotinaDiaSemana -> rotinaDiaSemana.setRotina(rotina));
     }
 }

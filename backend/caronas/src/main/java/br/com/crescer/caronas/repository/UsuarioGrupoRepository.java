@@ -17,4 +17,7 @@ public interface UsuarioGrupoRepository extends CrudRepository<UsuarioGrupo, Lon
     public void deleteByGrupo(Grupo grupo);
 
     public UsuarioGrupo findByUsuarioAndGrupo(Usuario usuario, Grupo grupo);
+
+    public List<UsuarioGrupo> findByGrupo(Grupo grupo);
+
 }

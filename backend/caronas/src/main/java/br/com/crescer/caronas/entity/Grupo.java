@@ -50,7 +50,7 @@ public class Grupo implements Serializable {
     @JoinColumn(name = "ID_ROTINA")
     private Rotina rotina;
 
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "usuario")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "grupo")
     @JsonBackReference
     private List<UsuarioGrupo> usuarioGrupoList;
 

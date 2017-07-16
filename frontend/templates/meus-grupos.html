@@ -40,6 +40,7 @@
       <!--<th>Id Prov</th>-->
       <th>Dia Semana</th>
       <th>Horário</th>
+      <th>Membros</th>
       <th>Excluir Grupo</th>
     </thead>
     <tbody>
@@ -51,6 +52,12 @@
           <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
         </td>
         <td class="dados">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
+        <td>
+          <ul ng-repeat="membro in grupoMotorista.usuarioGrupoList">
+            <li>{{ membro.usuario.nome }}</li>
+            <button type="button" class="btn btn-danger btn-lg" ng-click="removerMembro(membro)">
+          </ul>
+        </td>
         <td><button type="button" class="btn btn-danger btn-lg" ng-click="removerGrupo(grupoMotorista.idGrupo)"><span class="glyphicon glyphicon-remove"></span></button></td>
       </tr>
     </tbody>
