@@ -5,6 +5,7 @@ import br.com.crescer.caronas.entity.Solicitacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.SolicitacaoRepository;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,10 +40,15 @@ public class SolicitacaoService {
         return solicitacaoRepository.findAll();
     }
 
-    public Solicitacao save(Solicitacao solicitacao) {
-        if (!this.solicitacaoEhValida(solicitacao)) {
-            throw new RuntimeException("Solicitação Inválida");
+    public Solicitacao save(Solicitacao solicitacao) throws CaronasException{
+        try {
+            if (!this.solicitacaoEhValida(solicitacao)) {
+                throw new CaronasException("A solicitação não é válida!");
+            }
+            
+        } catch (RuntimeException ex) {
         }
+        
         String conteudo = String.format("%s solicitou entrar no grupo %s", solicitacao.getUsuarioDono().getNome(), solicitacao.getGrupo().getNome());
         Notificacao notificacao = new Notificacao(conteudo, null);
         notificacaoService.enviarNotificacaoTodosUsuariosDoGrupo(solicitacao.getGrupo(), notificacao);
