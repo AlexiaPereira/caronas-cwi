@@ -63,7 +63,8 @@ public class SolicitacaoService {
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo(), new Date());
         solicitacao.getRotinaUsuarioDono().setDisponivel(false);
         this.descontarVagas(solicitacao.getRotinaUsuarioDono(), solicitacao.getGrupo().getRotina());
-//        rotinaService.update(usuarioGrupo.getGrupo().getRotina());
+        grupoService.update(usuarioGrupo.getGrupo());
+        //        rotinaService.update(usuarioGrupo.getGrupo().getRotina());
         usuarioGrupoService.save(usuarioGrupo);
         solicitacaoRepository.delete(solicitacao);
     }
@@ -84,7 +85,7 @@ public class SolicitacaoService {
                     rotinaDiaSemana.setRotina(rotinaMatchMotorista);
                     if (diasDaSemanaComMatch.contains(rotinaDiaSemana)) {
                         rotinaDiaSemana.setVagasDisponiveis(rotinaDiaSemana.getVagasDisponiveis() - 1);
-                        rotinaDiaSemanaService.update(rotinaDiaSemana);
+//                        rotinaDiaSemanaService.update(rotinaDiaSemana);
                     }
                 });
 
