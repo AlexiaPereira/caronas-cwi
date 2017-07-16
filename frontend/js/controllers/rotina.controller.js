@@ -5,6 +5,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     $scope.selecionar = selecionar;
     $scope.criar = criar;
     $scope.excluir = excluir;
+    $scope.excluirNotificacoes = excluirNotificacoes;
 
     $scope.disponivel = 0;
     $scope.addDisponivel = addDisponivel;
@@ -224,15 +225,13 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     }
 getNotificacoes()
     function getNotificacoes() {
-      console.log('hey');
       NotificacoesService.getNotificacoes().then(res => {
         $scope.notificacoes = res.data
-        console.log('hey');
         console.log($scope.notificacoes);
       });
     }
 
-    function deletarNotificacoes() {
+    function excluirNotificacoes() {
       NotificacoesService.deletarNotificacoes();
     }
 

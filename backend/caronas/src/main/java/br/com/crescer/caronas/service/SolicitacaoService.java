@@ -44,7 +44,7 @@ public class SolicitacaoService {
         }
         String conteudo = String.format("%s solicitou entrar no grupo %s", solicitacao.getUsuarioDono().getNome(), solicitacao.getGrupo().getNome());
         Notificacao notificacao = new Notificacao(conteudo, null);
-        usuarioGrupoService.enviarNotificacao(solicitacao.getGrupo(), notificacao);
+        usuarioGrupoService.enviarNotificacao(solicitacao.getGrupo().getUsuarioGrupoList(), notificacao);
         return solicitacaoRepository.save(solicitacao);
     }
 
