@@ -36,11 +36,14 @@ public class NotificacaoService {
     public void remove(Notificacao notificacao) {
         notificacaoRepository.delete(notificacao);
     }
-
-    public void clearByUser(Usuario usuario) {
-        notificacaoRepository.deleteByUsuario(usuario);
+    
+    public void removeByUser(Usuario usuario) {
+        List<Notificacao> notificacoesUsuario = notificacaoRepository.findByUsuario(usuario);
+        notificacoesUsuario.forEach((notificacao) -> {
+        notificacaoRepository.delete(notificacao);
+        });
     }
-
+    
     public Notificacao loadById(Long id) {
         return notificacaoRepository.findOne(id);
     }

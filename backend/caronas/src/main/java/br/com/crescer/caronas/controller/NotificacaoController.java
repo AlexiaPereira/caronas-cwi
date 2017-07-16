@@ -42,9 +42,6 @@ public class NotificacaoController {
     @DeleteMapping
     public void removeAllByUser(@AuthenticationPrincipal User user) {
         Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
-        List<Notificacao> notificacoesUsuario = notificacaoService.findAllByUsuario(usuario);
-        notificacoesUsuario.forEach((notificacao) -> {
-            notificacaoService.remove(notificacao);
-        });
+        notificacaoService.removeByUser(usuario);
     }
 }
