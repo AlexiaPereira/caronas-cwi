@@ -52,6 +52,13 @@ public class NotificacaoService {
     public Notificacao loadById(Long id) {
         return notificacaoRepository.findOne(id);
     }
+    
+    public void enviarNotificacaoDeAceite(Usuario usuario, String nomeDoGrupo) {
+        String conteudoNotificacao = String.format("Parabéns %s, você foi aceito no grupo '%s'", usuario.getNome(), nomeDoGrupo);
+        Notificacao notificacao = new Notificacao(conteudoNotificacao, usuario);
+        usuario.getNotificacaoList().add(notificacao);
+        this.save(notificacao);
+    }
 
     public void enviarNotificacaoTodosUsuariosDoGrupo(Grupo grupo, Notificacao notificacao) {
         List<UsuarioGrupo> usuariosDoGrupo = usuarioGrupoRepository.findByGrupo(grupo);
