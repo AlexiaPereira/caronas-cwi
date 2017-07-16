@@ -180,6 +180,7 @@ div > .svg {
 }
 
 .view {
+  padding: 2.5vh;
   position: absolute;
   width: 90vw;
   background: rgba(255,255,255,0.8);
@@ -319,14 +320,6 @@ label, label::before {
   z-index: -999;
   overflow: hidden;
 }
-
-/*#map-wrapper {
-  position: fixed;
-  top: 0;
-  height: 125%;
-  width: 100%;
-  z-index: -999;
-}*/
 
 #cadastrar {
   height: 25vh;
