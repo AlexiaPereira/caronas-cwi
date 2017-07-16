@@ -141,6 +141,9 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location,
       let diasSemana = [];
       diasSemana = match.rotinaDiaSemanaList.map(rds => rds.diaSemana.nome);
       diasSemana.sort((a, b) => ordenador[a] > ordenador[b]);
+      if (diasSemana[diasSemana.length-1] === diasSemana[0]) {
+            return diasSemana.shift().substring(0,3).toUpperCase();
+      }
       return (diasSemana.shift().substring(0,3) + ' - ' + diasSemana.pop().substring(0,3)).toUpperCase();
     }
 
