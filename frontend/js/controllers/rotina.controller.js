@@ -224,8 +224,10 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     }
 
     function getNotificacoes() {
+      console.log('hey');
       NotificacoesService.getNotificacoes().then(res => {
         $scope.notificacoes = res.data
+        console.log('hey');
         console.log($scope.notificacoes);
       });
     }

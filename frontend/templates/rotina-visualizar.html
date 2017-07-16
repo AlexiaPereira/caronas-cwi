@@ -1,5 +1,9 @@
 <div ng-include="'templates/header.html'"></div>
 <div class="inner">
+  <h1>Novidades</h1>
+  <ul class="list-group" ng-repeat="notificacao in notificacoes">
+    <li class="list-group-item">{{ notificacao.conteudo }}</li>
+  </ul>
   <h1>Rotinas</h1>
   <div class="rotinas-visualizar">
     <div class="rotinas-visualizar-table"> <h4>Passageiro</h4>
