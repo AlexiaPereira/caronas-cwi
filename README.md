@@ -12,7 +12,8 @@ Para o banco de dados Oracle
 -Logar em um perfil com permissão que criar um novo usuário;
 -Utilizar o comando "Create user caronas identified by caronas" para criar o usuário;
 -Utilizar o comando "grant connect, resource, create view to caronas" para dar as permissões ao usuário;
--Criar uma nova conexão utilizando o usuário caronas.
+-Criar uma nova conexão utilizando o usuário caronas;
+-Executar script de backup contido na pasta "backend/caronas/backup" para a criação do banco.
 
 Para a webAPI
 -Abrir o projeto caronas, que se encontra na pasta backend, em alguma IDE com suporte para java e executar o projeto.
