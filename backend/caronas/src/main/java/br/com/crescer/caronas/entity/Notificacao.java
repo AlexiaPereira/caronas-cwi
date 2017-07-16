@@ -43,7 +43,7 @@ public class Notificacao implements Serializable {
     @Column(name = "CONTEUDO")
     private String conteudo;
 
-    @ManyToOne(optional = false, cascade = CascadeType.ALL)
+    @ManyToOne(optional = false, cascade = CascadeType.PERSIST)
     @JoinColumn(name = "ID_USUARIO", referencedColumnName = "ID_USUARIO")
     @JsonBackReference
     private Usuario usuario;
