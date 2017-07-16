@@ -42,11 +42,11 @@ public class NotificacaoService {
     public void remove(Notificacao notificacao) {
         notificacaoRepository.delete(notificacao);
     }
-
+    
     public void clearByUser(Usuario usuario) {
         notificacaoRepository.deleteByUsuario(usuario);
     }
-
+    
     public Notificacao loadById(Long id) {
         return notificacaoRepository.findOne(id);
     }

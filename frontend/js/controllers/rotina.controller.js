@@ -5,6 +5,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     $scope.selecionar = selecionar;
     $scope.criar = criar;
     $scope.excluir = excluir;
+    $scope.excluirNotificacoes = excluirNotificacoes;
 
     $scope.disponivel = 0;
     $scope.addDisponivel = addDisponivel;
@@ -222,7 +223,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
         })
         return deferred.promise;
     }
-
+getNotificacoes()
     function getNotificacoes() {
       NotificacoesService.getNotificacoes().then(res => {
         $scope.notificacoes = res.data
@@ -230,7 +231,7 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
       });
     }
 
-    function deletarNotificacoes() {
+    function excluirNotificacoes() {
       NotificacoesService.deletarNotificacoes();
     }
 

@@ -40,7 +40,7 @@ public class NotificacaoController {
     }
     
     @DeleteMapping
-    public void removeAll(@AuthenticationPrincipal User user) {
+    public void removeByUser(@AuthenticationPrincipal User user) {
         Usuario usuario = usuarioService.findByIdAutorizacao(user.getUsername());
         notificacaoService.clearByUser(usuario);
     }
