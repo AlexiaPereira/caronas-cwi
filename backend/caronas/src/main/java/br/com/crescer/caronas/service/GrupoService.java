@@ -3,7 +3,6 @@ package br.com.crescer.caronas.service;
 import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Rotina;
-import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.GrupoRepository;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,6 +21,9 @@ public class GrupoService {
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
 
+    @Autowired
+    NotificacaoService notificacaoService;
+
     public Iterable<Grupo> findAll() {
         return grupoRepository.findAll();
     }
@@ -39,14 +41,7 @@ public class GrupoService {
     public void remove(Grupo grupo) {
         String conteudoNotificacao = String.format("O grupo '%s' que você participa foi excluído", grupo.getNome());
         Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
-        grupo.getUsuarioGrupoList()
-                .stream()
-                .map(UsuarioGrupo::getUsuario)
-                .forEach(usuario -> {
-                    notificacao.setUsuario(usuario);
-                    usuario.getNotificacaoList().add(notificacao);
-                });
-        usuarioGrupoService.deleteByGrupo(grupo);
+        notificacaoService.enviarNotificacao(grupo, notificacao);
         grupoRepository.delete(grupo);
     }
 
