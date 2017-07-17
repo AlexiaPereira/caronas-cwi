@@ -7,6 +7,7 @@ import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.service.GrupoService;
 import br.com.crescer.caronas.service.UsuarioGrupoService;
 import br.com.crescer.caronas.service.UsuarioService;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -72,7 +73,7 @@ public class GrupoController {
     }
 
     @DeleteMapping(value = "/{idGrupo}")
-    public void remove(@PathVariable Long idGrupo) throws ParseException {
+    public void remove(@PathVariable Long idGrupo) throws ParseException, CaronasException {
         //implementar lógica das vagas
         Grupo grupo = grupoService.loadById(idGrupo);
         grupoService.remove(grupo);

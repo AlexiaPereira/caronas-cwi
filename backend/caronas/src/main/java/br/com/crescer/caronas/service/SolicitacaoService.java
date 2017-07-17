@@ -71,7 +71,7 @@ public class SolicitacaoService {
         return solicitacaoRepository.findByUsuarioAlvo(usuarioAlvo);
     }
 
-    public void aceitarSolicitacao(Solicitacao solicitacao) {
+    public void aceitarSolicitacao(Solicitacao solicitacao) throws CaronasException {
         UsuarioGrupo usuarioGrupo = new UsuarioGrupo(solicitacao.getUsuarioDono(), solicitacao.getGrupo(), new Date());
         solicitacao.getRotinaUsuarioDono().setDisponivel(false);
         rotinaService.update(solicitacao.getRotinaUsuarioDono());

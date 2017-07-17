@@ -85,7 +85,7 @@ public class SolicitacaoController {
     }
     
     @PostMapping(value = "/aceitar")
-    public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
+    public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) throws CaronasException {
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(user.getUsername());
         solicitacao.setUsuarioAlvo(usuarioAlvo);
         solicitacao.setUsuarioDono(usuarioService.findByIdAutorizacao(solicitacao.getUsuarioDono().getIdAutorizacao()));
