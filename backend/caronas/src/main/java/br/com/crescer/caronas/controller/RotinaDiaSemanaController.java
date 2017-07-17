@@ -2,6 +2,7 @@ package br.com.crescer.caronas.controller;
 
 import br.com.crescer.caronas.service.RotinaDiaSemanaService;
 import br.com.crescer.caronas.entity.RotinaDiaSemana;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -34,12 +35,12 @@ public class RotinaDiaSemanaController {
     }
     
     @PostMapping
-    public RotinaDiaSemana save(@RequestBody RotinaDiaSemana rotinaDiaSemana) {
+    public RotinaDiaSemana save(@RequestBody RotinaDiaSemana rotinaDiaSemana) throws CaronasException {
         return rotinaDiaSemanaService.save(rotinaDiaSemana);
     }
 
     @PutMapping
-    public RotinaDiaSemana update(@RequestBody RotinaDiaSemana rotinaDiaSemana) {
+    public RotinaDiaSemana update(@RequestBody RotinaDiaSemana rotinaDiaSemana) throws CaronasException {
         return rotinaDiaSemanaService.update(rotinaDiaSemana);
     }
 

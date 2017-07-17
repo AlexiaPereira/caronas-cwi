@@ -4,6 +4,7 @@ import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.service.NotificacaoService;
 import br.com.crescer.caronas.service.UsuarioService;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import java.util.ArrayList;
 import java.util.List;
 import static java.util.stream.Collectors.toList;
@@ -40,7 +41,7 @@ public class NotificacaoController {
     }
     
     @DeleteMapping
-    public void removeByUser(@AuthenticationPrincipal User user) {
+    public void removeByUser(@AuthenticationPrincipal User user) throws CaronasException{
         notificacaoService.clearByUser(usuarioService.findByIdAutorizacao(user.getUsername()));
     }
 }

@@ -6,6 +6,7 @@ import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.NotificacaoRepository;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import java.util.List;
 import javax.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,8 +46,13 @@ public class NotificacaoService {
     }
     
     @Transactional
-    public void clearByUser(Usuario usuario) {
-        notificacaoRepository.deleteByUsuario(usuario);
+    public void clearByUser(Usuario usuario) throws CaronasException{
+            if (usuario.getNotificacaoList().isEmpty()) {
+                throw new CaronasException("Não há notificações para apagar");
+            } else {
+                notificacaoRepository.deleteByUsuario(usuario);
+            }
+
     }
     
     public Notificacao loadById(Long id) {
