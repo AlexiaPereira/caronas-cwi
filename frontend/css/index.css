@@ -59,12 +59,13 @@ a:link, a:visited, a:hover, a:focus, a:active {
 .row > .btn-container > .btn-cadastro-button:focus {
   outline: none;
 }
+
 .btn-orange-button {
   border: 2px solid #EB8514;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0);
   transition-duration: 0.2s;
-  box-shadow:0 5px 0 #EB8514;
+  box-shadow: 0 5px 0 #EB8514; 
 }
 
 .btn-orange-button:active {
@@ -75,6 +76,42 @@ a:link, a:visited, a:hover, a:focus, a:active {
   top: 5px;
 }
 
+.btn-red-button {
+  border: 2px solid #B22222;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0);
+  transition-duration: 0.2s;
+  box-shadow:0 5px 0 #B22222;
+}
+
+.btn-red-button:active {
+  background-color: #DC143C;
+  transition-duration: 0.2s;
+  color: #fff;
+  position: relative;
+  top: 5px;
+}
+
+.btn-green-button {
+  border: 2px solid #006400;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0);
+  transition-duration: 0.2s;
+  box-shadow:0 5px 0 #006400;
+}
+
+.btn-green-button:active {
+  background-color: #228B22;
+  transition-duration: 0.2s;
+  color: #fff;
+  position: relative;
+  top: 5px;
+}
+
+.btn-xs {
+  size: 1vh;
+}
+
 #cadastrar > .row > .btn-orange-button {
   background-color: #FC9600;
   color: #fff;
@@ -82,7 +119,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
   width: 70vw;
 }
 
-.btn.btn-orange-button:focus {
+.btn.btn-orange-button:focus, .btn.btn-red-button:focus, .btn.btn-green-button:focus {
   outline: none;
 }
 
@@ -260,10 +297,8 @@ label > input[type="text"] {
 }
 
 .dia-semana > div > label {
+  padding: 0 50%;
   position: relative;
-  display: inline-block;
-  padding-left: 4vw;
-  padding-right: 4vw;
   line-height: 36px;
   cursor: pointer;
   font-size: 20px;
@@ -273,13 +308,10 @@ label > input[type="text"] {
   content: " ";
   position: absolute;
   left: 0;
-  display: inline-block;
-  left: 0;
   width: 100%;
   height: 100%;
   border: 2px solid #EB8514;
   border-radius: 4px;
-  z-index: 1;
 }
 
 input[type="radio"] + label::before {
@@ -409,16 +441,14 @@ ul {
 }
 
 .items-buscar {
-  height:10vh;
-  margin-left:2vw;
-  margin-top:1vh;
-  margin-bottom:2vh;
+  height: 15vh;
+  margin: 3vh;
   border-bottom: 1px solid #ccc;
 }
 
 
 li {
-   list-style-type: none; 
+  list-style-type: none;
 }
 
 /* ROTINA VISUALIZAR */
@@ -442,4 +472,43 @@ ul {
   #botao-sair {
     margin-top: 1vh;
   }
+}
+
+.content {
+  height: 100%;
+  position: fixed;
+  overflow-y: scroll;
+  background: rgba(255,255,255,0.8);
+  border: 2px solid white;
+  width: 100%;
+}
+
+.limit {
+  height: 80vh;
+  width: 90vw;
+  position: relative;
+  top: -20px;
+  left: -20px;
+
+}
+
+.img-thumbnail {
+  max-width: 17vw;
+}
+
+.btn-wrapper {
+  padding: 10px 0px;
+}
+
+.vagas > div {
+  display: inline-block;
+}
+
+.vagas {
+  text-align: center;
+}
+
+.vagas > div > label > .form-control {
+  height: 30px;
+  background-color: white;
 }
