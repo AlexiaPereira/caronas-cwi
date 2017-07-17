@@ -59,12 +59,13 @@ a:link, a:visited, a:hover, a:focus, a:active {
 .row > .btn-container > .btn-cadastro-button:focus {
   outline: none;
 }
+
 .btn-orange-button {
   border: 2px solid #EB8514;
   border-radius: 8px;
   background-color: rgba(255, 255, 255, 0);
   transition-duration: 0.2s;
-  /* box-shadow: 1px 4px 0 #EB8514; */
+  box-shadow: 0 5px 0 #EB8514; 
 }
 
 .btn-orange-button:active {
@@ -75,6 +76,42 @@ a:link, a:visited, a:hover, a:focus, a:active {
   top: 5px;
 }
 
+.btn-red-button {
+  border: 2px solid #B22222;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0);
+  transition-duration: 0.2s;
+  box-shadow:0 5px 0 #B22222;
+}
+
+.btn-red-button:active {
+  background-color: #DC143C;
+  transition-duration: 0.2s;
+  color: #fff;
+  position: relative;
+  top: 5px;
+}
+
+.btn-green-button {
+  border: 2px solid #006400;
+  border-radius: 8px;
+  background-color: rgba(255, 255, 255, 0);
+  transition-duration: 0.2s;
+  box-shadow:0 5px 0 #006400;
+}
+
+.btn-green-button:active {
+  background-color: #228B22;
+  transition-duration: 0.2s;
+  color: #fff;
+  position: relative;
+  top: 5px;
+}
+
+.btn-xs {
+  size: 1vh;
+}
+
 #cadastrar > .row > .btn-orange-button {
   background-color: #FC9600;
   color: #fff;
@@ -82,7 +119,7 @@ a:link, a:visited, a:hover, a:focus, a:active {
   width: 70vw;
 }
 
-.btn.btn-orange-button:focus {
+.btn.btn-orange-button:focus, .btn.btn-red-button:focus, .btn.btn-green-button:focus {
   outline: none;
 }
 
