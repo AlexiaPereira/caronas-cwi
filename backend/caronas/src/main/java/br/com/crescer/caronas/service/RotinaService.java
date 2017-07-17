@@ -2,6 +2,7 @@ package br.com.crescer.caronas.service;
 
 import br.com.crescer.caronas.entity.Grupo;
 import br.com.crescer.caronas.entity.Rotina;
+import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.RotinaRepository;
@@ -34,6 +35,9 @@ public class RotinaService {
     @Autowired
     UsuarioGrupoService usuarioGrupoService;
 
+    @Autowired
+    DiaSemanaService diaSemanaService;
+
     private ValidarHorarioService validarHorarioService;
     private ValidarVagasService validarVagasService;
 
@@ -44,6 +48,7 @@ public class RotinaService {
     public Rotina save(Rotina rotina) {
         rotina.setDisponivel(true);
         this.atribuirRotinaAoRotinaDiaSemanaList(rotina);
+        this.loadDiasSemana(rotina.getRotinaDiaSemanaList());
 
         if (rotina.getPassageiro()) {
             return rotinaRepository.save(rotina);
@@ -119,5 +124,11 @@ public class RotinaService {
 
     private void atribuirRotinaAoRotinaDiaSemanaList(Rotina rotina) {
         rotina.getRotinaDiaSemanaList().forEach(rotinaDiaSemana -> rotinaDiaSemana.setRotina(rotina));
+    }
+
+    private void loadDiasSemana(List<RotinaDiaSemana> rotinaDiaSemanaList) {
+        for (RotinaDiaSemana rotinaDiaSemana : rotinaDiaSemanaList) {
+            rotinaDiaSemana.setIdDiasemana(diaSemanaService.loadById(rotinaDiaSemana.getDiaSemana().getIdDiaSemana()));
+        }
     }
 }

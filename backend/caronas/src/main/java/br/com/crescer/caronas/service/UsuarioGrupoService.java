@@ -42,7 +42,7 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.findAll();
     }
 
-    public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) throws CaronasException{
+    public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) throws CaronasException {
 
         if (usuarioEstaNoGrupo(usuarioGrupo, usuarioGrupo.getGrupo())) {
             throw new CaronasException("O usuário já está nesse grupo");
@@ -66,6 +66,7 @@ public class UsuarioGrupoService {
 
         Rotina rotinaUsuarioQueEstaSaindo = this.buscarRotinaUsuario(usuarioGrupo.getUsuario(), usuarioGrupo.getGrupo().getRotina());
         rotinaUsuarioQueEstaSaindo.setDisponivel(true);
+        rotinaService.update(rotinaUsuarioQueEstaSaindo);
         this.descontarVagas(rotinaUsuarioQueEstaSaindo, usuarioGrupo.getGrupo().getRotina(), 1);
 
         String conteudoNotificacao = String.format("'%s': %s removeu %s do grupo",
