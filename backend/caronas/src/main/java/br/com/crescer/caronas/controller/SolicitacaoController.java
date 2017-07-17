@@ -10,6 +10,7 @@ import br.com.crescer.caronas.service.NotificacaoService;
 import br.com.crescer.caronas.service.RotinaService;
 import br.com.crescer.caronas.service.SolicitacaoService;
 import br.com.crescer.caronas.service.UsuarioService;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -57,7 +58,7 @@ public class SolicitacaoController {
     }
     
     @PostMapping
-    public Solicitacao save(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) {
+    public Solicitacao save(@RequestBody SolicitacaoRotinaDTO solicitacaoDTO, @AuthenticationPrincipal User user) throws CaronasException {
         Usuario usuarioDono = usuarioService.findByIdAutorizacao(user.getUsername());
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(solicitacaoDTO.getSolicitacao().getUsuarioAlvo().getIdAutorizacao());
         Rotina rotinaPassageiro = rotinaService.loadById(solicitacaoDTO.getSolicitacao().getRotinaUsuarioDono().getIdRotina());
@@ -84,7 +85,7 @@ public class SolicitacaoController {
     }
     
     @PostMapping(value = "/aceitar")
-    public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) {
+    public void aceitarSolicitacao(@RequestBody Solicitacao solicitacao, @AuthenticationPrincipal User user) throws CaronasException {
         Usuario usuarioAlvo = usuarioService.findByIdAutorizacao(user.getUsername());
         solicitacao.setUsuarioAlvo(usuarioAlvo);
         solicitacao.setUsuarioDono(usuarioService.findByIdAutorizacao(solicitacao.getUsuarioDono().getIdAutorizacao()));

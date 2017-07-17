@@ -5,6 +5,7 @@ import br.com.crescer.caronas.entity.Notificacao;
 import br.com.crescer.caronas.entity.Rotina;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.GrupoRepository;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import java.text.ParseException;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -41,7 +42,7 @@ public class GrupoService {
 
     //TODO: VERIFICAR SE ELE VAI A BANCO PERSISTIR AS NOTIFICAÇÕES
     @Transactional
-    public void remove(Grupo grupo) throws ParseException {
+    public void remove(Grupo grupo) throws ParseException, CaronasException {
         String conteudoNotificacao = String.format("O grupo '%s' que você participa foi excluído", grupo.getNome());
         Notificacao notificacao = new Notificacao(conteudoNotificacao, null);
         notificacaoService.enviarNotificacaoTodosUsuariosDoGrupo(grupo, notificacao);

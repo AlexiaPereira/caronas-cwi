@@ -7,6 +7,7 @@ import br.com.crescer.caronas.entity.RotinaDiaSemana;
 import br.com.crescer.caronas.entity.Usuario;
 import br.com.crescer.caronas.entity.UsuarioGrupo;
 import br.com.crescer.caronas.repository.UsuarioGrupoRepository;
+import br.com.crescer.caronas.service.exceptions.CaronasException;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
@@ -41,10 +42,10 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.findAll();
     }
 
-    public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) {
+    public UsuarioGrupo save(UsuarioGrupo usuarioGrupo) throws CaronasException{
 
         if (usuarioEstaNoGrupo(usuarioGrupo, usuarioGrupo.getGrupo())) {
-            throw new RuntimeException("O usuário já está nesse grupo");
+            throw new CaronasException("O usuário já está nesse grupo");
         }
 
         String conteudoNotificacao = String.format("%s entrou no grupo %s", usuarioGrupo.getUsuario().getNome(), usuarioGrupo.getGrupo().getNome());
@@ -58,9 +59,9 @@ public class UsuarioGrupoService {
         return usuarioGrupoRepository.save(usuarioGrupo);
     }
 
-    public void remove(UsuarioGrupo usuarioGrupo) throws ParseException {
+    public void remove(UsuarioGrupo usuarioGrupo) throws ParseException, CaronasException {
         if (!this.usuarioEstaNoGrupo(usuarioGrupo, usuarioGrupo.getGrupo())) {
-            throw new RuntimeException("Usuário não está no grupo");
+            throw new CaronasException("Usuário não está no grupo");
         }
 
         Rotina rotinaUsuarioQueEstaSaindo = this.buscarRotinaUsuario(usuarioGrupo.getUsuario(), usuarioGrupo.getGrupo().getRotina());
