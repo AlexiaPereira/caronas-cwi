@@ -58,7 +58,7 @@
         <td class="dados">
           <ul class="list-group" ng-repeat="usuarioGrupo in grupoMotorista.usuarioGrupoList"><li>{{usuarioGrupo.usuario.nome}} <span class="glyphicon glyphicon-remove" ng-click="removerMembro(usuarioGrupo)"></span></li></ul>
         </td>
-        <td><button type="button" class="btn btn-red-button btn-xs" ng-click="removerGrupo(grupoMotorista.idGrupo)"><span class="glyphicon glyphicon-remove"></span><br>Excluir<br>Grupo</button></td>
+        <td><button type="button" class="btn btn-red-button btn-xs" ng-click="removerGrupo(grupoMotorista)"><span class="glyphicon glyphicon-remove"></span><br>Excluir<br>Grupo</button></td>
       </tr>
     </tbody>
   </table>
