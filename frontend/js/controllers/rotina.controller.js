@@ -50,10 +50,11 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
             rotina.distancia = res;
 
             var aux = [];
+            var cont = 1;
             for (var diaSemana in rotina.rotinaDiaSemanaList) {
                 aux.push({
                         'diaSemana':
-                        { 'nome': diaSemana },
+                        {'idDiaSemana': cont++ ,'nome': diaSemana },
                         'vagasDisponiveis': rotina.vagasDisponiveis,
                     });
             }
@@ -71,7 +72,6 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
                     rotina.rotinaDiaSemanaList = null;
                 });
         });
-        rotina.origem = '';
     }
 
     function excluir(idRotina) {
