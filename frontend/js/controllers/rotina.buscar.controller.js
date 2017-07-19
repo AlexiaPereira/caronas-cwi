@@ -2,7 +2,6 @@ angular.module('app').controller('RotinaBuscarController',
 ['$scope', 'RotinaService', 'MapService', 'SolicitacoesService', '$q', '$location',
 function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location) {
 
-  $header = $location.absUrl();
   listar();
 
   $scope.matchs = [];
@@ -78,10 +77,8 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
         if ($scope.matchs.length === 0) {
           swal("Atenção", "Não há nenhum motorista disponível para essa rotina", "info")
         }
-        console.log($scope.matchs);
         var matchsFormatoParaPlotarNoMapa = montarArraysMatriz($scope.matchs);
         MapService.mapaMatch(matchsFormatoParaPlotarNoMapa);
-        let pontosMapa = montarArraysMatriz($scope.matchs);
       })
     };
 
@@ -114,20 +111,10 @@ function ($scope, RotinaService, MapService, SolicitacoesService, $q, $location)
       let diasSemana = [];
       diasSemana = match.rotinaDiaSemanaList.map(rds => rds.diaSemana.nome);
       diasSemana.sort((a, b) => ordenador[a] > ordenador[b]);
-      return diasSemana.shift() + ' - ' + diasSemana.pop();
-    }
-
-    // TODO: Implementar utilização de Selecionar ou remover método
-    function selecionar(idRotina) {
-      if (isUndefinedOrNull(idRotina)) {
-        console.log('undefined or null');
-        return;
+      if (diasSemana[diasSemana.length-1] === diasSemana[0]) {
+        return diasSemana.shift();
       }
-      RotinaService
-      .selecionar(idRotina)
-      .then(response => {
-        console.log(response);
-      });
+      return diasSemana.shift() + ' - ' + diasSemana.pop();
     }
 
     function isUndefinedOrNull(object) {

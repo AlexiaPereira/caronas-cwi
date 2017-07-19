@@ -1,88 +1,78 @@
 <div ng-include="'templates/header.html'"></div>
 <!-- SOLICITACOES -->
 <div class="view">
-<h1>Solicitações</h1>
-<table class="table table-striped" id="cssTable">
-  <thead>
-    <th>Foto</th>
-    <th>Nome</th>
-    <th></th>
-    <th>Semana</th>
-    <th></th>
-    <th>Horário</th>
-  </thead>
-  <tbody>
-    <tr ng-repeat="solicitacao in solicitacoes">
-      <td><img class="img-circle" ng-src="{{solicitacao.usuarioDono.urlFoto }}"/></td>
-      <td>{{ solicitacao.usuarioDono.nome }}</td>
-      <td></td>
-      <td class="dados">
-        <ul ng-repeat="diaSemana in solicitacao.rotinaUsuarioDono.rotinaDiaSemanaList">
-          <li>{{ diaSemana.diaSemana.nome }}</li>
-        </ul>
-      </td>
-      <td></td>
-      <td class="dados">{{ solicitacao.rotinaUsuarioDono.horario | date:'HH:mm' }}</td>
-      <td></td>
-      <td><button type="button" class="btn btn-green-button btn-xs" ng-click="aceitar(solicitacao)"><span class="glyphicon glyphicon-ok"></span></button></td>
-      <td><button type="button" class="btn btn-red-button btn-xs" ng-click="recusar(solicitacao)"><span class="glyphicon glyphicon-remove"></span></button></td>
-    </tr>
-  </tbody>
-</table>
-
-
-<!-- GRUPOS -->
-<h1>Motorista</h1>
-<div class="grupos">
+  <h1>Solicitações</h1>
   <table class="table table-striped" id="cssTable">
     <thead>
-      <!--<th>Id Prov</th>-->
+      <th>Foto</th>
+      <th>Nome</th>
+      <th></th>
       <th>Semana</th>
+      <th></th>
       <th>Horário</th>
-      <!--<th>Vagas</th>-->
-      <th>Membros</th>
-      <!--<th>Grupo</th>-->
     </thead>
     <tbody>
-      <tr ng-repeat="grupoMotorista in gruposMotorista">
-        <!-- <div ng-if="gruposMotorista === undefined">Nenhum grupo encontrado!</div> -->
-        <!--<td><img class="img-circle" src="http://cypressequities.propertycapsule.com/property/images/No_Image.png"></td>-->
-        <!--<td class="dados">{{ grupoMotorista.idGrupo }}</td>-->
+      <tr ng-repeat="solicitacao in solicitacoes">
+        <td><img class="img-circle" ng-src="{{solicitacao.usuarioDono.urlFoto }}"/></td>
+        <td>{{ solicitacao.usuarioDono.nome }}</td>
+        <td></td>
         <td class="dados">
-          <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+          <ul ng-repeat="diaSemana in solicitacao.rotinaUsuarioDono.rotinaDiaSemanaList">
+            <li>{{ diaSemana.diaSemana.nome }}</li>
+          </ul>
         </td>
-        <td class="dados list-group">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
-        <!--<td class="dados">
-          <ul class="list-group" ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.vagasDisponiveis }}</li></ul>
-        </td>-->
-        <td class="dados">
-          <ul class="list-group" ng-repeat="usuarioGrupo in grupoMotorista.usuarioGrupoList"><li>{{usuarioGrupo.usuario.nome}} <span class="glyphicon glyphicon-remove" ng-click="removerMembro(usuarioGrupo)"></span></li></ul>
-        </td>
-        <td><button type="button" class="btn btn-red-button btn-xs" ng-click="removerGrupo(grupoMotorista)"><span class="glyphicon glyphicon-remove"></span><br>Excluir<br>Grupo</button></td>
+        <td></td>
+        <td class="dados">{{ solicitacao.rotinaUsuarioDono.horario | date:'HH:mm' }}</td>
+        <td></td>
+        <td><button type="button" class="btn btn-green-button btn-xs" ng-click="aceitar(solicitacao)"><span class="glyphicon glyphicon-ok"></span></button></td>
+        <td><button type="button" class="btn btn-red-button btn-xs" ng-click="recusar(solicitacao)"><span class="glyphicon glyphicon-remove"></span></button></td>
       </tr>
     </tbody>
   </table>
-  <h1>Passageiro</h1>
 
+
+  <!-- GRUPOS -->
+  <h1>Motorista</h1>
   <div class="grupos">
     <table class="table table-striped" id="cssTable">
       <thead>
-        <th>Dia Semana</th>
+        <th>Semana</th>
         <th>Horário</th>
-        <th>Motorista</th>
+        <th>Membros</th>
       </thead>
       <tbody>
-        <tr ng-repeat="grupoPassageiro in gruposPassageiro">
-          <!-- <div ng-if="grupoPassageiro === undefined">Nenhum grupo encontrado!</div> -->
+        <tr ng-repeat="grupoMotorista in gruposMotorista">
           <td class="dados">
-            <ul ng-repeat="diaSemana in grupoPassageiro.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+            <ul ng-repeat="diaSemana in grupoMotorista.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
           </td>
-          <td class="dados">{{ grupoPassageiro.rotina.horario | date:'HH:mm' }}</td>
-          <td>{{grupoPassageiro.rotina.usuario.nome}}</td>
+          <td class="dados list-group">{{ grupoMotorista.rotina.horario | date:'HH:mm' }}</td>
+          <td class="dados">
+            <ul class="list-group" ng-repeat="usuarioGrupo in grupoMotorista.usuarioGrupoList"><li>{{usuarioGrupo.usuario.nome}} <span class="glyphicon glyphicon-remove" ng-click="removerMembro(usuarioGrupo)"></span></li></ul>
+          </td>
+          <td><button type="button" class="btn btn-red-button btn-xs" ng-click="removerGrupo(grupoMotorista)"><span class="glyphicon glyphicon-remove"></span><br>Excluir<br>Grupo</button></td>
         </tr>
       </tbody>
     </table>
+    <h1>Passageiro</h1>
+
+    <div class="grupos">
+      <table class="table table-striped" id="cssTable">
+        <thead>
+          <th>Dia Semana</th>
+          <th>Horário</th>
+          <th>Motorista</th>
+        </thead>
+        <tbody>
+          <tr ng-repeat="grupoPassageiro in gruposPassageiro">
+            <td class="dados">
+              <ul ng-repeat="diaSemana in grupoPassageiro.rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
+            </td>
+            <td class="dados">{{ grupoPassageiro.rotina.horario | date:'HH:mm' }}</td>
+            <td>{{grupoPassageiro.rotina.usuario.nome}}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
   </div>
-</div>
 </div>
 <div ng-include="'templates/footer.html'"></div>

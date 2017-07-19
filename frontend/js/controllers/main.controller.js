@@ -17,17 +17,14 @@ angular.module('app').controller('MainController', ['$scope', 'authService', 'Ma
   function logout() {
     function FabebookLogout() {
       FB.logout(response => {
-        console.log(response);
       });
     }
 
     function GoogleLogout() {
       let auth2 = window.gapi.auth2.getAuthInstance();
       auth2.signOut().then(function () {
-        console.log('User signed out.');
       });
     }
-
     localStorage.clear();
     sessionStorage.clear();
     $window.location.reload();

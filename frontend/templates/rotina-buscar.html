@@ -3,36 +3,34 @@
 
   <div class="clearfix">
     <div class="limit">
-      <!-- <div class="content"> -->
-        <div class="side-bar">
-          <div class="items-side-bar" ng-repeat="rotina in rotinas">
-            <button class="busca btn btn-default" ng-click="procurarMatchs(rotina)">
-              {{formatarData(rotina)}}
-              <br>
-              {{rotina.horario | date: 'HH:mm'}}
-            </button>
-          </div>
+      <div class="side-bar">
+        <div class="items-side-bar" ng-repeat="rotina in rotinas">
+          <button class="busca btn btn-default" ng-click="procurarMatchs(rotina)">
+            {{formatarData(rotina)}}
+            <br>
+            {{rotina.horario | date: 'HH:mm'}}
+          </button>
         </div>
-        <div class="row">
-          <div id="match"></div>
-          <div class="items-buscar" ng-repeat="match in matchs">
-            <div class="row">
-              <div class="col-xs-3 col-xs-offset-3 no-padding col-sm-3 col-sm-offset-3 no-padding">
-                <img class="img-thumbnail" ng-src="{{ match.usuario.urlFoto }}">
-              </div>
-              <div class="col-xs-4 no-padding col-sm-4 no-padding">
-                <div>{{ match.usuario.nome }}</div>
-                <div>{{ buscarDiaSemana(match) }}</div>
-                <div>{{ match.horario | date: 'HH:mm' }}</div>
-              </div>
-              <div class="col-xs-2 col-sm-2 col-md-2 btn-wrapper">
-                <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
-              </div>
+      </div>
+      <div class="row">
+        <div id="match"></div>
+        <div class="items-buscar" ng-repeat="match in matchs">
+          <div class="row">
+            <div class="col-xs-3 col-xs-offset-3 no-padding col-sm-3 col-sm-offset-3 no-padding">
+              <img class="img-thumbnail" ng-src="{{ match.usuario.urlFoto }}">
+            </div>
+            <div class="col-xs-4 no-padding col-sm-4">
+              <div>{{ match.usuario.nome }}</div>
+              <div>{{ buscarDiaSemana(match) }}</div>
+              <div>{{ match.horario | date: 'HH:mm' }}</div>
+            </div>
+            <div class="col-xs-2 col-sm-2 col-md-2 btn-wrapper">
+              <button type="button" class="btn btn-orange-button" ng-click="enviarSolicitacao(match)"><span class="glyphicon glyphicon-ok"></span></button>
             </div>
           </div>
         </div>
       </div>
-    <!-- </div> -->
+    </div>
   </div>
 </div>
 <div ng-include="'templates/footer.html'"></div>

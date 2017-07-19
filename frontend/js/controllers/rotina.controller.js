@@ -143,12 +143,11 @@ angular.module('app').controller('RotinaController', ['$scope', 'NotificacoesSer
     function getNotificacoes() {
       NotificacoesService.getNotificacoes().then(res => {
         $scope.notificacoes = res.data
-        getNotificacoes();
       });
     }
 
     function excluirNotificacoes() {
-      NotificacoesService.deletarNotificacoes();
+      NotificacoesService.deletarNotificacoes().then(res => getNotificacoes());
     }
 
 }])

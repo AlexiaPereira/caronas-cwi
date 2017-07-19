@@ -46,10 +46,6 @@ a:link, a:visited, a:hover, a:focus, a:active {
   transition-duration: 1s;
 }
 
-.row > .btn-container {
-  /*padding: 50px 0;*/
-}
-
 .row > .btn-container > .btn-cadastro-button:active {
   box-shadow: none;
   font: 20px Arial;
@@ -231,7 +227,6 @@ div > .svg {
   width: 22vw;
   z-index: 2;
   background-color: #e2e2e2;
-  /*left: 0;*/
   position: fixed;
   float: left;
   overflow-y: scroll;
@@ -264,28 +259,12 @@ input[type="checkbox"], input[type="radio"] {
 .passageiro > div > label {
   position: relative;
   display: inline-block;
-  /*margin-right: 10px;
-  margin-bottom: 10px;
-  padding-left: 30px;
-  padding-right: 10px;*/
   padding-left: 20px;
   padding-right: 20px;
   line-height: 36px;
   cursor: pointer;
   font-size: 20px;
 }
-
-/*.passageiro > div > label::before {
-  content: " ";
-  position: absolute;
-  left: 0;
-  display: inline-block;
-  width: 100%;
-  height: 100%;
-  border: 2px solid #EB8514;
-  border-radius: 4px;
-  z-index: 1;
-}*/
 
 label {
   max-width: 150%;
@@ -320,7 +299,6 @@ input[type="radio"] + label::before {
 
 /* Checked */
 input[type="checkbox"]:checked + label, input[type="radio"]:checked + label {
-  /*padding-left: 10px;*/
   background: #EB8514;
   color: #fff;
   z-index: 1;
@@ -354,8 +332,6 @@ label, label::before {
   width: 60%;
   z-index: 1;
   overflow: hidden;
-  /*border-style: solid;
-  border-width: medium;*/
   margin-left: 20%;
 }
 
@@ -363,16 +339,8 @@ label, label::before {
   height: 25vh;
   width: 60%;
   z-index: 1;
-  /*overflow: hidden;*/
   position: fixed;
-  /*top: 50%;*/
   left: 18vh;
-  /*transform: translate(-35%);*/
-  /*border-style: solid;
-  border-width: medium;*/
-  /*margin-left: 20%;*/
-  /*display: block;*/
-  /*margin: 0 auto;*/
 }
 
 .center-align {
@@ -382,10 +350,6 @@ label, label::before {
 .center-align > .svg {
   margin: 0;
   padding: 6px;
-}
-
-.inner {
-  margin: 20px auto;
 }
 
 .clearfix:after {
@@ -474,30 +438,16 @@ ul {
   }
 }
 
-.content {
-  height: 100%;
-  position: fixed;
-  overflow-y: scroll;
-  background: rgba(255,255,255,0.8);
-  border: 2px solid white;
-  width: 100%;
-}
-
 .limit {
   height: 80vh;
   width: 90vw;
   position: relative;
   top: -20px;
   left: -20px;
-
 }
 
 .img-thumbnail {
   max-width: 17vw;
-}
-
-.btn-wrapper {
-  padding: 10px 0px;
 }
 
 .vagas > div {
@@ -525,5 +475,5 @@ ul {
 }
 
 .items-buscar > .row {
-  background-color: white; 
+  background-color: white;
 }

@@ -3,22 +3,22 @@
   <h4 class="text-center">Bem vindo ao cadastro de rotinas!</h4>
   <h4 class="text-center">O que você vai ser nessa jornada?</h4>
   <div class="row passageiro">
-    <div class="">
+    <div>
       <input type="radio" value="false" name="campo-radio" ng-model="rotina.passageiro" id="motorista" />
       <label for="motorista">Motorista</label>
     </div>
-    <div class="">
+    <div>
       <input type="radio" value="true" name="campo-radio" ng-model="rotina.passageiro" id="passageiro" />
       <label for="passageiro">Passageiro</label>
     </div>
   </div>
   <br>
-  <div class="row" ng-show="rotina.passageiro === 'false'">
+  <div class="row" ng-hide="rotina.passageiro">
     <h4 class="text-center">Quantas vagas você pode disponibilizar?</h4>
     <div class="vagas">
-      <div class=""><button type="button" class="btn btn-orange-button" ng-click="subDisponivel()"><span class="glyphicon glyphicon-minus"></span></button></div>
-      <div class=""><label><input type="text" class="form-control" ng-model="disponivel" value="{{ disponivel }}" ng-disabled="true"></label></div>
-      <div class=""><button type="button" class="btn btn-orange-button" ng-click="addDisponivel()"><span class="glyphicon glyphicon-plus"></span></button></div>
+      <div><button type="button" class="btn btn-orange-button" ng-click="subDisponivel()"><span class="glyphicon glyphicon-minus"></span></button></div>
+      <div><label><input type="text" class="form-control" ng-model="disponivel" value="{{ disponivel }}" ng-disabled="true"></label></div>
+      <div><button type="button" class="btn btn-orange-button" ng-click="addDisponivel()"><span class="glyphicon glyphicon-plus"></span></button></div>
     </div>
   </div>
   <h4 class="text-center">Qual horário pretende ir?</h4>

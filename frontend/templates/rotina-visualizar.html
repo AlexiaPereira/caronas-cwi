@@ -23,7 +23,6 @@
               <ul class="row margem" ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.diaSemana.nome }}</li></ul>
             </td>
             <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
-            <!--<td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>-->
             <td class="dados">{{rotina.distancia}}</td>
             <td class="dados">{{rotina.idOrigem.endereco}}</td>
           </tr>
@@ -47,7 +46,6 @@
               <ul ng-repeat="diaSemana in rotina.rotinaDiaSemanaList"><li>{{ diaSemana.vagasDisponiveis }}</li></ul>
             </td>
             <td class="dados">{{rotina.horario|date:'HH:mm'}}</td>
-            <!--<td><button type="button" class="btn btn-danger btn-lg" ng-click="remover(usuario)"><span class="glyphicon glyphicon-remove"></span></button></td>-->
             <td class="dados">{{rotina.idOrigem.endereco}}</td>
           </tr>
         </tbody>

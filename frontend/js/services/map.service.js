@@ -58,8 +58,6 @@ angular.module('app').factory('MapService', ['$http', function ($http) {
       {imagePath: 'https://developers.google.com/maps/documentation/javascript/examples/markerclusterer/m'});
     }
 
-
-
     return ({
       iniciarMapa: iniciarMapa,
       mapaMatch: mapaMatch,
